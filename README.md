@@ -12,6 +12,10 @@ You can access the data via normal HTTP requests, which makes it usable like an 
 
 I plan on adding .yaml and .bson soon-ish
 
+## Documentation
+
+Very incomplete documentation, if you really want to know how to get something look into ```data/```.
+
 ### /data/all.json
 
 All data from the website in one single file.
@@ -24,9 +28,17 @@ Meta data, which contains a timestamp of the time I last build this and a hash o
 
 All mission rewards, like what drops where and in which rotation. [(Source)](https://n8k6e2y6.ssl.hwcdn.net/repos/hnfvc0o3jnfvc873njb03enrf56.html#missionRewards)
 
+#### /data/missionRewards/$PLANET_NAME/$PLACE.json
+
+Drop data to a specific location. Example: ```/data/missionRewards/Eris/Xini.json```.
+
 ### /data/relics.json
 
 All relics, what they contain, rarity etc. [(Source)](https://n8k6e2y6.ssl.hwcdn.net/repos/hnfvc0o3jnfvc873njb03enrf56.html#relicRewards)
+
+### /data/relics/$TIER/$RELIC_NAME.json
+
+Data to a specific relic. Example: ```/data/relics/Axi/R1.json```.
 
 ### /data/transientRewards.json
 

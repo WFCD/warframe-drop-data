@@ -13,7 +13,7 @@ const config = {
     dropDataUrl: "https://n8k6e2y6.ssl.hwcdn.net/repos/hnfvc0o3jnfvc873njb03enrf56.html"
 }
 
-console.log("### Warframe Drop Data by https://github.com/atomicptr\n")
+console.log("### Warframe Drop Data\n")
 console.log(`Requesting Drop Data from ${config.dropDataUrl}...\n`)
 
 request(config.dropDataUrl, (err, res, body) => {
