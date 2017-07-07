@@ -6,6 +6,7 @@ const fs = require("fs")
 
 const config = {
     jsonMinify: true,
+    forceRegeneration: false,
 
     dropDataUrl: "https://n8k6e2y6.ssl.hwcdn.net/repos/hnfvc0o3jnfvc873njb03enrf56.html"
 }
@@ -34,8 +35,10 @@ request(config.dropDataUrl, (err, res, body) => {
         console.log(`Old hash found: ${oldHash}`)
     }
 
-    if(hash === oldHash) {
+    if(hash === oldHash || forceRegeneration) {
         // TODO: nothing new, close
+        console.log("Data hasn't changed, exit process.")
+        process.exit(0)
     }
 
     const $ = cheerio.load(body)
