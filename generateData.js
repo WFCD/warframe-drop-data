@@ -1,6 +1,5 @@
 const cheerio = require("cheerio")
 const request = require("request")
-const mkdirp = require("mkdirp")
 const crypto = require("crypto")
 
 const fs = require("fs")
@@ -9,7 +8,7 @@ const config = {
     json: true,
     yaml: true,
 
-    jsonMinify: false,
+    jsonMinify: true,
 
     dropDataUrl: "https://n8k6e2y6.ssl.hwcdn.net/repos/hnfvc0o3jnfvc873njb03enrf56.html"
 }
@@ -60,11 +59,7 @@ request(config.dropDataUrl, (err, res, body) => {
         timestamp: (new Date().getTime())
     }
 
-    try {
-        fs.mkdirSync("./data")
-    } catch(ex) {
-        // directory already exists, probably
-    }
+    trymkdir("./data")
 
     console.log(`Export to .json enabled: ${config.json ? "true" : "false"}`)
 
@@ -100,6 +95,50 @@ request(config.dropDataUrl, (err, res, body) => {
 
         console.log("Writing... /data/sortieRewards.json")
         fs.writeFileSync("./data/sortieRewards.json", JSON.stringify({sortieRewards: data.sortieRewards}, null, jsonFormat))
+
+        // generate mission structure
+        let struct = {}
+        for(let reward of data.missionRewards) {
+            trymkdir(`./data/missionRewards/`)
+            trymkdir(`./data/missionRewards/${reward.planet}`)
+
+            if(!struct[reward.planet]) {
+                struct[reward.planet] = {}
+            }
+
+            if(!struct[reward.planet][reward.location]) {
+                struct[reward.planet][reward.location] = {}
+            }
+
+            struct[reward.planet][reward.location].planet = reward.planet
+            struct[reward.planet][reward.location].location = reward.location
+            struct[reward.planet][reward.location].gameMode = reward.gameMode
+
+            if(!struct[reward.planet][reward.location].rewards) {
+                struct[reward.planet][reward.location].rewards = {A: [], B: [], C: []}
+            }
+
+            struct[reward.planet][reward.location].rewards[reward.rotation].push({
+                itemName: reward.itemName,
+                rarity: reward.rarity,
+                chance: reward.chance
+            })
+        }
+
+        for(let planet of Object.keys(struct)) {
+            for(let location of Object.keys(struct[planet])) {
+                console.log(`Writing... /data/missionRewards/${planet}/${location}.json`)
+                fs.writeFileSync(`./data/missionRewards/${planet}/${location}.json`, JSON.stringify(struct[planet][location], null, jsonFormat))
+            }
+        }
     }
 
 })
+
+function trymkdir(dir) {
+    try {
+        fs.mkdirSync(dir)
+    } catch(ex) {
+        // directory already exists, probably
+    }
+}
