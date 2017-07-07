@@ -7,7 +7,7 @@ const fs = require("fs")
 
 const config = {
     jsonMinify: true,
-    forceRegeneration: false,
+    forceRegeneration: false || (process.argv.indexOf("-force") > -1),
 
     dropDataUrl: "https://n8k6e2y6.ssl.hwcdn.net/repos/hnfvc0o3jnfvc873njb03enrf56.html"
 }

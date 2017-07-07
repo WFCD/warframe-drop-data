@@ -1,1 +1,1 @@
-{"gameMode":"Rescue","rewards":{"A":[],"B":{"itemName":"Vapor Specter Blueprint","rarity":"Common","chance":100},"C":{"itemName":"Phase Specter Blueprint","rarity":"Common","chance":100}},"planet":"Ceres","location":"Nuovo"}
+{"gameMode":"Rescue","rewards":{"A":[],"B":[{"itemName":"Vapor Specter Blueprint","rarity":"Common","chance":100}],"C":[{"itemName":"Phase Specter Blueprint","rarity":"Common","chance":100}]},"planet":"Ceres","location":"Nuovo"}
