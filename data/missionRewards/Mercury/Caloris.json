@@ -1,1 +1,1 @@
-{"planet":"Mercury","location":"Caloris","gameMode":"Rescue","rewards":{"A":[],"B":[{"itemName":"Vapor Specter Blueprint","rarity":"Common","chance":100}],"C":[{"itemName":"Phase Specter Blueprint","rarity":"Common","chance":100}]}}
+{"gameMode":"Rescue","rewards":{"A":[],"B":{"itemName":"Vapor Specter Blueprint","rarity":"Common","chance":100},"C":{"itemName":"Phase Specter Blueprint","rarity":"Common","chance":100}},"planet":"Mercury","location":"Caloris"}

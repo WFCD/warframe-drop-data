@@ -1,1 +1,1 @@
-{"planet":"Mercury","location":"Tolstoj","gameMode":"Assassination","rewards":{"A":[],"B":[],"C":[{"itemName":"Seer Blueprint","rarity":"Common","chance":38.72},{"itemName":"Seer Barrel","rarity":"Common","chance":38.72},{"itemName":"Seer Receiver","rarity":"Uncommon","chance":22.56}]}}
+{"gameMode":"Assassination","rewards":[{"itemName":"Seer Blueprint","rarity":"Common","chance":38.72},{"itemName":"Seer Barrel","rarity":"Common","chance":38.72},{"itemName":"Seer Receiver","rarity":"Uncommon","chance":22.56}],"planet":"Mercury","location":"Tolstoj"}
