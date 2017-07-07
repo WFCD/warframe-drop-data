@@ -97,38 +97,77 @@ request(config.dropDataUrl, (err, res, body) => {
         fs.writeFileSync("./data/sortieRewards.json", JSON.stringify({sortieRewards: data.sortieRewards}, null, jsonFormat))
 
         // generate mission structure
-        let struct = {}
+        let missionStruct = {}
+
         for(let reward of data.missionRewards) {
             trymkdir(`./data/missionRewards/`)
             trymkdir(`./data/missionRewards/${reward.planet}`)
 
-            if(!struct[reward.planet]) {
-                struct[reward.planet] = {}
+            if(!missionStruct[reward.planet]) {
+                missionStruct[reward.planet] = {}
             }
 
-            if(!struct[reward.planet][reward.location]) {
-                struct[reward.planet][reward.location] = {}
+            if(!missionStruct[reward.planet][reward.location]) {
+                missionStruct[reward.planet][reward.location] = {}
             }
 
-            struct[reward.planet][reward.location].planet = reward.planet
-            struct[reward.planet][reward.location].location = reward.location
-            struct[reward.planet][reward.location].gameMode = reward.gameMode
+            missionStruct[reward.planet][reward.location].planet = reward.planet
+            missionStruct[reward.planet][reward.location].location = reward.location
+            missionStruct[reward.planet][reward.location].gameMode = reward.gameMode
 
-            if(!struct[reward.planet][reward.location].rewards) {
-                struct[reward.planet][reward.location].rewards = {A: [], B: [], C: []}
+            if(!missionStruct[reward.planet][reward.location].rewards) {
+                missionStruct[reward.planet][reward.location].rewards = {A: [], B: [], C: []}
             }
 
-            struct[reward.planet][reward.location].rewards[reward.rotation].push({
+            missionStruct[reward.planet][reward.location].rewards[reward.rotation].push({
                 itemName: reward.itemName,
                 rarity: reward.rarity,
                 chance: reward.chance
             })
         }
 
-        for(let planet of Object.keys(struct)) {
-            for(let location of Object.keys(struct[planet])) {
+        // write structure
+        for(let planet of Object.keys(missionStruct)) {
+            for(let location of Object.keys(missionStruct[planet])) {
                 console.log(`Writing... /data/missionRewards/${planet}/${location}.json`)
-                fs.writeFileSync(`./data/missionRewards/${planet}/${location}.json`, JSON.stringify(struct[planet][location], null, jsonFormat))
+                fs.writeFileSync(`./data/missionRewards/${planet}/${location}.json`, JSON.stringify(missionStruct[planet][location], null, jsonFormat))
+            }
+        }
+
+        // generate relics structure
+        let relicStruct = {}
+
+        for(let relic of data.relics) {
+            trymkdir(`./data/relics/`)
+            trymkdir(`./data/relics/${relic.tier}/`)
+
+            if(!relicStruct[relic.tier]) {
+                relicStruct[relic.tier] = {}
+            }
+
+            if(!relicStruct[relic.tier][relic.relicName]) {
+                relicStruct[relic.tier][relic.relicName] = {
+                    tier: relic.tier,
+                    name: relic.relicName,
+                    rewards: {
+                        Intact: [],
+                        Exceptional: [],
+                        Flawless: [],
+                        Radiant: []
+                    }
+                }
+            }
+
+            relicStruct[relic.tier][relic.relicName].rewards[relic.state] = relic.rewards
+        }
+
+        console.log(relicStruct)
+
+        // write structure
+        for(let tier of Object.keys(relicStruct)) {
+            for(let relicName of Object.keys(relicStruct[tier])) {
+                console.log(`Writing... /data/relics/${tier}/${relicName}.json`)
+                fs.writeFileSync(`./data/relics/${tier}/${relicName}.json`, JSON.stringify(relicStruct[tier][relicName], null, jsonFormat))
             }
         }
     }
