@@ -4,17 +4,13 @@ Warframe drop data in an easier to parse format.
 
 **NOTE**: This data is parsed from [Digital Extremes official drop data website](https://n8k6e2y6.ssl.hwcdn.net/repos/hnfvc0o3jnfvc873njb03enrf56.html), no data mining was involved.
 
+## Web UI & URL
+
+I plan on adding a searchable web ui for this soon-ish. Also this site is currently available via: http://wfdrops.qr9.de
+
 ## "API Endpoints"
 
 You can access the data via normal HTTP requests, which makes it usable like an API without really being one.
-
-**Note:** I plan making everything accessible in multiple formats, you can access another format simply by using another file extension. Though at the moment only .json is supported.
-
-I plan on adding .yaml and .bson soon-ish
-
-## Documentation
-
-Very incomplete documentation, if you really want to know how to get something look into ```data/```.
 
 ### /data/all.json
 
@@ -28,9 +24,9 @@ Meta data, which contains a timestamp of the time I last build this and a hash o
 
 All mission rewards, like what drops where and in which rotation. [(Source)](https://n8k6e2y6.ssl.hwcdn.net/repos/hnfvc0o3jnfvc873njb03enrf56.html#missionRewards)
 
-#### /data/missionRewards/$PLANET_NAME/$PLACE.json
+### /data/missionRewards/$PLANET_NAME/$PLACE.json
 
-Drop data to a specific location. Example: ```/data/missionRewards/Eris/Xini.json```.
+Drop data for a specific location. Example: ```/data/missionRewards/Eris/Xini.json```.
 
 ### /data/relics.json
 
@@ -38,7 +34,7 @@ All relics, what they contain, rarity etc. [(Source)](https://n8k6e2y6.ssl.hwcdn
 
 ### /data/relics/$TIER/$RELIC_NAME.json
 
-Data to a specific relic. Example: ```/data/relics/Axi/R1.json```.
+Data for a specific relic. Example: ```/data/relics/Axi/R1.json```.
 
 ### /data/transientRewards.json
 
