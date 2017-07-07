@@ -1,0 +1,124 @@
+{
+    "sortieRewards": [
+        {
+            "name": "Rifle Riven Mod",
+            "rarity": "Rare",
+            "chance": 6.79
+        },
+        {
+            "name": "Ayatan Anasa Sculpture",
+            "rarity": "Uncommon",
+            "chance": 28
+        },
+        {
+            "name": "4000 Endo",
+            "rarity": "Uncommon",
+            "chance": 12.1
+        },
+        {
+            "name": "Madurai Lens",
+            "rarity": "Rare",
+            "chance": 2.33
+        },
+        {
+            "name": "Greater Madurai Lens",
+            "rarity": "Legendary",
+            "chance": 0.67
+        },
+        {
+            "name": "Forma",
+            "rarity": "Rare",
+            "chance": 2.5
+        },
+        {
+            "name": "Exilus Adapter",
+            "rarity": "Rare",
+            "chance": 2.5
+        },
+        {
+            "name": "Orokin Reactor Blueprint",
+            "rarity": "Rare",
+            "chance": 2.5
+        },
+        {
+            "name": "Orokin Catalyst Blueprint",
+            "rarity": "Rare",
+            "chance": 2.5
+        },
+        {
+            "name": "Legendary Core",
+            "rarity": "Legendary",
+            "chance": 0.18
+        },
+        {
+            "name": "Vazarin Lens",
+            "rarity": "Rare",
+            "chance": 2.33
+        },
+        {
+            "name": "Zenurik Lens",
+            "rarity": "Rare",
+            "chance": 2.33
+        },
+        {
+            "name": "Naramon Lens",
+            "rarity": "Rare",
+            "chance": 2.33
+        },
+        {
+            "name": "Unairu Lens",
+            "rarity": "Rare",
+            "chance": 2.33
+        },
+        {
+            "name": "Greater Vazarin Lens",
+            "rarity": "Legendary",
+            "chance": 0.67
+        },
+        {
+            "name": "Greater Zenurik Lens",
+            "rarity": "Legendary",
+            "chance": 0.67
+        },
+        {
+            "name": "Greater Naramon Lens",
+            "rarity": "Legendary",
+            "chance": 0.67
+        },
+        {
+            "name": "Greater Unairu Lens",
+            "rarity": "Legendary",
+            "chance": 0.67
+        },
+        {
+            "name": "Credit Booster",
+            "rarity": "Rare",
+            "chance": 3.27
+        },
+        {
+            "name": "Affinity Booster",
+            "rarity": "Rare",
+            "chance": 3.27
+        },
+        {
+            "name": "Resource Drop Chance Booster",
+            "rarity": "Rare",
+            "chance": 3.27
+        },
+        {
+            "name": "Pistol Riven Mod",
+            "rarity": "Rare",
+            "chance": 7.61
+        },
+        {
+            "name": "Shotgun Riven Mod",
+            "rarity": "Rare",
+            "chance": 1.36
+        },
+        {
+            "name": "Melee Riven Mod",
+            "rarity": "Rare",
+            "chance": 9.14
+        }
+    ]
+}

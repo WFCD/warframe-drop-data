@@ -4,7 +4,7 @@
   "description": "Converts the official Warframe drop data into something useable.",
   "main": "generate.js",
   "scripts": {
-    "start": "node generate.js"
+    "start": "node generateData.js"
   },
   "author": "",
   "license": "MIT",
