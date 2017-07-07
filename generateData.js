@@ -52,6 +52,7 @@ request(config.dropDataUrl, (err, res, body) => {
         blueprintLocations: require("./lib/blueprintLocations.js")($),
         enemyBlueprintTables: require("./lib/enemyBlueprintTables.js")($),
         sortieRewards: require("./lib/sortieRewards.js")($),
+        keyRewards: require("./lib/keyRewards.js")($),
     }
 
     const info = {
@@ -95,6 +96,9 @@ request(config.dropDataUrl, (err, res, body) => {
 
         console.log("Writing... /data/sortieRewards.json")
         fs.writeFileSync("./data/sortieRewards.json", JSON.stringify({sortieRewards: data.sortieRewards}, null, jsonFormat))
+
+        console.log("Writing... /data/keyRewards.json")
+        fs.writeFileSync("./data/keyRewards.json", JSON.stringify({keyRewards: data.keyRewards}, null, jsonFormat))
 
         // generate mission structure
         let missionStruct = {}
@@ -160,8 +164,6 @@ request(config.dropDataUrl, (err, res, body) => {
 
             relicStruct[relic.tier][relic.relicName].rewards[relic.state] = relic.rewards
         }
-
-        console.log(relicStruct)
 
         // write structure
         for(let tier of Object.keys(relicStruct)) {
