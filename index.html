@@ -1,6 +1,288 @@
 <!doctype html>
 <title>Warframe Drop Data</title>
 
-<h2>coming at some point...</h2>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-You can already use the "API" though, <a href="https://github.com/atomicptr/warframe-drop-data">check out https://github.com/atomicptr/warframe-drop-data</a>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" />
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Raleway:400,300,600" type="text/css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+<style>
+    #loading {
+        position: absolute;
+
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+
+        background-color: #363636;
+        color: white;
+
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+        font-size: 30vw;
+
+        z-index: 9999;
+    }
+
+    .header {
+        text-align: center;
+    }
+
+    .content {
+    }
+
+    .searchfield {
+        width: 300px;
+        margin-top: 50px;
+    }
+
+    #tablebody th::before {
+        content: "# ";
+    }
+
+    td.msg {
+        text-align: center;
+    }
+</style>
+
+<div id="loading">
+    <i class="fa fa-refresh fa-spin"></i>
+</div>
+
+<section>
+    <div class="container">
+        <div class="header">
+            <div>
+                <img src="http://img05.deviantart.net/b8d4/i/2014/327/a/8/warframe_new_logo_look__vector__by_tasquick-d87fzxg.png" height="64">
+                <h5>Warframe Drop Data</h5>
+                <a target="_blank" href="https://github.com/atomicptr/warframe-drop-data#web-ui--url">API Documentation</a> | <a target="_blank" href="https://github.com/atomicptr/warframe-drop-data">Github</a>
+            </div>
+
+            <input class="searchfield" placeholder="Search here..." id="search-field" type="text" />
+        </div>
+
+        <div class="content">
+            <table class="u-full-width">
+                <tbody id="tablebody">
+                    <tr><td class="msg">Type what you're looking for into the search above above!</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/vue/2.4.2/vue.min.js"></script>
+<script>
+    String.prototype.contains = function(substr) {
+        return this.toLowerCase().indexOf(substr.toLowerCase()) > -1
+    }
+
+    $(document).ready(function() {
+        $.getJSON("/data/info.json", function(data) {
+            let hash = data.hash
+            let timestamp = data.timestamp
+
+            console.log(data)
+
+            let oldData = JSON.parse(localStorage.getItem("_wfinfo") || "{\"hash\":\"clem\"}")
+
+            if(hash !== oldData.hash) {
+                console.log("new hash found, re-download data")
+                localStorage.setItem("_wfinfo", JSON.stringify(data))
+
+                $.getJSON("/data/all.json", function(all) {
+                    localStorage.setItem("_wfdata", JSON.stringify(all))
+
+                    onDataRetrieved(all)
+                })
+            } else {
+                onDataRetrieved(JSON.parse(localStorage.getItem("_wfdata")))
+            }
+        })
+    })
+
+    function onDataRetrieved(data) {
+        window._data = data
+
+        const searchFieldValue = $("#search-field").val()
+
+        if(searchFieldValue) {
+            search(searchFieldValue)
+        }
+
+        $("#loading").remove()
+    }
+
+    $("#search-field").on("keyup", function(ev) {
+        search($(this).val())
+    })
+
+    function search(searchValue) {
+        if(searchValue.length < 4) {
+            $("#tablebody").empty()
+            $("#tablebody").append("<tr><td class='msg'>You have to type in at least 4 characters to search...</td></tr>")
+            return
+        }
+
+        console.log("searching for", searchValue)
+
+        let collectedData = []
+
+        // mission rewards
+        function addMatchingMissionReward(placeName, planetName, locationName, reward) {
+             if(reward.itemName.contains(searchValue)) {
+                collectedData.push({
+                    place: placeName,
+                    item: reward.itemName,
+                    rarity: reward.rarity,
+                    chance: reward.chance
+                })
+            }
+        }
+
+        // planets
+        for(let planetName of Object.keys(window._data.missionRewards)) {
+
+            // locations
+            for(let locationName of Object.keys(window._data.missionRewards[planetName])) {
+
+                let location = window._data.missionRewards[planetName][locationName]
+
+                if(Array.isArray(location.rewards)) {
+                    let placeName = `${planetName}/${locationName} (<b>${location.gameMode}</b>)`
+
+                    for(let reward of location.rewards) {
+                        addMatchingMissionReward(placeName, planetName, locationName, reward)
+                    }
+                } else {
+                    for(let rotationName of Object.keys(location.rewards)) {
+                        let placeName = `${planetName}/${locationName} (<b>${location.gameMode}</b>), Rotation ${rotationName}`
+
+                        for(let reward of location.rewards[rotationName]) {
+                            addMatchingMissionReward(placeName, planetName, locationName, reward)
+                        }
+                    }
+                }
+            }
+        }
+
+        // blueprint locations
+        for(let blueprint of window._data.blueprintLocations) {
+            if(blueprint.blueprintName.contains(searchValue)) {
+                for(let enemy of blueprint.enemies) {
+                    collectedData.push({
+                        place: enemy.enemyName,
+                        item: blueprint.blueprintName,
+                        rarity: enemy.rarity,
+                        chance: (((enemy.enemyBlueprintDropChance / 100) * (enemy.chance / 100)) * 100).toFixed(2)
+                    })
+                }
+            }
+        }
+
+        // mod locations
+        for(let mod of window._data.modLocations) {
+            if(mod.modName.contains(searchValue)) {
+                for(let enemy of mod.enemies) {
+                    collectedData.push({
+                        place: enemy.enemyName,
+                        item: mod.modName,
+                        rarity: enemy.rarity,
+                        chance: (((enemy.enemyModDropChance / 100) * (enemy.chance / 100)) * 100).toFixed(2)
+                    })
+                }
+            }
+        }
+
+        // relics
+        for(let relic of window._data.relics) {
+            for(let item of relic.rewards) {
+                if(item.itemName.contains(searchValue)) {
+                    collectedData.push({
+                        place: `${relic.tier} ${relic.relicName} ${relic.state}`,
+                        item: item.itemName,
+                        rarity: item.rarity,
+                        chance: item.chance
+                    })
+                }
+            }
+        }
+
+        // sortie rewards
+        for(let sortie of window._data.sortieRewards) {
+            if(sortie.itemName.contains(searchValue)) {
+                collectedData.push({
+                    place: "Sorties",
+                    item: sortie.itemName,
+                    rarity: sortie.rarity,
+                    chance: sortie.chance
+                })
+            }
+        }
+
+        // transient rewards
+        for(let objective of window._data.transientRewards) {
+            for(let reward of objective.rewards) {
+                if(reward.itemName.contains(searchValue)) {
+                    let rotation = ""
+
+                    if(reward.rotation) {
+                        rotation = ` ${reward.rotation}`
+                    }
+
+                    collectedData.push({
+                        place: `${objective.objectiveName}${rotation}`,
+                        item: reward.itemName,
+                        rarity: reward.rarity,
+                        chance: reward.chance
+                    })
+                }
+            }
+        }
+
+        fill(collectedData)
+    }
+
+    /* data structure (in array)
+        {
+            place: Eris/Xini Rotation A
+            item: Vitality
+            rarity: Rare
+            chance: 9.09
+        }
+    */
+    function fill(data) {
+        // clear content pane
+        $("#tablebody").empty()
+
+        if(data.length === 0) {
+            $("#tablebody").append("<tr><td class='msg'><i class='fa fa-exclamation-circle'></i> Nothing found that matches your search query.</td></tr>")
+            return
+        }
+
+        data = data.sort(function(a, b) {
+            return b.chance - a.chance
+        })
+
+        $("#tablebody").append(`<tr>
+            <th>Item Name</th>
+            <th>Drops</th>
+            <th>Rarity</th>
+            <th>Chance</th>
+        </tr>`)
+
+        for(let obj of data) {
+            $("#tablebody").append(`<tr>
+                <td>${obj.item}</td>
+                <td>${obj.place}</td>
+                <td>${obj.rarity}</td>
+                <td><b>${obj.chance}%</b></td>
+            </tr>`)
+        }
+
+    }
+</script>
