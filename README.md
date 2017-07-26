@@ -1,5 +1,7 @@
 # warframe-drop-data
 
+[![Supported by Warframe Community Developers](https://raw.githubusercontent.com/Warframe-Community-Developers/banner/master/banner.png)](https://github.com/WFCD "Supported by Warframe Community Developers")
+
 Warframe drop data in an easier to parse format.
 
 **NOTE**: This data is parsed from [Digital Extremes official drop data website](https://n8k6e2y6.ssl.hwcdn.net/repos/hnfvc0o3jnfvc873njb03enrf56.html), no data mining was involved.
@@ -8,7 +10,7 @@ Warframe drop data in an easier to parse format.
 
 ![screenshot](misc/screenshot.jpg)
 
-There is an experimental searchable web ui available at http://wfdrops.qr9.de
+There is an experimental searchable web ui available at http://drops.warframestat.us
 
 ## "API Endpoints"
 
