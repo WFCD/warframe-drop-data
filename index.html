@@ -48,6 +48,37 @@
     td.msg {
         text-align: center;
     }
+
+    .footer {
+        position: fixed;
+
+        bottom: 0;
+        left: 0;
+        right: 0;
+
+        background: white;
+        color: #555;
+
+        font-size: 12px;
+
+        text-align: center;
+    }
+
+    .footer a {
+        color: #555;
+        text-decoration: none;
+        font-weight: bolder;
+
+        transition: color 0.5s ease;
+    }
+
+    .footer a:hover {
+        color: #0099FF;
+    }
+
+    #lastbuildtime {
+        font-weight: bolder;
+    }
 </style>
 
 <div id="loading">
@@ -75,6 +106,11 @@
         </div>
     </div>
 </section>
+
+<footer class="footer">
+    <b>NOTE</b>: This data is parsed from <a href="https://n8k6e2y6.ssl.hwcdn.net/repos/hnfvc0o3jnfvc873njb03enrf56.html" target="_blank">Digital Extremes official drop data website</a>, no data mining was involved.
+    Build time: <span id="lastbuildtime">...</span>
+</footer>
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/vue/2.4.2/vue.min.js"></script>
@@ -109,6 +145,11 @@
 
     function onDataRetrieved(data) {
         window._data = data
+
+        let info = JSON.parse(localStorage.getItem("_wfinfo"))
+        let date = new Date(info.timestamp)
+
+        $("#lastbuildtime").text(date.toISOString())
 
         const searchFieldValue = $("#search-field").val()
 
