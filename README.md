@@ -6,7 +6,7 @@ Warframe drop data in an easier to parse format.
 
 ## Web UI & URL
 
-I plan on adding a searchable web ui for this soon-ish. Also this site is currently available via: http://wfdrops.qr9.de
+There is an experimental searchable web ui available at http://wfdrops.qr9.de
 
 ## "API Endpoints"
 
