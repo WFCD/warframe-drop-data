@@ -172,7 +172,7 @@
     function search(searchValue) {
         if(searchValue.length < 4) {
             $("#tablebody").empty()
-            $("#tablebody").append("<tr><td class='msg'>You have to type in at least 4 characters to search...</td></tr>")
+            $("#tablebody").append("<tr><td class='msg'>You have to type in at least 4 characters (including spaces) to search...</td></tr>")
             return
         }
 
