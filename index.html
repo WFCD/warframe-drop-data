@@ -149,7 +149,19 @@
     })
 
     function onDataRetrieved(data) {
-        window._data = data
+        window._script_version = localStorage.getItem("_script_version") || null
+
+        if(!window._script_version || window._script_version < 2) {
+            window._data = formatData(data)
+
+            // this conversion thingy only exists to keep users from redownloading existing data
+            // probably a stupid idea, but then again was easy to implement :P
+            window._script_version = 2
+            localStorage.setItem("_script_version", 2)
+            localStorage.setItem("_wfdata", JSON.stringify(window._data))
+        } else {
+            window._data = data
+        }
 
         let info = JSON.parse(localStorage.getItem("_wfinfo"))
         let date = new Date(info.timestamp)
@@ -170,48 +182,51 @@
     })
 
     function search(searchValue) {
-        if(searchValue.length < 4) {
+        if(searchValue.length < 2) {
             $("#tablebody").empty()
-            $("#tablebody").append("<tr><td class='msg'>You have to type in at least 4 characters (including spaces) to search...</td></tr>")
+            $("#tablebody").append("<tr><td class='msg'>You have to type in at least 2 characters to search...</td></tr>")
             return
         }
 
         console.log("searching for", searchValue)
 
-        let collectedData = []
+        fill(window._data.filter(entry => entry.item.contains(searchValue)))
+    }
+
+    function formatData(data) {
+        let newData = []
 
         // mission rewards
-        function addMatchingMissionReward(placeName, planetName, locationName, reward) {
-             if(reward.itemName.contains(searchValue)) {
-                collectedData.push({
-                    place: placeName,
-                    item: reward.itemName,
-                    rarity: reward.rarity,
-                    chance: reward.chance
-                })
-            }
-        }
-
         // planets
-        for(let planetName of Object.keys(window._data.missionRewards)) {
+        for(let planetName of Object.keys(data.missionRewards)) {
 
             // locations
-            for(let locationName of Object.keys(window._data.missionRewards[planetName])) {
+            for(let locationName of Object.keys(data.missionRewards[planetName])) {
 
-                let location = window._data.missionRewards[planetName][locationName]
+                let location = data.missionRewards[planetName][locationName]
 
                 if(Array.isArray(location.rewards)) {
                     let placeName = `${planetName}/${locationName} (<b>${location.gameMode}</b>)`
 
                     for(let reward of location.rewards) {
-                        addMatchingMissionReward(placeName, planetName, locationName, reward)
+                        newData.push({
+                            place: placeName,
+                            item: reward.itemName,
+                            rarity: reward.rarity,
+                            chance: reward.chance
+                        })
                     }
                 } else {
                     for(let rotationName of Object.keys(location.rewards)) {
                         let placeName = `${planetName}/${locationName} (<b>${location.gameMode}</b>), Rotation ${rotationName}`
 
                         for(let reward of location.rewards[rotationName]) {
-                            addMatchingMissionReward(placeName, planetName, locationName, reward)
+                            newData.push({
+                                place: placeName,
+                                item: reward.itemName,
+                                rarity: reward.rarity,
+                                chance: reward.chance
+                            })
                         }
                     }
                 }
@@ -219,80 +234,70 @@
         }
 
         // blueprint locations
-        for(let blueprint of window._data.blueprintLocations) {
-            if(blueprint.blueprintName.contains(searchValue)) {
-                for(let enemy of blueprint.enemies) {
-                    collectedData.push({
-                        place: enemy.enemyName,
-                        item: blueprint.blueprintName,
-                        rarity: enemy.rarity,
-                        chance: (((enemy.enemyBlueprintDropChance / 100) * (enemy.chance / 100)) * 100).toFixed(2)
-                    })
-                }
-            }
-        }
-
-        // mod locations
-        for(let mod of window._data.modLocations) {
-            if(mod.modName.contains(searchValue)) {
-                for(let enemy of mod.enemies) {
-                    collectedData.push({
-                        place: enemy.enemyName,
-                        item: mod.modName,
-                        rarity: enemy.rarity,
-                        chance: (((enemy.enemyModDropChance / 100) * (enemy.chance / 100)) * 100).toFixed(2)
-                    })
-                }
-            }
-        }
-
-        // relics
-        for(let relic of window._data.relics) {
-            for(let item of relic.rewards) {
-                if(item.itemName.contains(searchValue)) {
-                    collectedData.push({
-                        place: `${relic.tier} ${relic.relicName} ${relic.state}`,
-                        item: item.itemName,
-                        rarity: item.rarity,
-                        chance: item.chance
-                    })
-                }
-            }
-        }
-
-        // sortie rewards
-        for(let sortie of window._data.sortieRewards) {
-            if(sortie.itemName.contains(searchValue)) {
-                collectedData.push({
-                    place: "Sorties",
-                    item: sortie.itemName,
-                    rarity: sortie.rarity,
-                    chance: sortie.chance
+        for(let blueprint of data.blueprintLocations) {
+            for(let enemy of blueprint.enemies) {
+                newData.push({
+                    place: enemy.enemyName,
+                    item: blueprint.blueprintName,
+                    rarity: enemy.rarity,
+                    chance: (((enemy.enemyBlueprintDropChance / 100) * (enemy.chance / 100)) * 100).toFixed(2)
                 })
             }
         }
 
-        // transient rewards
-        for(let objective of window._data.transientRewards) {
-            for(let reward of objective.rewards) {
-                if(reward.itemName.contains(searchValue)) {
-                    let rotation = ""
-
-                    if(reward.rotation) {
-                        rotation = ` ${reward.rotation}`
-                    }
-
-                    collectedData.push({
-                        place: `${objective.objectiveName}${rotation}`,
-                        item: reward.itemName,
-                        rarity: reward.rarity,
-                        chance: reward.chance
-                    })
-                }
+        // mod locations
+        for(let mod of data.modLocations) {
+            for(let enemy of mod.enemies) {
+                newData.push({
+                    place: enemy.enemyName,
+                    item: mod.modName,
+                    rarity: enemy.rarity,
+                    chance: (((enemy.enemyModDropChance / 100) * (enemy.chance / 100)) * 100).toFixed(2)
+                })
             }
         }
 
-        fill(collectedData)
+        // relics
+        for(let relic of data.relics) {
+            for(let item of relic.rewards) {
+                newData.push({
+                    place: `${relic.tier} ${relic.relicName} ${relic.state}`,
+                    item: item.itemName,
+                    rarity: item.rarity,
+                    chance: item.chance
+                })
+            }
+        }
+
+        // sortie rewards
+        for(let sortie of data.sortieRewards) {
+            newData.push({
+                place: "Sorties",
+                item: sortie.itemName,
+                rarity: sortie.rarity,
+                chance: sortie.chance
+            })
+        }
+
+        // transient rewards
+        for(let objective of data.transientRewards) {
+            for(let reward of objective.rewards) {
+                let rotation = ""
+
+                if(reward.rotation) {
+                    rotation = ` ${reward.rotation}`
+                }
+
+                newData.push({
+                    place: `${objective.objectiveName}${rotation}`,
+                    item: reward.itemName,
+                    rarity: reward.rarity,
+                    chance: reward.chance
+                })
+            }
+        }
+
+        return newData
     }
 
     /* data structure (in array)
