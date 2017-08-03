@@ -168,6 +168,12 @@
 
         $("#lastbuildtime").text(date.toISOString())
 
+        let matches = window.location.hash.match(/\#?\/search\/(.*)\//)
+
+        if(matches && matches.length > 0) {
+            $("#search-field").val(matches[matches.length - 1])
+        }
+
         const searchFieldValue = $("#search-field").val()
 
         if(searchFieldValue) {
@@ -187,6 +193,8 @@
             $("#tablebody").append("<tr><td class='msg'>You have to type in at least 2 characters to search...</td></tr>")
             return
         }
+
+        window.location.hash = `/search/${encodeURIComponent(searchValue)}/`
 
         console.log("searching for", searchValue)
 
