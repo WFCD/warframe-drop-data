@@ -172,13 +172,13 @@
         let matches = window.location.hash.match(/\#?\/search\/(.*)\//)
 
         if(matches && matches.length > 0) {
-            $("#search-field").val(matches[matches.length - 1])
+            $("#search-field").val(decodeURIComponent(matches[matches.length - 1]))
         }
 
         const searchFieldValue = $("#search-field").val()
 
         if(searchFieldValue) {
-            search(decodeURIComponent(searchFieldValue))
+            search(searchFieldValue)
         }
 
         $("#loading").remove()
