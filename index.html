@@ -9,9 +9,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="search" href="/opensearch.xml" type="application/opensearchdescription+xml" title="Warframe Drop Data"/>
 
-<link rel="prefetch" href="data/info.json" />
-<link rel="prefetch" href="misc/logo.png" />
-
 <link rel="dns-prefetch" href="//cdnjs.cloudflare.com" />
 <link rel="dns-prefetch" href="//fonts.googleapis.com" />
 
@@ -132,7 +129,9 @@
     }
 
     $(document).ready(function() {
-        $.getJSON("/data/info.json", function(data) {
+        let time = new Date().getTime()
+
+        $.getJSON(`/data/info.json?${time}`, function(data) {
             let hash = data.hash
             let timestamp = data.timestamp
 
@@ -144,7 +143,7 @@
                 console.log("new hash found, re-download data")
                 localStorage.setItem("_wfinfo", JSON.stringify(data))
 
-                $.getJSON("/data/all.json", function(all) {
+                $.getJSON(`/data/all.json?${time}`, function(all) {
                     localStorage.setItem("_wfdata", JSON.stringify(all))
 
                     onDataRetrieved(all)
