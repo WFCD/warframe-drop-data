@@ -178,7 +178,7 @@
         const searchFieldValue = $("#search-field").val()
 
         if(searchFieldValue) {
-            search(searchFieldValue)
+            search(decodeURIComponent(searchFieldValue))
         }
 
         $("#loading").remove()
