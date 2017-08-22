@@ -128,14 +128,32 @@
         return this.toLowerCase().indexOf(substr.toLowerCase()) > -1
     }
 
+    // used for some hacks ;)
+    const CURR_SCRIPT_VERSION = 3
+
+    // convert data to avoid having to redownload it
+    function updateData(fromVersion, toVersion) {
+        if(fromVersion < 3) {
+            // easier then converting stuff :D
+            localStorage.clear()
+        }
+
+        window._script_version = CURR_SCRIPT_VERSION
+        localStorage.setItem("_script_version", CURR_SCRIPT_VERSION)
+    }
+
     $(document).ready(function() {
         let time = new Date().getTime()
+
+        window._script_version = Number(localStorage.getItem("_script_version") || -1)
+
+        updateData(window._script_version, CURR_SCRIPT_VERSION)
 
         $.getJSON(`/data/info.json?${time}`, function(data) {
             let hash = data.hash
             let timestamp = data.timestamp
 
-            console.log(data)
+            console.log("/data/info.json", data)
 
             let oldData = JSON.parse(localStorage.getItem("_wfinfo") || "{\"hash\":\"clem\"}")
 
@@ -144,8 +162,9 @@
                 localStorage.setItem("_wfinfo", JSON.stringify(data))
 
                 $.getJSON(`/data/all.json?${time}`, function(all) {
-                    localStorage.setItem("_wfdata", JSON.stringify(all))
+                    all = formatData(all)
 
+                    localStorage.setItem("_wfdata", JSON.stringify(all))
                     onDataRetrieved(all)
                 })
             } else {
@@ -155,19 +174,7 @@
     })
 
     function onDataRetrieved(data) {
-        window._script_version = localStorage.getItem("_script_version") || null
-
-        if(!window._script_version || window._script_version < 2) {
-            window._data = formatData(data)
-
-            // this conversion thingy only exists to keep users from redownloading existing data
-            // probably a stupid idea, but then again was easy to implement :P
-            window._script_version = 2
-            localStorage.setItem("_script_version", 2)
-            localStorage.setItem("_wfdata", JSON.stringify(window._data))
-        } else {
-            window._data = data
-        }
+        window._data = data
 
         let info = JSON.parse(localStorage.getItem("_wfinfo"))
         let date = new Date(info.timestamp)
