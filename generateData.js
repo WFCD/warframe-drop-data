@@ -73,6 +73,13 @@ request(config.dropDataUrl, (err, res, body) => {
     console.log("Writing... /data/info.json")
     fs.writeFileSync(path.resolve(__dirname, "data", "info.json"), JSON.stringify(info, null, jsonFormat))
 
+    // add to historic
+    console.log(`Writing... /data/historic/${info.hash}_data.json`)
+    fs.writeFileSync(path.resolve(__dirname, "data", "historic", `${info.hash}_data.json`), JSON.stringify(data, null, jsonFormat))
+
+    console.log(`Writing... /data/historic/${info.hash}_info.json`)
+    fs.writeFileSync(path.resolve(__dirname, "data", "historic", `${info.hash}_info.json`), JSON.stringify(info, null, jsonFormat))
+
     console.log("Writing... /data/missionRewards.json")
     fs.writeFileSync(path.resolve(__dirname, "data", "missionRewards.json"), JSON.stringify({missionRewards: data.missionRewards}, null, jsonFormat))
 
