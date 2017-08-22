@@ -67,18 +67,23 @@ request(config.dropDataUrl, (err, res, body) => {
 
     let jsonFormat = config.jsonMinify ? "" : "    "
 
+    // add to builds
+    console.log("Adding build...")
+    let builds = JSON.parse(fs.readFileSync(path.resolve(__dirname, "data", "builds", "builds.json")))
+    if(builds.filter(build => build.hash === info.hash).length === 0)
+        builds.push(info)
+
+    console.log("Writing... /data/builds/builds.json")
+    fs.writeFileSync(path.resolve(__dirname, "data", "builds", "builds.json"), JSON.stringify(builds, null, jsonFormat))
+
+    console.log(`Writing... /data/builds/${info.hash}.json`)
+    fs.writeFileSync(path.resolve(__dirname, "data", "builds", `${info.hash}.json`), JSON.stringify(data, null, jsonFormat))
+
     console.log("Writing... /data/all.json")
     fs.writeFileSync(path.resolve(__dirname, "data", "all.json"), JSON.stringify(data, null, jsonFormat))
 
     console.log("Writing... /data/info.json")
     fs.writeFileSync(path.resolve(__dirname, "data", "info.json"), JSON.stringify(info, null, jsonFormat))
-
-    // add to historic
-    console.log(`Writing... /data/historic/${info.hash}_data.json`)
-    fs.writeFileSync(path.resolve(__dirname, "data", "historic", `${info.hash}_data.json`), JSON.stringify(data, null, jsonFormat))
-
-    console.log(`Writing... /data/historic/${info.hash}_info.json`)
-    fs.writeFileSync(path.resolve(__dirname, "data", "historic", `${info.hash}_info.json`), JSON.stringify(info, null, jsonFormat))
 
     console.log("Writing... /data/missionRewards.json")
     fs.writeFileSync(path.resolve(__dirname, "data", "missionRewards.json"), JSON.stringify({missionRewards: data.missionRewards}, null, jsonFormat))
