@@ -318,6 +318,22 @@
             }
         }
 
+        // cetus bounty rewards
+        for(let bountyLevel of data.cetusBountyRewards) {
+            let levelRange = bountyLevel.bountyLevel
+
+            for(let rewardTier of Object.keys(bountyLevel.rewards)) {
+                for(let reward of bountyLevel.rewards[rewardTier]) {
+                    newData.push({
+                        place: `Cetus ${levelRange}`,
+                        item: reward.itemName,
+                        rarity: reward.rarity,
+                        chance: reward.chance
+                    })
+                }
+            }
+        }
+
         return newData
     }
 
