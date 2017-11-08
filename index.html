@@ -129,11 +129,11 @@
     }
 
     // used for some hacks ;)
-    const CURR_SCRIPT_VERSION = 4
+    const CURR_SCRIPT_VERSION = 5
 
     // convert data to avoid having to redownload it
     function updateData(fromVersion, toVersion) {
-        if(fromVersion < 4) {
+        if(fromVersion < 5) {
             // easier then converting stuff :D
             localStorage.clear()
         }
@@ -325,7 +325,7 @@
             for(let rewardTier of Object.keys(bountyLevel.rewards)) {
                 for(let reward of bountyLevel.rewards[rewardTier]) {
                     newData.push({
-                        place: `Cetus ${levelRange}`,
+                        place: `Cetus ${levelRange} Rotation ${rewardTier}`,
                         item: reward.itemName,
                         rarity: reward.rarity,
                         chance: reward.chance
