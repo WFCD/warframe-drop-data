@@ -355,7 +355,7 @@
         }
 
         data = data.sort(function(a, b) {
-            return b.chance - a.chance
+            return b.chance - a.chance || a.place.localeCompare(b.place) || a.item.localeCompare(b.item)
         })
 
         $("#tablebody").append(`<tr>
