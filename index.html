@@ -129,11 +129,11 @@
     }
 
     // used for some hacks ;)
-    const CURR_SCRIPT_VERSION = 5
+    const CURR_SCRIPT_VERSION = 6
 
     // convert data to avoid having to redownload it
     function updateData(fromVersion, toVersion) {
-        if(fromVersion < 5) {
+        if(fromVersion < 6) {
             // easier then converting stuff :D
             localStorage.clear()
         }
