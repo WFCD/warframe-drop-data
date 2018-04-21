@@ -54,6 +54,10 @@
         content: "# ";
     }
 
+    th {
+        cursor: pointer;
+    }
+
     td.msg {
         text-align: center;
     }
@@ -103,7 +107,14 @@
                 <a target="_blank" href="https://github.com/WFCD/warframe-drop-data#api-endpoints">API Documentation</a> | <a target="_blank" href="https://github.com/WFCD/warframe-drop-data">Github</a>
             </div>
 
-            <input class="searchfield" placeholder="Search here..." id="search-field" type="text" />
+            <div>
+                <input class="searchfield" placeholder="Search here..." id="search-field" type="text" />
+                <select id="search-type">
+                    <option value="items">Items only</option>
+                    <option value="locations">Locations only</option>
+                    <option value="both">Items and locations</option>
+                </select> 
+            </div>
         </div>
 
         <div class="content">
@@ -129,11 +140,11 @@
     }
 
     // used for some hacks ;)
-    const CURR_SCRIPT_VERSION = 6
+    const CURR_SCRIPT_VERSION = 7
 
     // convert data to avoid having to redownload it
     function updateData(fromVersion, toVersion) {
-        if(fromVersion < 6) {
+        if(fromVersion < CURR_SCRIPT_VERSION) {
             // easier then converting stuff :D
             localStorage.clear()
         }
@@ -179,12 +190,16 @@
         let info = JSON.parse(localStorage.getItem("_wfinfo"))
         let date = new Date(info.timestamp)
 
-        $("#lastbuildtime").text(date.toISOString())
+        $("#lastbuildtime").text(date.toLocaleString())
 
-        let matches = window.location.hash.match(/\#?\/search\/(.*)\//)
+        let query = window.location.hash.split('/')
 
-        if(matches && matches.length > 0) {
-            $("#search-field").val(decodeURIComponent(matches[matches.length - 1]))
+        if (query && query.length > 3 && query[3].match(/(items|locations|both)/)) {
+            $("#search-field").val(decodeURIComponent(query[2]))
+            $("#search-type").val(decodeURIComponent(query[3]))
+        } else if (query && query.length > 2) {
+            $("#search-field").val(decodeURIComponent(query[2]))
+            $("#search-type").val(decodeURIComponent('items'))
         }
 
         const searchFieldValue = $("#search-field").val()
@@ -200,18 +215,30 @@
         search($(this).val())
     })
 
+    $("#search-type").on("change", function(ev) {
+        search($("#search-field").val())
+    })
+
     function search(searchValue) {
         if(searchValue.length < 2) {
             $("#tablebody").empty()
-            $("#tablebody").append("<tr><td class='msg'>You have to type in at least 2 characters to search...</td></tr>")
+            $("#tablebody").append("<tr><td class='msg'>You have to type in at least 2 characters to search.</td></tr>")
             return
         }
 
-        window.location.hash = `/search/${encodeURIComponent(searchValue)}/`
+        let type = $('#search-type').val()
+        let items = null
 
-        console.log("searching for", searchValue)
+        window.location.hash = `/search/${encodeURIComponent(searchValue)}/${type}`
 
-        fill(window._data.filter(entry => entry.item.contains(searchValue)))
+        console.log("searching for", searchValue, "in", type)
+
+        if (type === 'items')           { items = window._data.filter(entry => entry.item.contains(searchValue)) }
+        else if (type === 'locations')  { items = window._data.filter(entry => entry.place.contains(searchValue)) }
+        else if (type === 'both')       { items = window._data.filter(entry => entry.item.contains(searchValue) || entry.place.contains(searchValue)) }
+        else                            { items = window._data.filter(entry => entry.item.contains(searchValue)) }
+
+        fill(items, 'chance', false)
     }
 
     function formatData(data) {
@@ -325,7 +352,7 @@
             for(let rewardTier of Object.keys(bountyLevel.rewards)) {
                 for(let reward of bountyLevel.rewards[rewardTier]) {
                     newData.push({
-                        place: `Cetus ${levelRange} Rotation ${rewardTier}`,
+                        place: `Earth/Cetus (<b>${levelRange}</b>), Rotation ${rewardTier}`,
                         item: reward.itemName,
                         rarity: reward.rarity,
                         chance: reward.chance
@@ -345,7 +372,7 @@
             chance: 9.09
         }
     */
-    function fill(data) {
+    function fill(data, sort, reverse) {
         // clear content pane
         $("#tablebody").empty()
 
@@ -355,14 +382,22 @@
         }
 
         data = data.sort(function(a, b) {
-            return b.chance - a.chance || a.place.localeCompare(b.place) || a.item.localeCompare(b.item)
+            if (sort === 'item')        { return a.item.localeCompare(b.item) || b.chance - a.chance || a.place.localeCompare(b.place) }
+            else if (sort === 'place')  { return a.place.localeCompare(b.place) || b.chance - a.chance || a.item.localeCompare(b.item) }
+            else                        { return b.chance - a.chance || a.place.localeCompare(b.place) || a.item.localeCompare(b.item) }
         })
 
+        if (reverse) { data.reverse() }
+
+        let itemIcon = sort === 'item' ? `<i class="fa fa-sort-alpha-${ reverse ? 'desc' : 'asc' }" aria-hidden="true"></i>` : ''
+        let placeIcon = sort === 'place' ? `<i class="fa fa-sort-alpha-${ reverse ? 'desc' : 'asc' }" aria-hidden="true"></i>` : ''
+        let chanceIcon = sort === 'chance' ? `<i class="fa fa-sort-amount-${ reverse ? 'asc' : 'desc' }" aria-hidden="true"></i>` : ''
+
         $("#tablebody").append(`<tr>
-            <th>Item Name</th>
-            <th>Drops</th>
+            <th id="item">Item Name ${itemIcon}</th>
+            <th id="place">Drops ${placeIcon}</th>
             <th>Rarity</th>
-            <th>Chance</th>
+            <th id="chance">Chance ${chanceIcon}</th>
         </tr>`)
 
         for(let obj of data) {
@@ -373,6 +408,10 @@
                 <td><b>${obj.chance}%</b></td>
             </tr>`)
         }
+
+        $("th").on("click", function(ev) {
+            if (this.id) { fill(data, this.id, sort === this.id ? !reverse : false) }
+        })
 
     }
 </script>
