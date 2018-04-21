@@ -192,11 +192,14 @@
 
         $("#lastbuildtime").text(date.toLocaleString())
 
-        let matches = window.location.hash.match(/\#?\/search\/(.*)\/(items|locations|both)/)
+        let query = window.location.hash.split('/')
 
-        if(matches && matches.length > 0) {
-            $("#search-field").val(decodeURIComponent(matches[matches.length - 2]))
-            $("#search-type").val(decodeURIComponent(matches[matches.length - 1]))
+        if (query && query.length > 3 && query[3].match(/(items|locations|both)/)) {
+            $("#search-field").val(decodeURIComponent(query[2]))
+            $("#search-type").val(decodeURIComponent(query[3]))
+        } else if (query && query.length > 2) {
+            $("#search-field").val(decodeURIComponent(query[2]))
+            $("#search-type").val(decodeURIComponent('items'))
         }
 
         const searchFieldValue = $("#search-field").val()
