@@ -255,11 +255,11 @@ Data structure:
   {
     "_id": "6ba71181fe67be210250c59fdf06ecb8",
     "enemyName": "Arid Heavy Gunner",
-    "blueprintDropChance": "1.00",
-    "blueprints": [
+    "enemyItemDropChance": "1.00",
+    "items": [
       {
         "_id": "9568cc883b465bc94c14e0d206506b2d",
-        "blueprintName": "Gorgon Blueprint",
+        "itemName": "Gorgon Blueprint",
         "chance": 100,
         "rarity": "Common"
       },
@@ -279,12 +279,12 @@ Data structure:
 "blueprintLocations": [
   {
     "_id": "2d200b684ad2bac2184a5edc3a9655cb",
-    "blueprintName": "Ash Chassis Blueprint",
+    "itemName": "Ash Chassis Blueprint",
     "enemies": [
       {
         "_id": "02ca12683663224f017f209954cb876a",
         "enemyName": "Grineer Manic",
-        "enemyBlueprintDropChance": 33,
+        "enemyItemDropChance": 33,
         "chance": 38.72,
         "rarity": "Common"
       },
