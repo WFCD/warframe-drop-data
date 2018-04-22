@@ -57,6 +57,7 @@ request(config.dropDataUrl, (err, res, body) => {
         sortieRewards: require("./lib/sortieRewards.js")($),
         keyRewards: require("./lib/keyRewards.js")($),
         cetusBountyRewards: require("./lib/cetusBountyRewards.js")($),
+        miscItems: require("./lib/miscItems.js")($),
     }
 
     const info = {
@@ -115,6 +116,9 @@ request(config.dropDataUrl, (err, res, body) => {
 
     console.log("Writing... /data/cetusBountyRewards.json")
     fs.writeFileSync(path.resolve(__dirname, "data", "cetusBountyRewards.json"), JSON.stringify({cetusBountyRewards: data.cetusBountyRewards}, null, jsonFormat))
+
+    console.log("Writing... /data/miscItems.json")
+    fs.writeFileSync(path.resolve(__dirname, "data", "miscItems.json"), JSON.stringify({miscItems: data.miscItems}, null, jsonFormat))
 
     trymkdir(path.resolve(__dirname, `data`, `missionRewards`))
 
