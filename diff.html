@@ -1,32 +1,433 @@
-<!DOCTYPE html>
-<title>Warframe Drop Data - Diff</title>
-<style>.jsondiffpatch-annotated-delta,.jsondiffpatch-annotated-delta pre,.jsondiffpatch-delta,.jsondiffpatch-delta pre{font-family:'Bitstream Vera Sans Mono','DejaVu Sans Mono',Monaco,Courier,monospace;font-size:12px}.jsondiffpatch-delta{margin:0;padding:0 0 0 12px;display:inline-block}.jsondiffpatch-delta pre{margin:0;padding:0;display:inline-block}.jsondiffpatch-delta ul,ul.jsondiffpatch-delta{list-style-type:none;padding:0 0 0 20px;margin:0}.jsondiffpatch-added .jsondiffpatch-property-name,.jsondiffpatch-added .jsondiffpatch-value pre,.jsondiffpatch-modified .jsondiffpatch-right-value pre,.jsondiffpatch-textdiff-added{background:#bfb}.jsondiffpatch-deleted .jsondiffpatch-property-name,.jsondiffpatch-deleted pre,.jsondiffpatch-modified .jsondiffpatch-left-value pre,.jsondiffpatch-textdiff-deleted{background:#fbb;text-decoration:line-through}.jsondiffpatch-movedestination,.jsondiffpatch-unchanged{color:gray}.jsondiffpatch-movedestination>.jsondiffpatch-value,.jsondiffpatch-unchanged{transition:all .5s;-webkit-transition:all .5s;overflow-y:hidden}.jsondiffpatch-unchanged-showing .jsondiffpatch-movedestination>.jsondiffpatch-value,.jsondiffpatch-unchanged-showing .jsondiffpatch-unchanged{max-height:100px}.jsondiffpatch-unchanged-hidden .jsondiffpatch-movedestination>.jsondiffpatch-value,.jsondiffpatch-unchanged-hidden .jsondiffpatch-unchanged{max-height:0}.jsondiffpatch-unchanged-hidden .jsondiffpatch-movedestination>.jsondiffpatch-value,.jsondiffpatch-unchanged-hiding .jsondiffpatch-movedestination>.jsondiffpatch-value{display:block}.jsondiffpatch-unchanged-visible .jsondiffpatch-movedestination>.jsondiffpatch-value,.jsondiffpatch-unchanged-visible .jsondiffpatch-unchanged{max-height:100px}.jsondiffpatch-unchanged-hiding .jsondiffpatch-movedestination>.jsondiffpatch-value,.jsondiffpatch-unchanged-hiding .jsondiffpatch-unchanged{max-height:0}.jsondiffpatch-unchanged-hiding .jsondiffpatch-arrow,.jsondiffpatch-unchanged-showing .jsondiffpatch-arrow{display:none}.jsondiffpatch-modified .jsondiffpatch-value,.jsondiffpatch-value{display:inline-block}.jsondiffpatch-property-name{display:inline-block;padding-right:5px;vertical-align:top}.jsondiffpatch-property-name:after{content:': '}.jsondiffpatch-child-node-type-array>.jsondiffpatch-property-name:after{content:': ['}.jsondiffpatch-child-node-type-array:after{content:'],'}div.jsondiffpatch-child-node-type-array:before{content:'['}div.jsondiffpatch-child-node-type-array:after{content:']'}.jsondiffpatch-child-node-type-object>.jsondiffpatch-property-name:after{content:': {'}.jsondiffpatch-child-node-type-object:after{content:'},'}div.jsondiffpatch-child-node-type-object:before{content:'{'}div.jsondiffpatch-child-node-type-object:after{content:'}'}.jsondiffpatch-value pre:after{content:','}.jsondiffpatch-modified>.jsondiffpatch-left-value pre:after,li:last-child>.jsondiffpatch-value pre:after{content:''}.jsondiffpatch-modified .jsondiffpatch-right-value{margin-left:5px}.jsondiffpatch-moved .jsondiffpatch-value{display:none}.jsondiffpatch-moved .jsondiffpatch-moved-destination{display:inline-block;background:#ffb;color:#888}.jsondiffpatch-moved .jsondiffpatch-moved-destination:before{content:' => '}ul.jsondiffpatch-textdiff{padding:0}.jsondiffpatch-textdiff-location{color:#bbb;display:inline-block;min-width:60px}.jsondiffpatch-textdiff-line{display:inline-block}.jsondiffpatch-textdiff-line-number:after{content:','}.jsondiffpatch-annotated-delta{margin:0;padding:0 0 0 12px;display:inline-block}.jsondiffpatch-annotated-delta pre{margin:0;padding:0;display:inline-block}.jsondiffpatch-annotated-delta td{margin:0;padding:0}.jsondiffpatch-annotated-delta td pre:hover{font-weight:700}td.jsondiffpatch-delta-note{font-style:italic;padding-left:10px}.jsondiffpatch-delta-note>div{margin:0;padding:0}.jsondiffpatch-delta-note pre{font-style:normal}.jsondiffpatch-annotated-delta .jsondiffpatch-delta-note{color:#777}.jsondiffpatch-annotated-delta tr:hover{background:#ffc}.jsondiffpatch-annotated-delta tr:hover>td.jsondiffpatch-delta-note{color:#000}.jsondiffpatch-error{background:red;color:#fff;font-weight:700}</style>
+<!doctype html>
+<title>Warframe Drop Data - Compare Versions</title>
 
-<h2>Difference between the two latest builds (WORK IN PROGRESS!!!)</h2>
-<div id="visualdiff"></div>
+<meta property="og:title" content="Warframe Drop Data - Difference Checker" />
+<meta property="og:description" content="A tool/API to search through Digital Extremes official Warframe drop data website." />
+<meta property="og:url" content="http://drops.warframestat.us" />
+<meta property="og:image" content="http://drops.warframestat.us/misc/logo.png" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="dns-prefetch" href="//cdnjs.cloudflare.com" />
+<link rel="dns-prefetch" href="//fonts.googleapis.com" />
+
+<link rel="shortcut icon" href="misc/logo.png" />
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" type="text/css">
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Raleway:400,300,600" type="text/css">
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Inconsolata" type="text/css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+
+<style>
+    .jsondiffpatch-delta {
+      font-family: 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', Monaco, Courier, monospace;
+      font-size: 12px;
+      margin: 0;
+      padding: 0 0 0 12px;
+      display: inline-block;
+    }
+    .jsondiffpatch-delta pre {
+      font-family: 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', Monaco, Courier, monospace;
+      font-size: 12px;
+      margin: 0;
+      padding: 0;
+      display: inline-block;
+    }
+    ul.jsondiffpatch-delta {
+      list-style-type: none;
+      padding: 0 0 0 20px;
+      margin: 0;
+    }
+    .jsondiffpatch-delta ul {
+      list-style-type: none;
+      padding: 0 0 0 20px;
+      margin: 0;
+    }
+    .jsondiffpatch-added .jsondiffpatch-property-name,
+    .jsondiffpatch-added .jsondiffpatch-value pre,
+    .jsondiffpatch-modified .jsondiffpatch-right-value pre,
+    .jsondiffpatch-textdiff-added {
+      background: #bbffbb;
+    }
+    .jsondiffpatch-deleted .jsondiffpatch-property-name,
+    .jsondiffpatch-deleted pre,
+    .jsondiffpatch-modified .jsondiffpatch-left-value pre,
+    .jsondiffpatch-textdiff-deleted {
+      background: #ffbbbb;
+      text-decoration: line-through;
+    }
+    .jsondiffpatch-unchanged,
+    .jsondiffpatch-movedestination {
+      color: gray;
+    }
+    .jsondiffpatch-unchanged,
+    .jsondiffpatch-movedestination > .jsondiffpatch-value {
+      transition: all 0.5s;
+      -webkit-transition: all 0.5s;
+      overflow-y: hidden;
+    }
+    .jsondiffpatch-unchanged-showing .jsondiffpatch-unchanged,
+    .jsondiffpatch-unchanged-showing .jsondiffpatch-movedestination > .jsondiffpatch-value {
+      max-height: 100px;
+    }
+    .jsondiffpatch-unchanged-hidden .jsondiffpatch-unchanged,
+    .jsondiffpatch-unchanged-hidden .jsondiffpatch-movedestination > .jsondiffpatch-value {
+      max-height: 0;
+    }
+    .jsondiffpatch-unchanged-hiding .jsondiffpatch-movedestination > .jsondiffpatch-value,
+    .jsondiffpatch-unchanged-hidden .jsondiffpatch-movedestination > .jsondiffpatch-value {
+      display: block;
+    }
+    .jsondiffpatch-unchanged-visible .jsondiffpatch-unchanged,
+    .jsondiffpatch-unchanged-visible .jsondiffpatch-movedestination > .jsondiffpatch-value {
+      max-height: 100px;
+    }
+    .jsondiffpatch-unchanged-hiding .jsondiffpatch-unchanged,
+    .jsondiffpatch-unchanged-hiding .jsondiffpatch-movedestination > .jsondiffpatch-value {
+      max-height: 0;
+    }
+    .jsondiffpatch-unchanged-showing .jsondiffpatch-arrow,
+    .jsondiffpatch-unchanged-hiding .jsondiffpatch-arrow {
+      display: none;
+    }
+    .jsondiffpatch-value {
+      display: inline-block;
+    }
+    .jsondiffpatch-property-name {
+      display: inline-block;
+      padding-right: 5px;
+      vertical-align: top;
+    }
+    .jsondiffpatch-property-name:after {
+      content: ': ';
+    }
+    .jsondiffpatch-child-node-type-array > .jsondiffpatch-property-name:after {
+      content: ': [';
+    }
+    .jsondiffpatch-child-node-type-array:after {
+      content: '],';
+    }
+    div.jsondiffpatch-child-node-type-array:before {
+      content: '[';
+    }
+    div.jsondiffpatch-child-node-type-array:after {
+      content: ']';
+    }
+    .jsondiffpatch-child-node-type-object > .jsondiffpatch-property-name:after {
+      content: ': {';
+    }
+    .jsondiffpatch-child-node-type-object:after {
+      content: '},';
+    }
+    div.jsondiffpatch-child-node-type-object:before {
+      content: '{';
+    }
+    div.jsondiffpatch-child-node-type-object:after {
+      content: '}';
+    }
+    .jsondiffpatch-value pre:after {
+      content: ',';
+    }
+    li:last-child > .jsondiffpatch-value pre:after,
+    .jsondiffpatch-modified > .jsondiffpatch-left-value pre:after {
+      content: '';
+    }
+    .jsondiffpatch-modified .jsondiffpatch-value {
+      display: inline-block;
+    }
+    .jsondiffpatch-modified .jsondiffpatch-right-value {
+      margin-left: 5px;
+    }
+    .jsondiffpatch-moved .jsondiffpatch-value {
+      display: none;
+    }
+    .jsondiffpatch-moved .jsondiffpatch-moved-destination {
+      display: inline-block;
+      background: #ffffbb;
+      color: #888;
+    }
+    .jsondiffpatch-moved .jsondiffpatch-moved-destination:before {
+      content: ' => ';
+    }
+    ul.jsondiffpatch-textdiff {
+      padding: 0;
+    }
+    .jsondiffpatch-textdiff-location {
+      color: #bbb;
+      display: inline-block;
+      min-width: 60px;
+    }
+    .jsondiffpatch-textdiff-line {
+      display: inline-block;
+    }
+    .jsondiffpatch-textdiff-line-number:after {
+      content: ',';
+    }
+    .jsondiffpatch-error {
+      background: red;
+      color: white;
+      font-weight: bold;
+    }
+</style>
+
+<style>
+    #no-script, #loading {
+        position: absolute;
+        padding: 10px;
+
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+
+        background-color: white;
+        opacity: 0.8;
+        font-size: 3rem;
+
+        justify-content: space-around;
+        align-items: center;
+        text-align: center;
+
+        z-index: 9999;
+    }
+
+    #no-script i, #loading i {
+        font-size: 9rem;
+        margin-bottom: 25px;
+    }
+
+    .header {
+        text-align: center;
+    }
+
+    #builds-selection {
+        margin: 3rem 0;
+    }
+
+    #builds-selection select {
+        margin: 0 0.5rem;
+    }
+
+    /* Hide specific unchanged objects. */
+    .jsondiffpatch-delta > ul > li.jsondiffpatch-unchanged,
+    .jsondiffpatch-delta > ul > li > ul > li.jsondiffpatch-unchanged,
+    .jsondiffpatch-delta > ul > li > ul > li > ul > li.jsondiffpatch-unchanged,
+    .jsondiffpatch-delta > ul > li > ul > li > ul > li > ul > li.jsondiffpatch-unchanged {
+        display: none;
+        visibility: hidden;
+    }
+
+    /* Display identifiers to get some context. */
+    .jsondiffpatch-unchanged[data-key="enemyName"],
+    .jsondiffpatch-unchanged[data-key="modName"],
+    .jsondiffpatch-unchanged[data-key="blueprintName"],
+    .jsondiffpatch-unchanged[data-key="itemName"],
+    .jsondiffpatch-unchanged[data-key="objectiveName"],
+    .jsondiffpatch-unchanged[data-key="bountyLevel"],
+    .jsondiffpatch-unchanged[data-key="keyName"],
+    .jsondiffpatch-unchanged[data-key="tier"],
+    .jsondiffpatch-unchanged[data-key="relicName"],
+    .jsondiffpatch-unchanged[data-key="state"] {
+        display: block;
+        visibility: visible;
+    }
+
+    /* Fix text size in subnodes. */
+    .jsondiffpatch-delta * {
+        font-family: 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', Monaco, Courier, monospace !important;
+        font-size: 12px !important;
+    }
+
+    /* Display unchanged nodes using the normal text color. */
+    .jsondiffpatch-unchanged,
+    .jsondiffpatch-movedestination {
+      color: inherit;
+    }
+
+    /* Fix excessive margin in subnodes. */
+    .jsondiffpatch-node-type-object > li {
+        margin-bottom: 0 !important;
+    }
+
+    .footer {
+        position: fixed;
+
+        bottom: 0;
+        left: 0;
+        right: 0;
+
+        background: white;
+        color: #555;
+
+        font-size: 12px;
+
+        text-align: center;
+    }
+
+    .footer a {
+        color: #555;
+        text-decoration: none;
+        font-weight: bolder;
+
+        transition: color 0.5s ease;
+    }
+
+    .footer a:hover {
+        color: #0099FF;
+    }
+</style>
+
+<div id="no-script" style="display: flex;">
+    <p>
+        <i class="fa fa-warning"></i><br />
+        This website requires JavaScript.
+    </p>
+</div>
+
+<div id="loading" style="display: none;">
+    <p>
+        <i class="fa fa-refresh fa-spin"></i><br />
+        Loading, please wait...
+    </p>
+</div>
+
+<section>
+    <div class="container">
+        <div class="header">
+            <div>
+                <img src="misc/logo.png" height="64">
+                <h5>Warframe Drop Data - Compare Versions</h5>
+                <a href="http://drops.warframestat.us/">Drop Data</a> | <a target="_blank" href="https://github.com/WFCD/warframe-drop-data#api-endpoints">API Documentation</a> | <a target="_blank" href="https://github.com/WFCD/warframe-drop-data">Github</a>
+            </div>
+            <div id="builds-selection">
+                <p>Compare <select id="builds-old" disabled="disabled"><option value="">Please select a build...</option></select> with <select id="builds-new" disabled="disabled"><option value="">Please select a build...</option></select></p>
+                <p id="message" style="display: none;"></p>
+            </div>
+        </div>
+
+        <div class="content">
+            <div id="visualdiff"></div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <b>NOTE</b>: This page is currently under construction and may display some unexpected or incorrect results.
+</footer>
+
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/vue/2.4.2/vue.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jsondiffpatch/0.2.4/jsondiffpatch.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jsondiffpatch/0.2.4/jsondiffpatch-formatters.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.8.0/js/md5.min.js"></script>
 <script>
+    // We have JS, yay! Show loading screen.
+    $("#no-script").hide()
+    $("#loading").css('display', 'flex')
+
     $(document).ready(function() {
         let now = new Date().getTime()
 
         $.getJSON(`/data/builds/builds.json?${now}`, function(builds) {
             builds = builds.sort((a, b) => b.timestamp - a.timestamp)
 
-            const currentBuildHash = builds[0].hash
-            const oldBuildHash = builds[1].hash
+            let currentHash = builds[0].hash
+            let previousHash = builds[1].hash
 
-            console.log("comparing current " + currentBuildHash + " with old hash " + oldBuildHash)
+            for (let build of builds) {
+                let date = new Date(build.timestamp)
+                let value = JSON.stringify(build)
 
-            $.getJSON(`/data/builds/${currentBuildHash}.json?${now}`, function(currentBuild) {
-                $.getJSON(`/data/builds/${oldBuildHash}.json?${now}`, function(oldBuild) {
-                    renderDiff(oldBuild, currentBuild)
-                })
-            })
+                if (build.hash == currentHash) {
+                    $('#builds-new').append($("<option></option>").attr("selected", "selected").attr("value", value).text(`${date.toLocaleString()} (current)`));
+                } else if (build.hash == previousHash) {
+                    $('#builds-old').append($("<option></option>").attr("selected", "selected").attr("value", value).text(`${date.toLocaleString()} (previous)`));
+                    $('#builds-new').append($("<option></option>").attr("value", value).text(`${date.toLocaleString()} (previous)`));
+                } else {
+                    $('#builds-old, #builds-new').append($("<option></option>").attr("value", value).text(date.toLocaleString()));
+                }
+            }
+
+            $('#builds-old, #builds-new').prop('disabled', false);
+            compareBuild(previousHash, currentHash)
         })
     })
+
+    $("#builds-old, #builds-new").on("change", function(ev) {
+        if (!$('#builds-old').find("option:selected").val() || !$('#builds-new').find("option:selected").val()) { return false; }
+
+        let oldItem = JSON.parse($('#builds-old').find("option:selected").val())
+        let newItem = JSON.parse($('#builds-new').find("option:selected").val())
+
+        if (oldItem.timestamp < newItem.timestamp) {
+            $("#message").hide().text("")
+            $("#loading").css('display', 'flex')
+            $("#visualdiff").empty()
+
+            compareBuild(oldItem.hash, newItem.hash)
+        } else {
+            $("#message").show().text("The old version should be earlier the new version.")
+            $("#visualdiff").empty()
+        }
+    })
+
+    function compareBuild(source, target) {
+        let now = new Date().getTime()
+
+        $.getJSON(`/data/builds/${source}.json?${now}`, function(sourceBuild) {
+            $.getJSON(`/data/builds/${target}.json?${now}`, function(targetBuild) {
+                console.log(sourceBuild, targetBuild)
+                renderDiff(sortBuild(sourceBuild), sortBuild(targetBuild))
+            })
+        })
+    }
+
+    function sortBuild(build) {
+        // This is required for the diff checker plugin to work as expected.
+
+        let newArray = {}
+
+        for (let key of Object.keys(build)) {
+            if (Array.isArray(build[key])) {
+                // Sort the main items.
+                newArray[key] = build[key].sort(function(a, b) {
+                    if (a.blueprintName) { return a.blueprintName.localeCompare(b.blueprintName) }
+                    else if (a.bountyLevel) { return a.bountyLevel.localeCompare(b.bountyLevel) }
+                    else if (a.enemyName) { return a.enemyName.localeCompare(b.enemyName) }
+                    else if (a.itemName) { return a.itemName.localeCompare(b.itemName) }
+                    else if (a.keyName) { return a.keyName.localeCompare(b.keyName) }
+                    else if (a.modName) { return a.modName.localeCompare(b.modName) }
+                    else if (a.objectiveName) { return a.objectiveName.localeCompare(b.objectiveName) }
+                    else if (a.relicName) { return a.relicName.localeCompare(b.relicName) }
+                    else { console.log(a) }
+                })
+            }
+            for (let sub of Object.keys(build[key])) {
+                // Sort the subitems.
+                if (Array.isArray(build[key][sub].mods)) {
+                    // Sort mods.
+                    newArray[key][sub].mods = build[key][sub].mods.sort(function(a, b) {
+                        if (a.modName) { return a.modName.localeCompare(b.modName) }
+                        else if (a._id) { return a._id.localeCompare(b._id) }
+                    })
+                } else if (Array.isArray(build[key][sub].enemies)) {
+                    // Sort enemies.
+                    newArray[key][sub].enemies = build[key][sub].enemies.sort(function(a, b) {
+                        if (a.enemyName) { return a.enemyName.localeCompare(b.enemyName) }
+                        else if (a._id) { return a._id.localeCompare(b._id) }
+                    })
+                } else if (Array.isArray(build[key][sub].rewards)) {
+                    // Sort rewards.
+                    newArray[key][sub].rewards = build[key][sub].rewards.sort(function(a, b) {
+                        if (a.itemName) { return a.itemName.localeCompare(b.itemName) }
+                        else if (a._id) { return a._id.localeCompare(b._id) }
+                    })
+                }
+            }
+        }
+
+        return newArray
+    }
 
     function renderDiff(old, current) {
         const delta = jsondiffpatch.create({
@@ -44,7 +445,14 @@
             },
         }).diff(old, current)
 
-        jsondiffpatch.formatters.html.hideUnchanged();
-        $("#visualdiff").html(jsondiffpatch.formatters.html.format(delta, old))
+        let html = jsondiffpatch.formatters.html.format(delta, old)
+
+        if (html) {
+            $("#visualdiff").html(jsondiffpatch.formatters.html.format(delta, old))
+        } else {
+            $("#message").show().text("The old version is the same as the new version.")
+        }
+
+        $("#loading").hide()
     }
 </script>
