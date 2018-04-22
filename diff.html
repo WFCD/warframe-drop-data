@@ -381,6 +381,21 @@
         })
     }
 
+    function sortModName(a, b) {
+        if (a.modName)   { return a.modName.localeCompare(b.modName) }
+        else if (a._id)  { return a._id.localeCompare(b._id) }
+    }
+
+    function sortEnemyName(a, b) {
+        if (a.enemyName) { return a.enemyName.localeCompare(b.enemyName) }
+        else if (a._id)  { return a._id.localeCompare(b._id) }
+    }
+
+    function sortItemName(a, b) {
+        if (a.itemName)  { return a.itemName.localeCompare(b.itemName) }
+        else if (a._id)  { return a._id.localeCompare(b._id) }
+    }
+
     function sortBuild(build) {
         // This is required for the diff checker plugin to work as expected.
 
@@ -403,43 +418,12 @@
             }
             for (let sub of Object.keys(build[key])) {
                 // Sort the subitems.
-                if (Array.isArray(build[key][sub].mods)) {
-                    // Sort mods.
-                    newArray[key][sub].mods = build[key][sub].mods.sort(function(a, b) {
-                        if (a.modName) { return a.modName.localeCompare(b.modName) }
-                        else if (a._id) { return a._id.localeCompare(b._id) }
-                    })
-                } else if (Array.isArray(build[key][sub].enemies)) {
-                    // Sort enemies.
-                    newArray[key][sub].enemies = build[key][sub].enemies.sort(function(a, b) {
-                        if (a.enemyName) { return a.enemyName.localeCompare(b.enemyName) }
-                        else if (a._id) { return a._id.localeCompare(b._id) }
-                    })
-                } else if (Array.isArray(build[key][sub].rewards)) {
-                    // Sort rewards.
-                    newArray[key][sub].rewards = build[key][sub].rewards.sort(function(a, b) {
-                        if (a.itemName) { return a.itemName.localeCompare(b.itemName) }
-                        else if (a._id) { return a._id.localeCompare(b._id) }
-                    })
-                } else if (build[key][sub]["rewards"] && Array.isArray(build[key][sub]["rewards"].A)) {
-                    // Sort rewards for rotation A.
-                    newArray[key][sub]["rewards"].A = build[key][sub]["rewards"].A.sort(function(a, b) {
-                        if (a.itemName) { return a.itemName.localeCompare(b.itemName) }
-                        else if (a._id) { return a._id.localeCompare(b._id) }
-                    })
-                } else if (build[key][sub]["rewards"] && Array.isArray(build[key][sub]["rewards"].B)) {
-                    // Sort rewards for rotation B.
-                    newArray[key][sub]["rewards"].B = build[key][sub]["rewards"].B.sort(function(a, b) {
-                        if (a.itemName) { return a.itemName.localeCompare(b.itemName) }
-                        else if (a._id) { return a._id.localeCompare(b._id) }
-                    })
-                } else if (build[key][sub]["rewards"] && Array.isArray(build[key][sub]["rewards"].C)) {
-                    // Sort rewards for rotation C.
-                    newArray[key][sub]["rewards"].C = build[key][sub]["rewards"].C.sort(function(a, b) {
-                        if (a.itemName) { return a.itemName.localeCompare(b.itemName) }
-                        else if (a._id) { return a._id.localeCompare(b._id) }
-                    })
-                }
+                if (Array.isArray(build[key][sub].mods)) { newArray[key][sub].mods = build[key][sub].mods.sort(sortModName) }
+                else if (Array.isArray(build[key][sub].enemies)) { newArray[key][sub].enemies = build[key][sub].enemies.sort(sortEnemyName) }
+                else if (Array.isArray(build[key][sub].rewards)) { newArray[key][sub].rewards = build[key][sub].rewards.sort(sortItemName) }
+                else if (build[key][sub]["rewards"] && Array.isArray(build[key][sub]["rewards"].A)) { newArray[key][sub]["rewards"].A = build[key][sub]["rewards"].A.sort(sortItemName) }
+                else if (build[key][sub]["rewards"] && Array.isArray(build[key][sub]["rewards"].B)) { newArray[key][sub]["rewards"].B = build[key][sub]["rewards"].B.sort(sortItemName) }
+                else if (build[key][sub]["rewards"] && Array.isArray(build[key][sub]["rewards"].C)) { newArray[key][sub]["rewards"].C = build[key][sub]["rewards"].C.sort(sortItemName) }
             }
         }
 
