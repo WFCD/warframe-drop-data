@@ -376,7 +376,6 @@
 
         $.getJSON(`/data/builds/${source}.json?${now}`, function(sourceBuild) {
             $.getJSON(`/data/builds/${target}.json?${now}`, function(targetBuild) {
-                console.log(sourceBuild, targetBuild)
                 renderDiff(sortBuild(sourceBuild), sortBuild(targetBuild))
             })
         })
@@ -419,6 +418,24 @@
                 } else if (Array.isArray(build[key][sub].rewards)) {
                     // Sort rewards.
                     newArray[key][sub].rewards = build[key][sub].rewards.sort(function(a, b) {
+                        if (a.itemName) { return a.itemName.localeCompare(b.itemName) }
+                        else if (a._id) { return a._id.localeCompare(b._id) }
+                    })
+                } else if (build[key][sub]["rewards"] && Array.isArray(build[key][sub]["rewards"].A)) {
+                    // Sort rewards for rotation A.
+                    newArray[key][sub]["rewards"].A = build[key][sub]["rewards"].A.sort(function(a, b) {
+                        if (a.itemName) { return a.itemName.localeCompare(b.itemName) }
+                        else if (a._id) { return a._id.localeCompare(b._id) }
+                    })
+                } else if (build[key][sub]["rewards"] && Array.isArray(build[key][sub]["rewards"].B)) {
+                    // Sort rewards for rotation B.
+                    newArray[key][sub]["rewards"].B = build[key][sub]["rewards"].B.sort(function(a, b) {
+                        if (a.itemName) { return a.itemName.localeCompare(b.itemName) }
+                        else if (a._id) { return a._id.localeCompare(b._id) }
+                    })
+                } else if (build[key][sub]["rewards"] && Array.isArray(build[key][sub]["rewards"].C)) {
+                    // Sort rewards for rotation C.
+                    newArray[key][sub]["rewards"].C = build[key][sub]["rewards"].C.sort(function(a, b) {
                         if (a.itemName) { return a.itemName.localeCompare(b.itemName) }
                         else if (a._id) { return a._id.localeCompare(b._id) }
                     })
