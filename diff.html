@@ -99,6 +99,33 @@
         margin-bottom: 0 !important;
     }
 
+    /* Allow objects and arrays to be closed. */
+    .jsondiffpatch-child-node-type-array > .jsondiffpatch-property-name,
+    .jsondiffpatch-child-node-type-object > .jsondiffpatch-property-name {
+    	cursor: pointer;
+    }
+
+    .jsondiffpatch-child-node-type-array.jsondiffpatch-child-node-closed > .jsondiffpatch-property-name:after {
+    	content: ': [ \25bc\00a0';
+    }
+
+    .jsondiffpatch-child-node-type-array > .jsondiffpatch-property-name:after {
+    	content: ': [ \25b2\00a0';
+    }
+
+    .jsondiffpatch-child-node-type-object.jsondiffpatch-child-node-closed > .jsondiffpatch-property-name:after {
+    	content: ': { \25bc\00a0';
+    }
+
+    .jsondiffpatch-child-node-type-object > .jsondiffpatch-property-name:after {
+    	content: ': { \25b2\00a0';
+    }
+
+    .jsondiffpatch-child-node-type-array.jsondiffpatch-child-node-closed > .jsondiffpatch-property-name,
+    .jsondiffpatch-child-node-type-object.jsondiffpatch-child-node-closed > .jsondiffpatch-property-name {
+    	padding-right: 0;
+    }
+
     .footer {
         position: fixed;
 
@@ -300,6 +327,18 @@
 
         if (html) {
             $("#visualdiff").html(jsondiffpatch.formatters.html.format(delta, old))
+
+            $( ".jsondiffpatch-child-node-type-array > .jsondiffpatch-property-name, .jsondiffpatch-child-node-type-object > .jsondiffpatch-property-name" ).each(function(index) {
+                $(this).on("click", function(){
+                	if ($(this).siblings().first().is(":visible")) {
+            			$(this).parent().addClass('jsondiffpatch-child-node-closed')
+            		    $(this).siblings().hide()
+                	} else {
+            			$(this).parent().removeClass('jsondiffpatch-child-node-closed')
+            		    $(this).siblings().show()
+                	}
+                })
+            })
         } else {
             $("#message").show().text("The old version is the same as the new version.")
         }
