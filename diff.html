@@ -102,28 +102,37 @@
     /* Allow objects and arrays to be closed. */
     .jsondiffpatch-child-node-type-array > .jsondiffpatch-property-name,
     .jsondiffpatch-child-node-type-object > .jsondiffpatch-property-name {
-    	cursor: pointer;
+        cursor: pointer;
     }
 
     .jsondiffpatch-child-node-type-array.jsondiffpatch-child-node-closed > .jsondiffpatch-property-name:after {
-    	content: ': [ \25bc\00a0';
+        content: ': [ \25bc\00a0';
     }
 
     .jsondiffpatch-child-node-type-array > .jsondiffpatch-property-name:after {
-    	content: ': [ \25b2\00a0';
+        content: ': [ \25b2\00a0';
     }
 
     .jsondiffpatch-child-node-type-object.jsondiffpatch-child-node-closed > .jsondiffpatch-property-name:after {
-    	content: ': { \25bc\00a0';
+        content: ': { \25bc\00a0';
     }
 
     .jsondiffpatch-child-node-type-object > .jsondiffpatch-property-name:after {
-    	content: ': { \25b2\00a0';
+        content: ': { \25b2\00a0';
     }
 
     .jsondiffpatch-child-node-type-array.jsondiffpatch-child-node-closed > .jsondiffpatch-property-name,
     .jsondiffpatch-child-node-type-object.jsondiffpatch-child-node-closed > .jsondiffpatch-property-name {
-    	padding-right: 0;
+        padding-right: 0;
+    }
+
+    /* Don't display commas on the last elements. */
+    .jsondiffpatch-child-node-type-array:last-child:after {
+        content: ']';
+    }
+
+    .jsondiffpatch-child-node-type-object:last-child:after {
+        content: ']';
     }
 
     .footer {
@@ -330,13 +339,13 @@
 
             $( ".jsondiffpatch-child-node-type-array > .jsondiffpatch-property-name, .jsondiffpatch-child-node-type-object > .jsondiffpatch-property-name" ).each(function(index) {
                 $(this).on("click", function(){
-                	if ($(this).siblings().first().is(":visible")) {
-            			$(this).parent().addClass('jsondiffpatch-child-node-closed')
-            		    $(this).siblings().hide()
-                	} else {
-            			$(this).parent().removeClass('jsondiffpatch-child-node-closed')
-            		    $(this).siblings().show()
-                	}
+                    if ($(this).siblings().first().is(":visible")) {
+                        $(this).parent().addClass('jsondiffpatch-child-node-closed')
+                        $(this).siblings().hide()
+                    } else {
+                        $(this).parent().removeClass('jsondiffpatch-child-node-closed')
+                        $(this).siblings().show()
+                    }
                 })
             })
         } else {
