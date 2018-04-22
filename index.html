@@ -282,13 +282,13 @@
         }
 
         // blueprint locations
-        for(let blueprint of data.blueprintLocations) {
-            for(let enemy of blueprint.enemies) {
+        for(let item of data.blueprintLocations) {
+            for(let enemy of item.enemies) {
                 newData.push({
                     place: enemy.enemyName,
-                    item: blueprint.blueprintName,
+                    item: item.itemName,
                     rarity: enemy.rarity,
-                    chance: (((enemy.enemyBlueprintDropChance / 100) * (enemy.chance / 100)) * 100).toFixed(2)
+                    chance: (((enemy.enemyItemDropChance / 100) * (enemy.chance / 100)) * 100).toFixed(2)
                 })
             }
         }
