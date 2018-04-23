@@ -29,7 +29,7 @@ Data structure:
   "enemyModTables": [ { ... } ],
   "keyRewards": [ { ... } ],
   "miscItems": [ { ... } ],
-  "missionRewards": { { ... } },
+  "missionRewards": { "Earth": { ... } },
   "modLocations": [ { ... } ],
   "relics": [ { ... } ],
   "sortieRewards": [ { ... } ],
@@ -75,7 +75,7 @@ Data structure:
     },
     "Bere": { ... }
   },
-  { ... }
+  "Earth": { ... }
 }
 ```
 
@@ -376,7 +376,7 @@ Data structure:
   "enemyModTables": [ { ... } ],
   "keyRewards": [ { ... } ],
   "miscItems": [ { ... } ],
-  "missionRewards": { { ... } },
+  "missionRewards": { "Earth": { ... } },
   "modLocations": [ { ... } ],
   "relics": [ { ... } ],
   "sortieRewards": [ { ... } ],
