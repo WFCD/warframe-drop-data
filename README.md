@@ -23,17 +23,17 @@ All data from the website in one single file.
 Data structure:
 ```json
 {
-  "blueprintLocations": [ (...) ],
-  "cetusBountyRewards": [ (...) ],
-  "enemyBlueprintTables": [ (...) ],
-  "enemyModTables": [ (...) ],
-  "keyRewards": [ (...) ],
-  "miscItems": [ (...) ],
-  "missionRewards": { (...) },
-  "modLocations": [ (...) ],
-  "relics": [ (...) ],
-  "sortieRewards": [ (...) ],
-  "transientRewards": [ (...) ]
+  "blueprintLocations": [ {...} ],
+  "cetusBountyRewards": [ {...} ],
+  "enemyBlueprintTables": [ {...} ],
+  "enemyModTables": [ {...} ],
+  "keyRewards": [ {...} ],
+  "miscItems": [ {...} ],
+  "missionRewards": { {...} },
+  "modLocations": [ {...} ],
+  "relics": [ {...} ],
+  "sortieRewards": [ {...} ],
+  "transientRewards": [ {...} ]
 }
 ```
 
@@ -68,14 +68,14 @@ Data structure:
             "chance": 11.11,
             "rarity": "Uncommon"
           },
-          (...)
+          {...}
         ],
-        (...)
+        [...]
       }
     },
-    (...)
+    {...}
   },
-  (...)
+  {...}
 }
 ```
 
@@ -96,9 +96,9 @@ Data structure:
         "chance": 11.11,
         "rarity": "Uncommon"
       },
-      (...)
+      {...}
     ],
-    (...)
+    {...}
   }
 }
 ```
@@ -122,10 +122,10 @@ Data structure:
         "chance": 11,
         "rarity": "Uncommon"
       },
-      (...)
+      {...}
     ]
   },
-  (...)
+  {...}
 ]
 ```
 
@@ -148,9 +148,9 @@ Data structure:
         "chance": 11,
         "rarity": "Uncommon"
       },
-      (...)
+      {...}
     ],
-    (...)
+    [...]
   }
 }
 ```
@@ -171,10 +171,10 @@ Data structure:
         "chance": 4.17,
         "rarity": "Rare"
       },
-      (...)
+      {...}
     ]
   },
-  (...)
+  {...}
 ]
 ```
 
@@ -191,7 +191,7 @@ Data structure:
     "chance": 12.1,
     "rarity": "Uncommon"
   },
-  (...)
+  {...}
 ]
 ```
 
@@ -213,10 +213,10 @@ Data structure:
         "chance": 7.37,
         "rarity": "Rare"
       },
-      (...)
+      {...}
     ]
   },
-  (...)
+  {...}
 ]
 ```
 
@@ -230,7 +230,7 @@ Data structure:
   {
     "_id": "2757006e018c952e40a6e3cf74048420",
     "enemyName": "002-Er",
-    "ememyModDropChance": "10.00",
+    "enemyModDropChance": "10.00",
     "mods": [
       {
         "_id": "74ab77f66f97e146b6cef713a370e105",
@@ -238,10 +238,10 @@ Data structure:
         "chance": 12.5,
         "rarity": "Uncommon"
       },
-      (...)
+      {...}
     ]
   },
-  (...)
+  {...}
 ]
 ```
 
@@ -263,10 +263,10 @@ Data structure:
         "chance": 100,
         "rarity": "Common"
       },
-      (...)
+      {...}
     ]
   },
-  (...)
+  {...}
 ]
 ```
 
@@ -288,10 +288,10 @@ Data structure:
         "chance": 38.72,
         "rarity": "Common"
       },
-      (...)
+      {...}
     ]
   },
-  (...)
+  {...}
 ]
 ```
 
@@ -314,12 +314,12 @@ Data structure:
           "chance": 25,
           "rarity": "Uncommon"
         },
-        (...)
+        {...}
       ],
-      (...)
+      {...}
     }
   },
-  (...)
+  {...}
 ]
 ```
 
@@ -333,7 +333,7 @@ Data structure:
   {
     "_id": "abce816f002a752c88308d5f6658427c",
     "enemyName": "Akkalak Turret",
-    "ememyItemDropChance": "70.00",
+    "enemyItemDropChance": "70.00",
     "items": [
       {
         "_id": "a3ab4147ff1f344ae81bc8fd301a4ba5",
@@ -341,10 +341,10 @@ Data structure:
         "chance": 68.02,
         "rarity": "Common"
       },
-      (...)
+      {...}
     ]
   },
-  (...)
+  {...}
 ]
 ```
 
@@ -359,7 +359,7 @@ Data structure:
     "hash": "31f5a49b9000520bc3298327128afb98",
     "timestamp": 1524411458909
   },
-  (...)
+  {...}
 ]
 ```
 
@@ -370,17 +370,17 @@ The `all.json` file of the given hash. Other files, such as `missionRewards.json
 Data structure:
 ```json
 {
-  "blueprintLocations": [ (...) ],
-  "cetusBountyRewards": [ (...) ],
-  "enemyBlueprintTables": [ (...) ],
-  "enemyModTables": [ (...) ],
-  "keyRewards": [ (...) ],
-  "miscItems": [ (...) ],
-  "missionRewards": { (...) },
-  "modLocations": [ (...) ],
-  "relics": [ (...) ],
-  "sortieRewards": [ (...) ],
-  "transientRewards": [ (...) ]
+  "blueprintLocations": [ {...} ],
+  "cetusBountyRewards": [ {...} ],
+  "enemyBlueprintTables": [ {...} ],
+  "enemyModTables": [ {...} ],
+  "keyRewards": [ {...} ],
+  "miscItems": [ {...} ],
+  "missionRewards": { {...} },
+  "modLocations": [ {...} ],
+  "relics": [ {...} ],
+  "sortieRewards": [ {...} ],
+  "transientRewards": [ {...} ]
 }
 ```
 
