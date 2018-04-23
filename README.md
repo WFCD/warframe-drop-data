@@ -21,7 +21,7 @@ You can access the data via normal HTTP requests, which makes it usable like an 
 All data from the website in one single file.
 
 Data structure:
-```
+```json
 {
   "blueprintLocations": [ (...) ],
   "cetusBountyRewards": [ (...) ],
@@ -42,7 +42,7 @@ Data structure:
 The metadata of the current build. Updates when Digital Extremes' website is updated.
 
 Data structure:
-```
+```json
 {
   "hash": "31f5a49b9000520bc3298327128afb98",
   "timestamp": 1524411458909
@@ -54,7 +54,7 @@ Data structure:
 All mission rewards, like what drops where and in which rotation. [(Source)](https://n8k6e2y6.ssl.hwcdn.net/repos/hnfvc0o3jnfvc873njb03enrf56.html#missionRewards)
 
 Data structure:
-```
+```json
 "missionRewards": {
   "Sedna": {
     "Hydron": {
@@ -84,7 +84,7 @@ Data structure:
 Drop data for a specific location. Example: ```/data/missionRewards/Eris/Xini.json```.
 
 Data structure:
-```
+```json
 "Hydron": {
   "gameMode": "Defense",
   "isEvent": false,
@@ -108,7 +108,7 @@ Data structure:
 All relics, what they contain, rarity etc. [(Source)](https://n8k6e2y6.ssl.hwcdn.net/repos/hnfvc0o3jnfvc873njb03enrf56.html#relicRewards)
 
 Data structure:
-```
+```json
 "relics": [
   {
     "_id": "4e4d817f8c2d887316c6d8add253403e",
@@ -134,7 +134,7 @@ Data structure:
 Data for a specific relic. Example: ```/data/relics/Axi/R1.json```.
 
 Data structure:
-```
+```json
 {
   "_id": "4e4d817f8c2d887316c6d8add253403e",
   "tier": "Axi",
@@ -160,11 +160,11 @@ Data structure:
 Rewards not tied to a specific location, like mods dropped by Nightmare Mode missions. [(Source)](https://n8k6e2y6.ssl.hwcdn.net/repos/hnfvc0o3jnfvc873njb03enrf56.html#transientRewards)
 
 Data structure:
-```
+```json
 "transientRewards": [
   {
     "objectiveName": "Derelict Vault",
-    "rewards": {
+    "rewards": [
       {
         "_id": "24a4a903a7846a300d6b04e914e52e1b",
         "itemName": "Anemic Agility",
@@ -172,7 +172,7 @@ Data structure:
         "rarity": "Rare"
       },
       (...)
-    }
+    ]
   },
   (...)
 ]
@@ -183,7 +183,7 @@ Data structure:
 Sortie rewards. [(Source)](https://n8k6e2y6.ssl.hwcdn.net/repos/hnfvc0o3jnfvc873njb03enrf56.html#sortieRewards)
 
 Data structure:
-```
+```json
 "sortieRewards": [
   {
     "_id": "b3c734177040ffb494609a27d87d4841",
@@ -200,7 +200,7 @@ Data structure:
 Mod drops sorted by mod. [(Source)](https://n8k6e2y6.ssl.hwcdn.net/repos/hnfvc0o3jnfvc873njb03enrf56.html#modLocations)
 
 Data structure:
-```
+```json
 "modLocations": [
   {
     "_id": "b3c734177040ffb494609a27d87d4841",
@@ -225,7 +225,7 @@ Data structure:
 Mod drops sorted by enemy. [(Source)](https://n8k6e2y6.ssl.hwcdn.net/repos/hnfvc0o3jnfvc873njb03enrf56.html#enemyModTables)
 
 Data structure:
-```
+```json
 "modLocations": [
   {
     "_id": "2757006e018c952e40a6e3cf74048420",
@@ -250,7 +250,7 @@ Data structure:
 Blueprints and part drops sorted by enemy. [(Source)](https://n8k6e2y6.ssl.hwcdn.net/repos/hnfvc0o3jnfvc873njb03enrf56.html#enemyBlueprintTables)
 
 Data structure:
-```
+```json
 "enemyBlueprintTables": [
   {
     "_id": "6ba71181fe67be210250c59fdf06ecb8",
@@ -275,7 +275,7 @@ Data structure:
 Blueprints and part drops sorted by item. [(Source)](https://n8k6e2y6.ssl.hwcdn.net/repos/hnfvc0o3jnfvc873njb03enrf56.html#blueprintLocations)
 
 Data structure:
-```
+```json
 "blueprintLocations": [
   {
     "_id": "2d200b684ad2bac2184a5edc3a9655cb",
@@ -300,18 +300,18 @@ Data structure:
 Drop data for Cetus bounty missions. [(Source)](https://n8k6e2y6.ssl.hwcdn.net/repos/hnfvc0o3jnfvc873njb03enrf56.html#cetusRewards)
 
 Data structure:
-```
-"cetusBountyRewards": {
+```json
+"cetusBountyRewards": [
   {
     "_id": "0b9c958b277561c57f47390f5db201ef",
     "bountyLevel": "Level 10 - 30 Bounty",
     "rewards": {
       "A": [
         {
-          "_id": "2d220168d8505314316354e586fe4c7e"
-          "stage": "Stage 1"
-          "itemName": "100 Endo"
-          "chance": 25
+          "_id": "2d220168d8505314316354e586fe4c7e",
+          "stage": "Stage 1",
+          "itemName": "100 Endo",
+          "chance": 25,
           "rarity": "Uncommon"
         },
         (...)
@@ -320,7 +320,7 @@ Data structure:
     }
   },
   (...)
-}
+]
 ```
 
 ### /data/miscItems.json
@@ -328,7 +328,7 @@ Data structure:
 Miscellanous enemy item drops. [(Source)](https://n8k6e2y6.ssl.hwcdn.net/repos/hnfvc0o3jnfvc873njb03enrf56.html#miscItems)
 
 Data structure:
-```
+```json
 "miscItems": [
   {
     "_id": "abce816f002a752c88308d5f6658427c",
@@ -353,7 +353,7 @@ Data structure:
 A list of available builds and their timestamps.
 
 Data structure:
-```
+```json
 [
   {
     "hash": "31f5a49b9000520bc3298327128afb98",
@@ -368,7 +368,7 @@ Data structure:
 The `all.json` file of the given hash. Other files, such as `missionRewards.json` are not available for previous builds.
 
 Data structure:
-```
+```json
 {
   "blueprintLocations": [ (...) ],
   "cetusBountyRewards": [ (...) ],
