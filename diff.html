@@ -342,13 +342,13 @@
                     else if (a.modName) { return a.modName.localeCompare(b.modName) }
                     else if (a.objectiveName) { return a.objectiveName.localeCompare(b.objectiveName) }
                     else if (a.relicName) { return a.relicName.localeCompare(b.relicName) }
-                    else { console.log(a) }
                 })
             }
             for (let sub of Object.keys(build[key])) {
                 // Sort the subitems.
                 if (Array.isArray(build[key][sub].mods)) { newArray[key][sub].mods = build[key][sub].mods.sort(sortModName) }
                 else if (Array.isArray(build[key][sub].enemies)) { newArray[key][sub].enemies = build[key][sub].enemies.sort(sortEnemyName) }
+                else if (Array.isArray(build[key][sub].items)) { newArray[key][sub].items = build[key][sub].items.sort(sortItemName) }
                 else if (Array.isArray(build[key][sub].rewards)) { newArray[key][sub].rewards = build[key][sub].rewards.sort(sortItemName) }
                 else if (build[key][sub]["rewards"] && Array.isArray(build[key][sub]["rewards"].A)) { newArray[key][sub]["rewards"].A = build[key][sub]["rewards"].A.sort(sortItemName) }
                 else if (build[key][sub]["rewards"] && Array.isArray(build[key][sub]["rewards"].B)) { newArray[key][sub]["rewards"].B = build[key][sub]["rewards"].B.sort(sortItemName) }
