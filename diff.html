@@ -62,6 +62,14 @@
         margin: 0 0.5rem;
     }
 
+    /* Disable text selection in jsondiff. */
+    .jsondiffpatch-delta {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -khtml-user-select: none;
+        -ms-user-select: none;
+    }
+
     /* Hide specific unchanged objects. */
     .jsondiffpatch-delta > ul > li.jsondiffpatch-unchanged,
     .jsondiffpatch-delta > ul > li > ul > li.jsondiffpatch-unchanged,
@@ -134,6 +142,16 @@
     .jsondiffpatch-child-node-type-array.jsondiffpatch-child-node-closed > .jsondiffpatch-property-name,
     .jsondiffpatch-child-node-type-object.jsondiffpatch-child-node-closed > .jsondiffpatch-property-name {
         padding-right: 0;
+    }
+
+    /* Allow big change blocks (pre starting with "[" or "{") to be closed. */
+    .jsondiffpatch-value-toggleable {
+        cursor: pointer;
+    }
+
+    .jsondiffpatch-value-closed {
+        height: 19px;
+        overflow: hidden;
     }
 
     /* Don't display commas on the last elements. */
@@ -346,6 +364,21 @@
 
         if (html) {
             $("#visualdiff").html(jsondiffpatch.formatters.html.format(delta, old))
+
+            $(".jsondiffpatch-added pre, .jsondiffpatch-deleted pre").each(function(index) {
+                if ($(this).text().match(/^\[/) || $(this).text().match(/^\{/)) {
+                    $(this).parent().addClass('jsondiffpatch-value-toggleable')
+                    $(this).on("click", function() {
+                        if (!$(this).data('toggled')) {
+                            $(this).parent().addClass('jsondiffpatch-value-closed')
+                            $(this).data('toggled', true)
+                        } else {
+                            $(this).parent().removeClass('jsondiffpatch-value-closed')
+                            $(this).data('toggled', false)
+                        }
+                    })
+                }
+            })
 
             $( ".jsondiffpatch-child-node-type-array > .jsondiffpatch-property-name, .jsondiffpatch-child-node-type-object > .jsondiffpatch-property-name" ).each(function(index) {
                 $(this).on("click", function(){
