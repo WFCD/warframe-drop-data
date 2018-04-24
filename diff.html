@@ -344,15 +344,33 @@
                     else if (a.relicName) { return a.relicName.localeCompare(b.relicName) }
                 })
             }
+
             for (let sub of Object.keys(build[key])) {
                 // Sort the subitems.
                 if (Array.isArray(build[key][sub].mods)) { newArray[key][sub].mods = build[key][sub].mods.sort(sortModName) }
                 else if (Array.isArray(build[key][sub].enemies)) { newArray[key][sub].enemies = build[key][sub].enemies.sort(sortEnemyName) }
                 else if (Array.isArray(build[key][sub].items)) { newArray[key][sub].items = build[key][sub].items.sort(sortItemName) }
                 else if (Array.isArray(build[key][sub].rewards)) { newArray[key][sub].rewards = build[key][sub].rewards.sort(sortItemName) }
-                else if (build[key][sub]["rewards"] && Array.isArray(build[key][sub]["rewards"].A)) { newArray[key][sub]["rewards"].A = build[key][sub]["rewards"].A.sort(sortItemName) }
-                else if (build[key][sub]["rewards"] && Array.isArray(build[key][sub]["rewards"].B)) { newArray[key][sub]["rewards"].B = build[key][sub]["rewards"].B.sort(sortItemName) }
-                else if (build[key][sub]["rewards"] && Array.isArray(build[key][sub]["rewards"].C)) { newArray[key][sub]["rewards"].C = build[key][sub]["rewards"].C.sort(sortItemName) }
+                else if (build[key][sub]["rewards"] && Array.isArray(build[key][sub]["rewards"]["A"]) && Array.isArray(build[key][sub]["rewards"]["B"]) && Array.isArray(build[key][sub]["rewards"]["C"])) {
+                    newArray[key][sub]["rewards"]["A"] = build[key][sub]["rewards"]["A"].sort(sortItemName)
+                    newArray[key][sub]["rewards"]["B"] = build[key][sub]["rewards"]["B"].sort(sortItemName)
+                    newArray[key][sub]["rewards"]["C"] = build[key][sub]["rewards"]["C"].sort(sortItemName)
+                }
+                else {
+                    if (key === "missionRewards") {
+                        // Handle the planets.
+                        newArray["missionRewards"] = build.missionRewards
+
+                        for (let mission of Object.keys(build[key][sub])) {
+                            if (Array.isArray(build[key][sub][mission].rewards)) { newArray[key][sub][mission].rewards = build[key][sub][mission].rewards.sort(sortItemName) }
+                            else if (build[key][sub][mission]["rewards"] && Array.isArray(build[key][sub][mission]["rewards"]["A"]) && Array.isArray(build[key][sub][mission]["rewards"]["B"]) && Array.isArray(build[key][sub][mission]["rewards"]["C"])) {
+                                newArray[key][sub][mission]["rewards"]["A"] = build[key][sub][mission]["rewards"]["A"].sort(sortItemName)
+                                newArray[key][sub][mission]["rewards"]["B"] = build[key][sub][mission]["rewards"]["B"].sort(sortItemName)
+                                newArray[key][sub][mission]["rewards"]["C"] = build[key][sub][mission]["rewards"]["C"].sort(sortItemName)
+                            }
+                        }
+                    }
+                }
             }
         }
 
