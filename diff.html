@@ -263,7 +263,14 @@
             }
 
             $('#builds-old, #builds-new').prop('disabled', false);
-            compareBuild(previousHash, currentHash)
+
+            let query = window.location.hash.split('/')
+
+            if (query && query.length > 3 && query[1] === 'compare') {
+                compareBuild(query[2], query[3])
+            } else {
+                compareBuild(previousHash, currentHash)
+            }
         })
     })
 
@@ -274,6 +281,8 @@
         let newItem = JSON.parse($('#builds-new').find("option:selected").val())
 
         if (oldItem.timestamp < newItem.timestamp) {
+            window.location.hash = `/compare/${oldItem.hash}/${newItem.hash}`
+
             $("#message").hide().text("")
             $("#loading").css('display', 'flex')
             $("#visualdiff").empty()
@@ -291,7 +300,13 @@
         $.getJSON(`/data/builds/${source}.json?${now}`, function(sourceBuild) {
             $.getJSON(`/data/builds/${target}.json?${now}`, function(targetBuild) {
                 renderDiff(sortBuild(sourceBuild), sortBuild(targetBuild))
+            }).fail(function(event, jqxhr, exception) {
+                $("#message").show().text(`Could not load "${target}.json".`)
+                $("#loading").hide()
             })
+        }).fail(function(event, jqxhr, exception) {
+            $("#message").show().text(`Could not load "${source}.json".`)
+            $("#loading").hide()
         })
     }
 
