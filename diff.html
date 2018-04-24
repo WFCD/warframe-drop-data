@@ -70,6 +70,12 @@
         display: none;
         visibility: hidden;
     }
+    
+    /* Hide "_id" fields if they are unchanged. */
+    .jsondiffpatch-unchanged[data-key="_id"] {
+        display: none;
+        visibility: hidden;
+    }
 
     /* Display identifiers to get some context. */
     .jsondiffpatch-unchanged[data-key="enemyName"],
