@@ -158,7 +158,7 @@
     }
 
     // used for some hacks ;)
-    const CURR_SCRIPT_VERSION = 8
+    const CURR_SCRIPT_VERSION = 9
 
     // convert data to avoid having to redownload it
     function updateData(fromVersion, toVersion) {
@@ -327,7 +327,7 @@
         for(let relic of data.relics) {
             for(let item of relic.rewards) {
                 newData.push({
-                    place: `${relic.tier} ${relic.relicName} ${relic.state}`,
+                    place: `${relic.tier} ${relic.relicName} Relic (${relic.state})`,
                     item: item.itemName,
                     rarity: item.rarity,
                     chance: item.chance
@@ -351,7 +351,7 @@
                 let rotation = ""
 
                 if(reward.rotation) {
-                    rotation = ` ${reward.rotation}`
+                    rotation = `, Rotation ${reward.rotation}`
                 }
 
                 newData.push({
