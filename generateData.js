@@ -65,7 +65,7 @@ request(config.dropDataUrl, (err, res, body) => {
     const info = {
         hash: hash,
         timestamp: (new Date().getTime()),
-        last_modified: date
+        modified: date
     }
 
     trymkdir(path.resolve(__dirname, "data"))
