@@ -18,31 +18,33 @@
 <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Raleway:400,300,600" type="text/css">
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 <style>
-    #loading {
+    #no-script, #loading {
         position: absolute;
+        padding: 10px;
 
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
 
-        background-color: #363636;
-        color: white;
+        background-color: white;
+        opacity: 0.8;
+        font-size: 3rem;
 
-        display: flex;
         justify-content: space-around;
         align-items: center;
-
-        font-size: 30vw;
+        text-align: center;
 
         z-index: 9999;
     }
 
-    .header {
-        text-align: center;
+    #no-script i, #loading i {
+        font-size: 9rem;
+        margin-bottom: 25px;
     }
 
-    .content {
+    .header {
+        text-align: center;
     }
 
     .searchfield {
@@ -50,12 +52,14 @@
         margin-top: 50px;
     }
 
-    #tablebody th::before {
-        content: "# ";
-    }
-
     th {
         cursor: pointer;
+        min-width: 75px;
+    }
+
+    th i {
+        float: right;
+        line-height: 1.4 !important;
     }
 
     td.msg {
@@ -94,8 +98,18 @@
     }
 </style>
 
-<div id="loading">
-    <i class="fa fa-refresh fa-spin"></i>
+<div id="no-script" style="display: flex;">
+    <p>
+        <i class="fa fa-warning"></i><br />
+        This website requires JavaScript.
+    </p>
+</div>
+
+<div id="loading" style="display: none;">
+    <p>
+        <i class="fa fa-refresh fa-spin"></i><br />
+        Loading, please wait...
+    </p>
 </div>
 
 <section>
@@ -104,7 +118,7 @@
             <div>
                 <img src="misc/logo.png" height="64">
                 <h5>Warframe Drop Data</h5>
-                <a target="_blank" href="https://github.com/WFCD/warframe-drop-data#api-endpoints">API Documentation</a> | <a target="_blank" href="https://github.com/WFCD/warframe-drop-data">Github</a>
+                <a href="./diff.html">Compare Versions</a> | <a target="_blank" href="https://github.com/WFCD/warframe-drop-data#api-endpoints">API Documentation</a> | <a target="_blank" href="https://github.com/WFCD/warframe-drop-data">Github</a>
             </div>
 
             <div>
@@ -128,13 +142,17 @@
 </section>
 
 <footer class="footer">
-    <b>NOTE</b>: This data is parsed from <a href="https://n8k6e2y6.ssl.hwcdn.net/repos/hnfvc0o3jnfvc873njb03enrf56.html" target="_blank">Digital Extremes official drop data website</a>, no data mining was involved.
-    Build time: <span id="lastbuildtime">...</span>
+    <b>NOTE</b>: This data is parsed from <a href="https://n8k6e2y6.ssl.hwcdn.net/repos/hnfvc0o3jnfvc873njb03enrf56.html" target="_blank">Digital Extremes' official drop data website</a>, no data mining was involved.
+    Build time: <span id="lastbuildtime">Unknown</span>
 </footer>
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/vue/2.4.2/vue.min.js"></script>
 <script>
+    // We have JS, yay! Show loading screen.
+    $("#no-script").hide()
+    $("#loading").css('display', 'flex')
+
     String.prototype.contains = function(substr) {
         return this.toLowerCase().indexOf(substr.toLowerCase()) > -1
     }
@@ -194,12 +212,14 @@
 
         let query = window.location.hash.split('/')
 
-        if (query && query.length > 3 && query[3].match(/(items|locations|both)/)) {
-            $("#search-field").val(decodeURIComponent(query[2]))
-            $("#search-type").val(decodeURIComponent(query[3]))
-        } else if (query && query.length > 2) {
-            $("#search-field").val(decodeURIComponent(query[2]))
-            $("#search-type").val(decodeURIComponent('items'))
+        if (query && query.length > 2 && query[1] === 'search') {
+            if (query.length > 3 && query[3].match(/(items|locations|both)/)) {
+                $("#search-field").val(decodeURIComponent(query[2]))
+                $("#search-type").val(decodeURIComponent(query[3]))
+            } else {
+                $("#search-field").val(decodeURIComponent(query[2]))
+                $("#search-type").val(decodeURIComponent('items'))
+            }
         }
 
         const searchFieldValue = $("#search-field").val()
@@ -231,14 +251,12 @@
 
         window.location.hash = `/search/${encodeURIComponent(searchValue)}/${type}`
 
-        console.log("searching for", searchValue, "in", type)
-
         if (type === 'items')           { items = window._data.filter(entry => entry.item.contains(searchValue)) }
         else if (type === 'locations')  { items = window._data.filter(entry => entry.place.contains(searchValue)) }
         else if (type === 'both')       { items = window._data.filter(entry => entry.item.contains(searchValue) || entry.place.contains(searchValue)) }
         else                            { items = window._data.filter(entry => entry.item.contains(searchValue)) }
 
-        fill(items, 'chance', false)
+        fill(items, 'rarity', false)
     }
 
     function formatData(data) {
@@ -376,16 +394,7 @@
         return newData
     }
 
-    /* data structure (in array)
-        {
-            place: Eris/Xini Rotation A
-            item: Vitality
-            rarity: Rare
-            chance: 9.09
-        }
-    */
     function fill(data, sort, reverse) {
-        // clear content pane
         $("#tablebody").empty()
 
         if(data.length === 0) {
@@ -403,27 +412,24 @@
 
         let itemIcon = sort === 'item' ? `<i class="fa fa-sort-alpha-${ reverse ? 'desc' : 'asc' }" aria-hidden="true"></i>` : ''
         let placeIcon = sort === 'place' ? `<i class="fa fa-sort-alpha-${ reverse ? 'desc' : 'asc' }" aria-hidden="true"></i>` : ''
-        let chanceIcon = sort === 'chance' ? `<i class="fa fa-sort-amount-${ reverse ? 'asc' : 'desc' }" aria-hidden="true"></i>` : ''
+        let rarityIcon = sort === 'rarity' ? `<i class="fa fa-sort-amount-${ reverse ? 'asc' : 'desc' }" aria-hidden="true"></i>` : ''
 
         $("#tablebody").append(`<tr>
             <th id="item">Item Name ${itemIcon}</th>
             <th id="place">Drops ${placeIcon}</th>
-            <th>Rarity</th>
-            <th id="chance">Chance ${chanceIcon}</th>
+            <th id="rarity">Rarity ${rarityIcon}</th>
         </tr>`)
 
         for(let obj of data) {
             $("#tablebody").append(`<tr>
                 <td>${obj.item}</td>
                 <td>${obj.place}</td>
-                <td>${obj.rarity}</td>
-                <td><b>${obj.chance}%</b></td>
+                <td>${obj.rarity} (<b>${obj.chance}%</b>)</td>
             </tr>`)
         }
 
         $("th").on("click", function(ev) {
             if (this.id) { fill(data, this.id, sort === this.id ? !reverse : false) }
         })
-
     }
 </script>
