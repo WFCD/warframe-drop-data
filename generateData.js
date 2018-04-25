@@ -130,11 +130,11 @@ request(config.dropDataUrl, (err, res, body) => {
         for(let location of Object.keys(data.missionRewards[planet])) {
             trymkdir(path.resolve(__dirname, `data`, `missionRewards`, `${planet}`))
 
-            console.log(`Writing... /data/missionRewards/${planet}/${location.replace(':', '').replace(')', '')}.json`)
+            console.log(`Writing... /data/missionRewards/${planet}/${location.replace(':', '')}.json`)
             let missionData = Object.assign({}, data.missionRewards[planet][location])
             missionData.planet = planet
             missionData.location = location
-            fs.writeFileSync(path.resolve(__dirname, `data`, `missionRewards`, `${planet}`, `${location.replace(':', '').replace(')', '')}.json`), JSON.stringify(missionData, null, jsonFormat))
+            fs.writeFileSync(path.resolve(__dirname, `data`, `missionRewards`, `${planet}`, `${location.replace(':', '')}.json`), JSON.stringify(missionData, null, jsonFormat))
         }
     }
 
