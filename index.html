@@ -140,7 +140,7 @@
     }
 
     // used for some hacks ;)
-    const CURR_SCRIPT_VERSION = 7
+    const CURR_SCRIPT_VERSION = 8
 
     // convert data to avoid having to redownload it
     function updateData(fromVersion, toVersion) {
@@ -282,13 +282,13 @@
         }
 
         // blueprint locations
-        for(let blueprint of data.blueprintLocations) {
-            for(let enemy of blueprint.enemies) {
+        for(let item of data.blueprintLocations) {
+            for(let enemy of item.enemies) {
                 newData.push({
                     place: enemy.enemyName,
-                    item: blueprint.blueprintName,
+                    item: item.itemName,
                     rarity: enemy.rarity,
-                    chance: (((enemy.enemyBlueprintDropChance / 100) * (enemy.chance / 100)) * 100).toFixed(2)
+                    chance: (((enemy.enemyItemDropChance / 100) * (enemy.chance / 100)) * 100).toFixed(2)
                 })
             }
         }
@@ -358,6 +358,18 @@
                         chance: reward.chance
                     })
                 }
+            }
+        }
+
+        // misc enemy drops
+        for(let enemy of data.miscItems) {
+            for(let item of enemy.items) {
+                newData.push({
+                    place: enemy.enemyName,
+                    item: item.itemName,
+                    rarity: item.rarity,
+                    chance: (((enemy.ememyItemDropChance / 100) * (item.chance / 100)) * 100).toFixed(2)
+                })
             }
         }
 

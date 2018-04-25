@@ -57,11 +57,15 @@ request(config.dropDataUrl, (err, res, body) => {
         sortieRewards: require("./lib/sortieRewards.js")($),
         keyRewards: require("./lib/keyRewards.js")($),
         cetusBountyRewards: require("./lib/cetusBountyRewards.js")($),
+        miscItems: require("./lib/miscItems.js")($),
     }
+
+    let date = new Date(res.headers["last-modified"]).getTime()
 
     const info = {
         hash: hash,
-        timestamp: (new Date().getTime())
+        timestamp: (new Date().getTime()),
+        modified: date
     }
 
     trymkdir(path.resolve(__dirname, "data"))
@@ -116,6 +120,9 @@ request(config.dropDataUrl, (err, res, body) => {
     console.log("Writing... /data/cetusBountyRewards.json")
     fs.writeFileSync(path.resolve(__dirname, "data", "cetusBountyRewards.json"), JSON.stringify({cetusBountyRewards: data.cetusBountyRewards}, null, jsonFormat))
 
+    console.log("Writing... /data/miscItems.json")
+    fs.writeFileSync(path.resolve(__dirname, "data", "miscItems.json"), JSON.stringify({miscItems: data.miscItems}, null, jsonFormat))
+
     trymkdir(path.resolve(__dirname, `data`, `missionRewards`))
 
     // write structure
@@ -123,11 +130,11 @@ request(config.dropDataUrl, (err, res, body) => {
         for(let location of Object.keys(data.missionRewards[planet])) {
             trymkdir(path.resolve(__dirname, `data`, `missionRewards`, `${planet}`))
 
-            console.log(`Writing... /data/missionRewards/${planet}/${location}.json`)
+            console.log(`Writing... /data/missionRewards/${planet}/${location.replace(':', '').replace(')', '')}.json`)
             let missionData = Object.assign({}, data.missionRewards[planet][location])
             missionData.planet = planet
             missionData.location = location
-            fs.writeFileSync(path.resolve(__dirname, `data`, `missionRewards`, `${planet}`, `${location}.json`), JSON.stringify(missionData, null, jsonFormat))
+            fs.writeFileSync(path.resolve(__dirname, `data`, `missionRewards`, `${planet}`, `${location.replace(':', '').replace(')', '')}.json`), JSON.stringify(missionData, null, jsonFormat))
         }
     }
 
