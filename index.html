@@ -251,14 +251,12 @@
 
         window.location.hash = `/search/${encodeURIComponent(searchValue)}/${type}`
 
-        console.log("searching for", searchValue, "in", type)
-
         if (type === 'items')           { items = window._data.filter(entry => entry.item.contains(searchValue)) }
         else if (type === 'locations')  { items = window._data.filter(entry => entry.place.contains(searchValue)) }
         else if (type === 'both')       { items = window._data.filter(entry => entry.item.contains(searchValue) || entry.place.contains(searchValue)) }
         else                            { items = window._data.filter(entry => entry.item.contains(searchValue)) }
 
-        fill(items, 'chance', false)
+        fill(items, 'rarity', false)
     }
 
     function formatData(data) {
@@ -384,16 +382,7 @@
         return newData
     }
 
-    /* data structure (in array)
-        {
-            place: Eris/Xini Rotation A
-            item: Vitality
-            rarity: Rare
-            chance: 9.09
-        }
-    */
     function fill(data, sort, reverse) {
-        // clear content pane
         $("#tablebody").empty()
 
         if(data.length === 0) {
@@ -412,27 +401,23 @@
         let itemIcon = sort === 'item' ? `<i class="fa fa-sort-alpha-${ reverse ? 'desc' : 'asc' }" aria-hidden="true"></i>` : ''
         let placeIcon = sort === 'place' ? `<i class="fa fa-sort-alpha-${ reverse ? 'desc' : 'asc' }" aria-hidden="true"></i>` : ''
         let rarityIcon = sort === 'rarity' ? `<i class="fa fa-sort-alpha-${ reverse ? 'desc' : 'asc' }" aria-hidden="true"></i>` : ''
-        let chanceIcon = sort === 'chance' ? `<i class="fa fa-sort-amount-${ reverse ? 'asc' : 'desc' }" aria-hidden="true"></i>` : ''
 
         $("#tablebody").append(`<tr>
             <th id="item">Item Name ${itemIcon}</th>
             <th id="place">Drops ${placeIcon}</th>
             <th id="rarity">Rarity ${rarityIcon}</th>
-            <th id="chance">Chance ${chanceIcon}</th>
         </tr>`)
 
         for(let obj of data) {
             $("#tablebody").append(`<tr>
                 <td>${obj.item}</td>
                 <td>${obj.place}</td>
-                <td>${obj.rarity}</td>
-                <td><b>${obj.chance}%</b></td>
+                <td>${obj.rarity} (<b>${obj.chance}%</b>)</td>
             </tr>`)
         }
 
         $("th").on("click", function(ev) {
             if (this.id) { fill(data, this.id, sort === this.id ? !reverse : false) }
         })
-
     }
 </script>
