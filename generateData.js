@@ -60,9 +60,12 @@ request(config.dropDataUrl, (err, res, body) => {
         miscItems: require("./lib/miscItems.js")($),
     }
 
+    let date = new Date(res.headers["last-modified"]).getTime()
+
     const info = {
         hash: hash,
-        timestamp: (new Date().getTime())
+        timestamp: (new Date().getTime()),
+        last_modified: date
     }
 
     trymkdir(path.resolve(__dirname, "data"))
