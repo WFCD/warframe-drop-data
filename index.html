@@ -400,7 +400,7 @@
 
         let itemIcon = sort === 'item' ? `<i class="fa fa-sort-alpha-${ reverse ? 'desc' : 'asc' }" aria-hidden="true"></i>` : ''
         let placeIcon = sort === 'place' ? `<i class="fa fa-sort-alpha-${ reverse ? 'desc' : 'asc' }" aria-hidden="true"></i>` : ''
-        let rarityIcon = sort === 'rarity' ? `<i class="fa fa-sort-alpha-${ reverse ? 'desc' : 'asc' }" aria-hidden="true"></i>` : ''
+        let rarityIcon = sort === 'rarity' ? `<i class="fa fa-sort-amount-${ reverse ? 'asc' : 'desc' }" aria-hidden="true"></i>` : ''
 
         $("#tablebody").append(`<tr>
             <th id="item">Item Name ${itemIcon}</th>
