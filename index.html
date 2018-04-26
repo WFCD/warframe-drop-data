@@ -128,6 +128,13 @@
                     <option value="locations">Locations only</option>
                     <option value="both">Items and locations</option>
                 </select> 
+                <select id="display-amount">
+                    <option value="100">Show 100 items</option>
+                    <option value="250">Show 250 items</option>
+                    <option value="500">Show 500 items</option>
+                    <option value="1000">Show 1000 items</option>
+                    <option value="clem">Show all items</option>
+                </select>
             </div>
         </div>
 
@@ -235,7 +242,7 @@
         search($(this).val())
     })
 
-    $("#search-type").on("change", function(ev) {
+    $("#search-type, #display-amount").on("change", function(ev) {
         search($("#search-field").val())
     })
 
@@ -247,6 +254,7 @@
         }
 
         let type = $('#search-type').val()
+        let amount = $('#display-amount').val()
         let items = null
 
         window.location.hash = `/search/${encodeURIComponent(searchValue)}/${type}`
@@ -256,7 +264,7 @@
         else if (type === 'both')       { items = window._data.filter(entry => entry.item.contains(searchValue) || entry.place.contains(searchValue)) }
         else                            { items = window._data.filter(entry => entry.item.contains(searchValue)) }
 
-        fill(items, 'rarity', false)
+        fill(items, 'rarity', false, amount)
     }
 
     function formatData(data) {
@@ -394,7 +402,7 @@
         return newData
     }
 
-    function fill(data, sort, reverse) {
+    function fill(data, sort, reverse, amount) {
         $("#tablebody").empty()
 
         if(data.length === 0) {
@@ -420,16 +428,29 @@
             <th id="rarity">Rarity ${rarityIcon}</th>
         </tr>`)
 
-        for(let obj of data) {
-            $("#tablebody").append(`<tr>
-                <td>${obj.item}</td>
-                <td>${obj.place}</td>
-                <td>${obj.rarity} (<b>${obj.chance}%</b>)</td>
-            </tr>`)
+        // Limit results to improve performance.
+        if (!isNaN(amount) && data.length > amount) {
+            for (var i = 0; i <= amount; i++) {
+                $("#tablebody").append(`<tr>
+                    <td>${data[i].item}</td>
+                    <td>${data[i].place}</td>
+                    <td>${data[i].rarity} (<b>${data[i].chance}%</b>)</td>
+                </tr>`)
+            }
+
+            $("#tablebody").append(`<tr><td class="msg" colspan="3"><strong>${data.length - amount}</strong> more results found. Refine your query to see more relevant results.</td></tr>`)
+        } else {
+            for(let obj of data) {
+                $("#tablebody").append(`<tr>
+                    <td>${obj.item}</td>
+                    <td>${obj.place}</td>
+                    <td>${obj.rarity} (<b>${obj.chance}%</b>)</td>
+                </tr>`)
+            }
         }
 
         $("th").on("click", function(ev) {
-            if (this.id) { fill(data, this.id, sort === this.id ? !reverse : false) }
+            if (this.id) { fill(data, this.id, sort === this.id ? !reverse : false, amount) }
         })
     }
 </script>
