@@ -52,6 +52,10 @@
         margin-top: 50px;
     }
 
+    .content {
+        margin-bottom: 3em;
+    }
+
     th {
         cursor: pointer;
         min-width: 75px;
@@ -430,7 +434,7 @@
 
         // Limit results to improve performance.
         if (!isNaN(amount) && data.length > amount) {
-            for (var i = 0; i <= amount; i++) {
+            for (var i = 0; i < amount; i++) {
                 $("#tablebody").append(`<tr>
                     <td>${data[i].item}</td>
                     <td>${data[i].place}</td>
