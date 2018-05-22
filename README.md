@@ -169,6 +169,7 @@ Rewards not tied to a specific location, like mods dropped by Nightmare Mode mis
 ```json
 "transientRewards": [
   {
+    "_id": "b3c734177040ffb494609a27d87d4841",
     "objectiveName": "Derelict Vault",
     "rewards": [
       {
