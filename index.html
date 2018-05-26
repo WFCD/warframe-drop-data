@@ -97,7 +97,7 @@
         color: #0099FF;
     }
 
-    #lastbuildtime {
+    #last-update {
         font-weight: bolder;
     }
 </style>
@@ -126,7 +126,7 @@
             </div>
 
             <div>
-                <input class="searchfield" placeholder="Search here..." id="search-field" type="text" />
+                <input class="searchfield" placeholder="Search here..." id="search-field" type="text" autofocus="autofocus" />
                 <select id="search-type">
                     <option value="items">Items only</option>
                     <option value="locations">Locations only</option>
@@ -154,13 +154,12 @@
 
 <footer class="footer">
     <b>NOTE</b>: This data is parsed from <a href="https://n8k6e2y6.ssl.hwcdn.net/repos/hnfvc0o3jnfvc873njb03enrf56.html" target="_blank">Digital Extremes' official drop data website</a>, no data mining was involved.
-    Build time: <span id="lastbuildtime">Unknown</span>
+    Last update: <span id="last-update">Unknown</span>
 </footer>
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/vue/2.4.2/vue.min.js"></script>
 <script>
-    // We have JS, yay! Show loading screen.
     $("#no-script").hide()
     $("#loading").css('display', 'flex')
 
@@ -168,13 +167,10 @@
         return this.toLowerCase().indexOf(substr.toLowerCase()) > -1
     }
 
-    // used for some hacks ;)
-    const CURR_SCRIPT_VERSION = 9
+    const CURR_SCRIPT_VERSION = 10
 
-    // convert data to avoid having to redownload it
     function updateData(fromVersion, toVersion) {
-        if(fromVersion < CURR_SCRIPT_VERSION) {
-            // easier then converting stuff :D
+        if (fromVersion < CURR_SCRIPT_VERSION) {
             localStorage.clear()
         }
 
@@ -189,19 +185,19 @@
 
         updateData(window._script_version, CURR_SCRIPT_VERSION)
 
-        $.getJSON(`/data/info.json?${time}`, function(data) {
+        $.getJSON(`./data/info.json?${time}`, function(data) {
             let hash = data.hash
             let timestamp = data.timestamp
 
-            console.log("/data/info.json", data)
+            console.log("./data/info.json", data)
 
             let oldData = JSON.parse(localStorage.getItem("_wfinfo") || "{\"hash\":\"clem\"}")
 
-            if(hash !== oldData.hash) {
+            if (hash !== oldData.hash) {
                 console.log("new hash found, re-download data")
                 localStorage.setItem("_wfinfo", JSON.stringify(data))
 
-                $.getJSON(`/data/all.json?${time}`, function(all) {
+                $.getJSON(`./data/all.json?${time}`, function(all) {
                     all = formatData(all)
 
                     localStorage.setItem("_wfdata", JSON.stringify(all))
@@ -217,9 +213,9 @@
         window._data = data
 
         let info = JSON.parse(localStorage.getItem("_wfinfo"))
-        let date = new Date(info.timestamp)
+        let date = new Date(info.modified)
 
-        $("#lastbuildtime").text(date.toLocaleString())
+        $("#last-update").text(date.toLocaleString())
 
         let query = window.location.hash.split('/')
 
@@ -235,7 +231,7 @@
 
         const searchFieldValue = $("#search-field").val()
 
-        if(searchFieldValue) {
+        if (searchFieldValue) {
             search(searchFieldValue)
         }
 
@@ -243,15 +239,17 @@
     }
 
     $("#search-field").on("keyup", function(ev) {
-        search($(this).val())
+        search($(this).val().trim().replace(/\s\s+/g, ' '))
     })
 
     $("#search-type, #display-amount").on("change", function(ev) {
-        search($("#search-field").val())
+        search($("#search-field").val().trim().replace(/\s\s+/g, ' '))
     })
 
     function search(searchValue) {
-        if(searchValue.length < 2) {
+        if (searchValue.length < 2) {
+            window.location.hash = ''
+
             $("#tablebody").empty()
             $("#tablebody").append("<tr><td class='msg'>You have to type in at least 2 characters to search.</td></tr>")
             return
@@ -276,17 +274,17 @@
 
         // mission rewards
         // planets
-        for(let planetName of Object.keys(data.missionRewards)) {
+        for (let planetName of Object.keys(data.missionRewards)) {
 
             // locations
-            for(let locationName of Object.keys(data.missionRewards[planetName])) {
+            for (let locationName of Object.keys(data.missionRewards[planetName])) {
 
                 let location = data.missionRewards[planetName][locationName]
 
-                if(Array.isArray(location.rewards)) {
+                if (Array.isArray(location.rewards)) {
                     let placeName = `${planetName}/${locationName} (<b>${location.gameMode}</b>)`
 
-                    for(let reward of location.rewards) {
+                    for (let reward of location.rewards) {
                         newData.push({
                             place: placeName,
                             item: reward.itemName,
@@ -295,10 +293,10 @@
                         })
                     }
                 } else {
-                    for(let rotationName of Object.keys(location.rewards)) {
+                    for (let rotationName of Object.keys(location.rewards)) {
                         let placeName = `${planetName}/${locationName} (<b>${location.gameMode}</b>), Rotation ${rotationName}`
 
-                        for(let reward of location.rewards[rotationName]) {
+                        for (let reward of location.rewards[rotationName]) {
                             newData.push({
                                 place: placeName,
                                 item: reward.itemName,
@@ -312,8 +310,8 @@
         }
 
         // blueprint locations
-        for(let item of data.blueprintLocations) {
-            for(let enemy of item.enemies) {
+        for (let item of data.blueprintLocations) {
+            for (let enemy of item.enemies) {
                 newData.push({
                     place: enemy.enemyName,
                     item: item.itemName,
@@ -324,8 +322,8 @@
         }
 
         // mod locations
-        for(let mod of data.modLocations) {
-            for(let enemy of mod.enemies) {
+        for (let mod of data.modLocations) {
+            for (let enemy of mod.enemies) {
                 newData.push({
                     place: enemy.enemyName,
                     item: mod.modName,
@@ -336,8 +334,8 @@
         }
 
         // relics
-        for(let relic of data.relics) {
-            for(let item of relic.rewards) {
+        for (let relic of data.relics) {
+            for (let item of relic.rewards) {
                 newData.push({
                     place: `${relic.tier} ${relic.relicName} Relic (${relic.state})`,
                     item: item.itemName,
@@ -348,7 +346,7 @@
         }
 
         // sortie rewards
-        for(let sortie of data.sortieRewards) {
+        for (let sortie of data.sortieRewards) {
             newData.push({
                 place: "Sorties",
                 item: sortie.itemName,
@@ -358,11 +356,11 @@
         }
 
         // transient rewards
-        for(let objective of data.transientRewards) {
-            for(let reward of objective.rewards) {
+        for (let objective of data.transientRewards) {
+            for (let reward of objective.rewards) {
                 let rotation = ""
 
-                if(reward.rotation) {
+                if (reward.rotation) {
                     rotation = `, Rotation ${reward.rotation}`
                 }
 
@@ -376,11 +374,11 @@
         }
 
         // cetus bounty rewards
-        for(let bountyLevel of data.cetusBountyRewards) {
+        for (let bountyLevel of data.cetusBountyRewards) {
             let levelRange = bountyLevel.bountyLevel
 
-            for(let rewardTier of Object.keys(bountyLevel.rewards)) {
-                for(let reward of bountyLevel.rewards[rewardTier]) {
+            for (let rewardTier of Object.keys(bountyLevel.rewards)) {
+                for (let reward of bountyLevel.rewards[rewardTier]) {
                     newData.push({
                         place: `Earth/Cetus (<b>${levelRange}</b>), Rotation ${rewardTier}`,
                         item: reward.itemName,
@@ -392,8 +390,8 @@
         }
 
         // misc enemy drops
-        for(let enemy of data.miscItems) {
-            for(let item of enemy.items) {
+        for (let enemy of data.miscItems) {
+            for (let item of enemy.items) {
                 newData.push({
                     place: enemy.enemyName,
                     item: item.itemName,
@@ -409,8 +407,8 @@
     function fill(data, sort, reverse, amount) {
         $("#tablebody").empty()
 
-        if(data.length === 0) {
-            $("#tablebody").append("<tr><td class='msg'><i class='fa fa-exclamation-circle'></i> Nothing found that matches your search query.</td></tr>")
+        if (data.length === 0) {
+            $("#tablebody").append("<tr><td class='msg'>Nothing found that matches your search query.</td></tr>")
             return
         }
 
@@ -432,7 +430,6 @@
             <th id="rarity">Rarity ${rarityIcon}</th>
         </tr>`)
 
-        // Limit results to improve performance.
         if (!isNaN(amount) && data.length > amount) {
             for (var i = 0; i < amount; i++) {
                 $("#tablebody").append(`<tr>
@@ -444,7 +441,7 @@
 
             $("#tablebody").append(`<tr><td class="msg" colspan="3"><strong>${data.length - amount}</strong> more results found. Refine your query to see more relevant results.</td></tr>`)
         } else {
-            for(let obj of data) {
+            for (let obj of data) {
                 $("#tablebody").append(`<tr>
                     <td>${obj.item}</td>
                     <td>${obj.place}</td>
