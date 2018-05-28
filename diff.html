@@ -254,7 +254,7 @@
     $(document).ready(function() {
         let now = new Date().getTime()
 
-        $.getJSON(`/data/builds/builds.json?${now}`, function(builds) {
+        $.getJSON(`./data/builds/builds.json?${now}`, function(builds) {
             builds = builds.sort((a, b) => b.timestamp - a.timestamp)
 
             let currentHash = builds[0].hash
@@ -322,8 +322,8 @@
     function compareBuild(source, target) {
         let now = new Date().getTime()
 
-        $.getJSON(`/data/builds/${source}.json?${now}`, function(sourceBuild) {
-            $.getJSON(`/data/builds/${target}.json?${now}`, function(targetBuild) {
+        $.getJSON(`./data/builds/${source}.json?${now}`, function(sourceBuild) {
+            $.getJSON(`./data/builds/${target}.json?${now}`, function(targetBuild) {
                 renderDiff(sortBuild(sourceBuild), sortBuild(targetBuild))
             }).fail(function(event, jqxhr, exception) {
                 $("#message").show().text(`Could not load "${target}.json".`)
