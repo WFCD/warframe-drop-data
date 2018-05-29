@@ -1,9 +1,3 @@
----
-name: Feature request
-about: Suggest an idea for this project
-
----
-
 ### Warframe Drops Site Feature Request
 ---
 
