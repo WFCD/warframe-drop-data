@@ -167,7 +167,7 @@
         return this.toLowerCase().indexOf(substr.toLowerCase()) > -1
     }
 
-    const CURR_SCRIPT_VERSION = 10
+    const CURR_SCRIPT_VERSION = 12
 
     function updateData(fromVersion, toVersion) {
         if (fromVersion < CURR_SCRIPT_VERSION) {
@@ -197,9 +197,7 @@
                 console.log("new hash found, re-download data")
                 localStorage.setItem("_wfinfo", JSON.stringify(data))
 
-                $.getJSON(`./data/all.json?${time}`, function(all) {
-                    all = formatData(all)
-
+                $.getJSON(`./data/all.slim.json?${time}`, function(all) {
                     localStorage.setItem("_wfdata", JSON.stringify(all))
                     onDataRetrieved(all)
                 })
@@ -267,141 +265,6 @@
         else                            { items = window._data.filter(entry => entry.item.contains(searchValue)) }
 
         fill(items, 'rarity', false, amount)
-    }
-
-    function formatData(data) {
-        let newData = []
-
-        // mission rewards
-        // planets
-        for (let planetName of Object.keys(data.missionRewards)) {
-
-            // locations
-            for (let locationName of Object.keys(data.missionRewards[planetName])) {
-
-                let location = data.missionRewards[planetName][locationName]
-
-                if (Array.isArray(location.rewards)) {
-                    let placeName = `${planetName}/${locationName} (<b>${location.gameMode}</b>)`
-
-                    for (let reward of location.rewards) {
-                        newData.push({
-                            place: placeName,
-                            item: reward.itemName,
-                            rarity: reward.rarity,
-                            chance: reward.chance
-                        })
-                    }
-                } else {
-                    for (let rotationName of Object.keys(location.rewards)) {
-                        let placeName = `${planetName}/${locationName} (<b>${location.gameMode}</b>), Rotation ${rotationName}`
-
-                        for (let reward of location.rewards[rotationName]) {
-                            newData.push({
-                                place: placeName,
-                                item: reward.itemName,
-                                rarity: reward.rarity,
-                                chance: reward.chance
-                            })
-                        }
-                    }
-                }
-            }
-        }
-
-        // blueprint locations
-        for (let item of data.blueprintLocations) {
-            for (let enemy of item.enemies) {
-                newData.push({
-                    place: enemy.enemyName,
-                    item: item.itemName,
-                    rarity: enemy.rarity,
-                    chance: (((enemy.enemyItemDropChance / 100) * (enemy.chance / 100)) * 100).toFixed(2)
-                })
-            }
-        }
-
-        // mod locations
-        for (let mod of data.modLocations) {
-            for (let enemy of mod.enemies) {
-                newData.push({
-                    place: enemy.enemyName,
-                    item: mod.modName,
-                    rarity: enemy.rarity,
-                    chance: (((enemy.enemyModDropChance / 100) * (enemy.chance / 100)) * 100).toFixed(2)
-                })
-            }
-        }
-
-        // relics
-        for (let relic of data.relics) {
-            for (let item of relic.rewards) {
-                newData.push({
-                    place: `${relic.tier} ${relic.relicName} Relic (${relic.state})`,
-                    item: item.itemName,
-                    rarity: item.rarity,
-                    chance: item.chance
-                })
-            }
-        }
-
-        // sortie rewards
-        for (let sortie of data.sortieRewards) {
-            newData.push({
-                place: "Sorties",
-                item: sortie.itemName,
-                rarity: sortie.rarity,
-                chance: sortie.chance
-            })
-        }
-
-        // transient rewards
-        for (let objective of data.transientRewards) {
-            for (let reward of objective.rewards) {
-                let rotation = ""
-
-                if (reward.rotation) {
-                    rotation = `, Rotation ${reward.rotation}`
-                }
-
-                newData.push({
-                    place: `${objective.objectiveName}${rotation}`,
-                    item: reward.itemName,
-                    rarity: reward.rarity,
-                    chance: reward.chance
-                })
-            }
-        }
-
-        // cetus bounty rewards
-        for (let bountyLevel of data.cetusBountyRewards) {
-            let levelRange = bountyLevel.bountyLevel
-
-            for (let rewardTier of Object.keys(bountyLevel.rewards)) {
-                for (let reward of bountyLevel.rewards[rewardTier]) {
-                    newData.push({
-                        place: `Earth/Cetus (<b>${levelRange}</b>), Rotation ${rewardTier}`,
-                        item: reward.itemName,
-                        rarity: reward.rarity,
-                        chance: reward.chance
-                    })
-                }
-            }
-        }
-
-        // misc enemy drops
-        for (let enemy of data.miscItems) {
-            for (let item of enemy.items) {
-                newData.push({
-                    place: enemy.enemyName,
-                    item: item.itemName,
-                    rarity: item.rarity,
-                    chance: (((enemy.enemyItemDropChance / 100) * (item.chance / 100)) * 100).toFixed(2)
-                })
-            }
-        }
-
-        return newData
     }
 
     function fill(data, sort, reverse, amount) {
