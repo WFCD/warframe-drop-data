@@ -4,7 +4,7 @@ const crypto = require("crypto")
 const path = require("path")
 const fs = require("fs")
 
-const {formatSiteData, trymkdir} = require("./lib/utils.js")
+const {formatSiteData} = require("./lib/utils.js")
 
 const config = {
     jsonMinify: true,
@@ -181,3 +181,11 @@ request(config.dropDataUrl, (err, res, body) => {
 
 
 })
+
+function trymkdir(dir) {
+    try {
+        fs.mkdirSync(dir)
+    } catch(ex) {
+        // directory already exists, probably
+    }
+}
