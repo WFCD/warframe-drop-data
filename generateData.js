@@ -2,8 +2,9 @@ const cheerio = require("cheerio")
 const request = require("request")
 const crypto = require("crypto")
 const path = require("path")
-
 const fs = require("fs")
+
+const {formatSiteData, trymkdir} = require("./lib/utils.js")
 
 const config = {
     jsonMinify: true,
@@ -60,6 +61,8 @@ request(config.dropDataUrl, (err, res, body) => {
         miscItems: require("./lib/miscItems.js")($),
     }
 
+    const dropSiteData = formatSiteData(data)
+
     let date = new Date(res.headers["last-modified"]).getTime()
 
     const info = {
@@ -86,6 +89,9 @@ request(config.dropDataUrl, (err, res, body) => {
 
     console.log("Writing... /data/all.json")
     fs.writeFileSync(path.resolve(__dirname, "data", "all.json"), JSON.stringify(data, null, jsonFormat))
+
+    console.log("Writing... /data/all.slim.json")
+    fs.writeFileSync(path.resolve(__dirname, "data", "all.slim.json"), JSON.stringify(dropSiteData, null, jsonFormat))
 
     console.log("Writing... /data/info.json")
     fs.writeFileSync(path.resolve(__dirname, "data", "info.json"), JSON.stringify(info, null, jsonFormat))
@@ -175,11 +181,3 @@ request(config.dropDataUrl, (err, res, body) => {
 
 
 })
-
-function trymkdir(dir) {
-    try {
-        fs.mkdirSync(dir)
-    } catch(ex) {
-        // directory already exists, probably
-    }
-}
