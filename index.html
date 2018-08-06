@@ -1,24 +1,25 @@
 <!doctype html>
 <title>Warframe Drop Data</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<link rel="shortcut icon" href="misc/logo.png" />
 
 <meta property="og:title" content="Warframe Drop Data" />
 <meta property="og:description" content="A tool/api to search through Digital Extremes official Warframe drop data website." />
 <meta property="og:url" content="http://drops.warframestat.us" />
 <meta property="og:image" content="http://drops.warframestat.us/misc/logo.png" />
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="search" href="/opensearch.xml" type="application/opensearchdescription+xml" title="Warframe Drop Data"/>
 
-<link rel="dns-prefetch" href="//cdnjs.cloudflare.com" />
 <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+<link rel="dns-prefetch" href="//cdnjs.cloudflare.com" />
 
-<link rel="shortcut icon" href="misc/logo.png" />
-
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Raleway:400,300,600" type="text/css" />
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" />
-<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Raleway:400,300,600" type="text/css">
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
 <style>
-    #no-script, #loading {
+    #no-script, #loading, #data-error {
         position: absolute;
         padding: 10px;
 
@@ -38,7 +39,7 @@
         z-index: 9999;
     }
 
-    #no-script i, #loading i {
+    #no-script i, #loading i, #data-error i {
         font-size: 9rem;
         margin-bottom: 25px;
     }
@@ -77,6 +78,8 @@
         left: 0;
         right: 0;
 
+        padding: 3px;
+
         background: white;
         color: #555;
 
@@ -100,19 +103,30 @@
     #last-update {
         font-weight: bolder;
     }
+
+    #just-updated {
+        color: #0099FF;
+    }
 </style>
 
 <div id="no-script" style="display: flex;">
     <p>
-        <i class="fa fa-warning"></i><br />
+        <i class="fa fa-warning" aria-hidden="true"></i><br />
         This website requires JavaScript.
     </p>
 </div>
 
 <div id="loading" style="display: none;">
     <p>
-        <i class="fa fa-refresh fa-spin"></i><br />
+        <i class="fa fa-refresh fa-spin" aria-hidden="true"></i><br />
         Loading, please wait...
+    </p>
+</div>
+
+<div id="data-error" style="display: none;">
+    <p>
+        <i class="fa fa-exclamation-circle" aria-hidden="true"></i><br />
+        Could not load data, please refresh the page.
     </p>
 </div>
 
@@ -145,7 +159,7 @@
         <div class="content">
             <table class="u-full-width">
                 <tbody id="tablebody">
-                    <tr><td class="msg">Type what you're looking for into the search above above!</td></tr>
+                    <tr><td class="msg">Type what you're looking for into the search bar above!</td></tr>
                 </tbody>
             </table>
         </div>
@@ -154,68 +168,107 @@
 
 <footer class="footer">
     <b>NOTE</b>: This data is parsed from <a href="https://n8k6e2y6.ssl.hwcdn.net/repos/hnfvc0o3jnfvc873njb03enrf56.html" target="_blank">Digital Extremes' official drop data website</a>, no data mining was involved.
-    Last update: <span id="last-update">Unknown</span>
+    Last update: <span id="last-update">Unknown</span> <span id="just-updated" title="Drop information has been updated since your last visit." style="display: none;"><i class="fa fa-asterisk"></i></span>
 </footer>
 
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/vue/2.4.2/vue.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
     $("#no-script").hide()
     $("#loading").css('display', 'flex')
 
-    String.prototype.contains = function(substr) {
-        return this.toLowerCase().indexOf(substr.toLowerCase()) > -1
-    }
+    const SCRIPT_VERSION = 14
 
-    const CURR_SCRIPT_VERSION = 13
+    function fill(data, sort, reverse, amount) {
+        $("#tablebody").empty()
 
-    function updateData(fromVersion, toVersion) {
-        if (fromVersion < CURR_SCRIPT_VERSION) {
-            localStorage.clear()
+        if (data.length === 0) {
+            $("#tablebody").append("<tr><td class='msg'>Nothing found that matches your search query.</td></tr>")
+            return
         }
 
-        window._script_version = CURR_SCRIPT_VERSION
-        localStorage.setItem("_script_version", CURR_SCRIPT_VERSION)
+        data = data.sort(function(a, b) {
+            if (sort === 'item')        { return a.item.localeCompare(b.item) || b.chance - a.chance || a.place.localeCompare(b.place) }
+            else if (sort === 'place')  { return a.place.localeCompare(b.place) || b.chance - a.chance || a.item.localeCompare(b.item) }
+            else                        { return b.chance - a.chance || a.place.localeCompare(b.place) || a.item.localeCompare(b.item) }
+        })
+
+        if (reverse) { data.reverse() }
+
+        const itemIcon = sort === 'item' ? `<i class="fa fa-sort-alpha-${ reverse ? 'desc' : 'asc' }"></i>` : ''
+        const placeIcon = sort === 'place' ? `<i class="fa fa-sort-alpha-${ reverse ? 'desc' : 'asc' }"></i>` : ''
+        const rarityIcon = sort === 'rarity' ? `<i class="fa fa-sort-amount-${ reverse ? 'asc' : 'desc' }"></i>` : ''
+
+        $("#tablebody").append(`<tr>
+            <th id="item">Item Name ${itemIcon}</th>
+            <th id="place">Drops ${placeIcon}</th>
+            <th id="rarity">Rarity ${rarityIcon}</th>
+        </tr>`)
+
+        if (!isNaN(amount) && data.length > amount) {
+            for (let i = 0; i < amount; i++) {
+                $("#tablebody").append(`<tr>
+                    <td>${data[i].item}</td>
+                    <td>${data[i].place}</td>
+                    <td>${data[i].rarity} (<b>${data[i].chance}%</b>)</td>
+                </tr>`)
+            }
+
+            $("#tablebody").append(`<tr><td class="msg" colspan="3"><strong>${data.length - amount}</strong> more results found. Refine your query to see more relevant results.</td></tr>`)
+        } else {
+            for (const obj of data) {
+                $("#tablebody").append(`<tr>
+                    <td>${obj.item}</td>
+                    <td>${obj.place}</td>
+                    <td>${obj.rarity} (<b>${obj.chance}%</b>)</td>
+                </tr>`)
+            }
+        }
+
+        $("th").on("click", function() {
+            if (this.id) { fill(data, this.id, sort === this.id ? !reverse : false, amount) }
+        })
     }
 
-    $(document).ready(function() {
-        let time = new Date().getTime()
+    function search(searchValue) {
+        if (searchValue.length < 2) {
+            window.location.hash = ''
 
-        window._script_version = Number(localStorage.getItem("_script_version") || -1)
+            $("#tablebody").empty()
+            $("#tablebody").append("<tr><td class='msg'>You have to type in at least 2 characters to search.</td></tr>")
+            return
+        }
 
-        updateData(window._script_version, CURR_SCRIPT_VERSION)
+        const searchArray = searchValue.split(' ').filter(item => item.length > 1)
+        const type = $('#search-type').val()
+        const amount = $('#display-amount').val()
+        let items = []
 
-        $.getJSON(`./data/info.json?${time}`, function(data) {
-            let hash = data.hash
-            let timestamp = data.timestamp
+        // Setup the search regex.
+        let regex = ''
+        for (const searchTerm of searchArray) {
+            regex += `(?=.*\\b.*${searchTerm}.*\\b)`
+        }
+        regex = RegExp(regex, 'gi')
 
-            console.log("./data/info.json", data)
+        window.location.hash = `/search/${encodeURIComponent(searchValue)}/${type}`
 
-            let oldData = JSON.parse(localStorage.getItem("_wfinfo") || "{\"hash\":\"clem\"}")
+        if (type === 'items')           { items = items.concat(window._data.filter(entry => regex.test(entry.item))) }
+        else if (type === 'locations')  { items = items.concat(window._data.filter(entry => regex.test(entry.place))) }
+        else if (type === 'both')       { items = items.concat(window._data.filter(entry => regex.test(entry.item) || regex.test(entry.place))) }
+        else                            { items = items.concat(window._data.filter(entry => regex.test(entry.item))) }
 
-            if (hash !== oldData.hash) {
-                console.log("new hash found, re-download data")
-                localStorage.setItem("_wfinfo", JSON.stringify(data))
-
-                $.getJSON(`./data/all.slim.json?${time}`, function(all) {
-                    localStorage.setItem("_wfdata", JSON.stringify(all))
-                    onDataRetrieved(all)
-                })
-            } else {
-                onDataRetrieved(JSON.parse(localStorage.getItem("_wfdata")))
-            }
-        })
-    })
+        fill(items, 'rarity', false, amount)
+    }
 
     function onDataRetrieved(data) {
         window._data = data
 
-        let info = JSON.parse(localStorage.getItem("_wfinfo"))
-        let date = new Date(info.modified)
+        const info = JSON.parse(localStorage.getItem("_wfinfo"))
+        const date = new Date(info.modified)
 
         $("#last-update").text(date.toLocaleString())
 
-        let query = window.location.hash.split('/')
+        const query = window.location.hash.split('/')
 
         if (query && query.length > 2 && query[1] === 'search') {
             if (query.length > 3 && query[3].match(/(items|locations|both)/)) {
@@ -236,85 +289,56 @@
         $("#loading").remove()
     }
 
-    $("#search-field").on("keyup", function(ev) {
-        search($(this).val().trim().replace(/\s\s+/g, ' '))
-    })
+    function onDataError() {
+        localStorage.clear()
 
-    $("#search-type, #display-amount").on("change", function(ev) {
-        search($("#search-field").val().trim().replace(/\s\s+/g, ' '))
-    })
-
-    function search(searchValue) {
-        if (searchValue.length < 2) {
-            window.location.hash = ''
-
-            $("#tablebody").empty()
-            $("#tablebody").append("<tr><td class='msg'>You have to type in at least 2 characters to search.</td></tr>")
-            return
-        }
-
-        let type = $('#search-type').val()
-        let amount = $('#display-amount').val()
-        let items = null
-
-        window.location.hash = `/search/${encodeURIComponent(searchValue)}/${type}`
-
-        if (type === 'items')           { items = window._data.filter(entry => entry.item.contains(searchValue)) }
-        else if (type === 'locations')  { items = window._data.filter(entry => entry.place.contains(searchValue)) }
-        else if (type === 'both')       { items = window._data.filter(entry => entry.item.contains(searchValue) || entry.place.contains(searchValue)) }
-        else                            { items = window._data.filter(entry => entry.item.contains(searchValue)) }
-
-        fill(items, 'rarity', false, amount)
+        $("#no-script").hide()
+        $("#loading").hide()
+        $("#data-error").css('display', 'flex')
     }
 
-    function fill(data, sort, reverse, amount) {
-        $("#tablebody").empty()
+    function updateData() {
+        const time = new Date().getTime()
 
-        if (data.length === 0) {
-            $("#tablebody").append("<tr><td class='msg'>Nothing found that matches your search query.</td></tr>")
-            return
+        if (localStorage.getItem("_wfdata") === null || Number(localStorage.getItem("_version") || -1) < SCRIPT_VERSION) {
+            localStorage.clear()
         }
 
-        data = data.sort(function(a, b) {
-            if (sort === 'item')        { return a.item.localeCompare(b.item) || b.chance - a.chance || a.place.localeCompare(b.place) }
-            else if (sort === 'place')  { return a.place.localeCompare(b.place) || b.chance - a.chance || a.item.localeCompare(b.item) }
-            else                        { return b.chance - a.chance || a.place.localeCompare(b.place) || a.item.localeCompare(b.item) }
-        })
+        localStorage.setItem("_version", SCRIPT_VERSION)
 
-        if (reverse) { data.reverse() }
+        $.getJSON(`./data/info.json?${time}`, function(info) {
+            const oldInfo = JSON.parse(localStorage.getItem("_wfinfo") || "{\"hash\":\"clem\"}")
 
-        let itemIcon = sort === 'item' ? `<i class="fa fa-sort-alpha-${ reverse ? 'desc' : 'asc' }" aria-hidden="true"></i>` : ''
-        let placeIcon = sort === 'place' ? `<i class="fa fa-sort-alpha-${ reverse ? 'desc' : 'asc' }" aria-hidden="true"></i>` : ''
-        let rarityIcon = sort === 'rarity' ? `<i class="fa fa-sort-amount-${ reverse ? 'asc' : 'desc' }" aria-hidden="true"></i>` : ''
+            if (info.hash !== oldInfo.hash) {
+                localStorage.setItem("_wfinfo", JSON.stringify(info))
 
-        $("#tablebody").append(`<tr>
-            <th id="item">Item Name ${itemIcon}</th>
-            <th id="place">Drops ${placeIcon}</th>
-            <th id="rarity">Rarity ${rarityIcon}</th>
-        </tr>`)
+                $.getJSON(`./data/all.slim.json?${time}`, function(data) {
+                    localStorage.setItem("_wfdata", JSON.stringify(data))
 
-        if (!isNaN(amount) && data.length > amount) {
-            for (var i = 0; i < amount; i++) {
-                $("#tablebody").append(`<tr>
-                    <td>${data[i].item}</td>
-                    <td>${data[i].place}</td>
-                    <td>${data[i].rarity} (<b>${data[i].chance}%</b>)</td>
-                </tr>`)
+                    $('#just-updated').show()
+                    onDataRetrieved(data)
+                }).fail(onDataError)
+            } else {
+                onDataRetrieved(JSON.parse(localStorage.getItem("_wfdata")))
             }
-
-            $("#tablebody").append(`<tr><td class="msg" colspan="3"><strong>${data.length - amount}</strong> more results found. Refine your query to see more relevant results.</td></tr>`)
-        } else {
-            for (let obj of data) {
-                $("#tablebody").append(`<tr>
-                    <td>${obj.item}</td>
-                    <td>${obj.place}</td>
-                    <td>${obj.rarity} (<b>${obj.chance}%</b>)</td>
-                </tr>`)
-            }
-        }
-
-        $("th").on("click", function(ev) {
-            if (this.id) { fill(data, this.id, sort === this.id ? !reverse : false, amount) }
-        })
+        }).fail(onDataError)
     }
+
+    $(document).ready(function() {
+        updateData()
+
+        let typingTimer
+
+        $("#search-field").on("keyup", function() {
+            // Wait a little before searching to improve performance.
+            clearTimeout(typingTimer)
+            typingTimer = setTimeout(function() {
+                search($("#search-field").val().trim().replace(/\s+/g, ' '))
+            }, 400)
+        })
+
+        $("#search-type, #display-amount").on("change", function() {
+            search($("#search-field").val().trim().replace(/\s+/g, ' '))
+        })
+    })
 </script>
