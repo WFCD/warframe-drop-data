@@ -14,8 +14,9 @@ $(document).ready(function() {
         }
     })
     
-    if ($('html').hasClass('stalker')) {
+    if (localStorage.getItem('_theme') === 'stalker') {
         $('.logo').attr('src', '/misc/stalker.png')
-        $('html').removeClass('dark')
+        $('html').removeClass()
+        $('html').addClass('stalker')
     }
 })
