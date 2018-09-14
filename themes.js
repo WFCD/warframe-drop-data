@@ -13,4 +13,8 @@ $(document).ready(function() {
             $('html').addClass('dark')
         }
     })
+    
+    if ($('html').hasClass('stalker')) {
+        $('.logo').attr('src', '/misc/stalker.png')
+    }
 })
