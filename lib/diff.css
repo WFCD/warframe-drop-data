@@ -1,0 +1,114 @@
+#builds-selection {
+    margin: 1.5rem 0;
+}
+
+#builds-selection div {
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+#builds-selection select {
+    margin: 0 0.5rem;
+}
+
+/* Disable text selection in jsondiff. */
+.jsondiffpatch-delta {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -ms-user-select: none;
+}
+
+/* Hide specific unchanged objects. */
+.jsondiffpatch-delta > ul > li.jsondiffpatch-unchanged,
+.jsondiffpatch-delta > ul > li > ul > li.jsondiffpatch-unchanged,
+.jsondiffpatch-delta > ul > li > ul > li > ul > li.jsondiffpatch-unchanged,
+.jsondiffpatch-delta > ul > li > ul > li > ul > li > ul > li.jsondiffpatch-unchanged {
+    display: none;
+    visibility: hidden;
+}
+
+/* Hide "_id" fields if they are unchanged. */
+.jsondiffpatch-unchanged[data-key="_id"] {
+    display: none;
+    visibility: hidden;
+}
+
+/* Display identifiers to get some context. */
+.jsondiffpatch-unchanged[data-key="enemyName"],
+.jsondiffpatch-unchanged[data-key="modName"],
+.jsondiffpatch-unchanged[data-key="blueprintName"],
+.jsondiffpatch-unchanged[data-key="itemName"],
+.jsondiffpatch-unchanged[data-key="objectiveName"],
+.jsondiffpatch-unchanged[data-key="bountyLevel"],
+.jsondiffpatch-unchanged[data-key="keyName"],
+.jsondiffpatch-unchanged[data-key="tier"],
+.jsondiffpatch-unchanged[data-key="relicName"],
+.jsondiffpatch-unchanged[data-key="state"] {
+    display: block !important;
+    visibility: visible !important;
+}
+
+/* Fix text size in subnodes. */
+.jsondiffpatch-delta * {
+    font-family: 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', Monaco, Courier, monospace !important;
+    font-size: 12px !important;
+}
+
+/* Display unchanged nodes using the normal text color. */
+.jsondiffpatch-unchanged,
+.jsondiffpatch-movedestination {
+  color: inherit;
+}
+
+/* Fix excessive margin in subnodes. */
+.jsondiffpatch-node-type-object > li {
+    margin-bottom: 0 !important;
+}
+
+/* Allow objects and arrays to be closed. */
+.jsondiffpatch-child-node-type-array > .jsondiffpatch-property-name,
+.jsondiffpatch-child-node-type-object > .jsondiffpatch-property-name {
+    cursor: pointer;
+}
+
+.jsondiffpatch-child-node-type-array.jsondiffpatch-child-node-closed > .jsondiffpatch-property-name:after {
+    content: ': [ \25bc\00a0';
+}
+
+.jsondiffpatch-child-node-type-array > .jsondiffpatch-property-name:after {
+    content: ': [ \25b2\00a0';
+}
+
+.jsondiffpatch-child-node-type-object.jsondiffpatch-child-node-closed > .jsondiffpatch-property-name:after {
+    content: ': { \25bc\00a0';
+}
+
+.jsondiffpatch-child-node-type-object > .jsondiffpatch-property-name:after {
+    content: ': { \25b2\00a0';
+}
+
+.jsondiffpatch-child-node-type-array.jsondiffpatch-child-node-closed > .jsondiffpatch-property-name,
+.jsondiffpatch-child-node-type-object.jsondiffpatch-child-node-closed > .jsondiffpatch-property-name {
+    padding-right: 0;
+}
+
+/* Allow big change blocks (pre starting with "[" or "{") to be closed. */
+.jsondiffpatch-value-toggleable {
+    cursor: pointer;
+}
+
+.jsondiffpatch-value-closed {
+    height: 19px;
+    overflow: hidden;
+}
+
+/* Don't display commas on the last elements. */
+.jsondiffpatch-child-node-type-array:last-child:after {
+    content: ']';
+}
+
+.jsondiffpatch-child-node-type-object:last-child:after {
+    content: '}';
+}
+
