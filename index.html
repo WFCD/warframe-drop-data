@@ -181,7 +181,7 @@ td.msg {
 <script>
 /* globals navigator, $ */
 if ('serviceWorker' in navigator) {
-	navigator.serviceWorker.register('service_worker.js', {scope: '/'});
+	navigator.serviceWorker.register('sw.js', {scope: '/'});
 }
 
 $("#no-script").hide()
