@@ -16,5 +16,6 @@ $(document).ready(function() {
     
     if ($('html').hasClass('stalker')) {
         $('.logo').attr('src', '/misc/stalker.png')
+        $('html').removeClass('dark')
     }
 })
