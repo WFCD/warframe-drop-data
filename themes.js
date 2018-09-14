@@ -5,7 +5,7 @@ $(document).ready(function() {
 
     $('.theme-mode').click(event => {
         const target = $(event.currentTarget)
-        if (target.hasClass('moon')) {
+        if (target.hasClass('sun')) {
             localStorage.removeItem('_theme');
             $('html').removeClass('dark')
         } else {

@@ -6,19 +6,19 @@
     height: 20px;
 }
 
-.dark .sun {
+.dark .moon {
     display: none;
 }
 
-.dark .moon {
+.dark .sun {
     display: inline-block !important;
 }
 
-.sun {
+.moon {
     display: inline-block;
 }
 
-.moon {
+.sun {
     display: none;
 }
 
