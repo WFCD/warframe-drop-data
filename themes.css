@@ -52,6 +52,10 @@
     color: #222;
 }
 
+.dark .footer, .dark .footer a {
+    color: #bbb;
+}
+
 
 /* secret stalker mode, requires modifying the local storage and reloading */
 .stalker .moon, .stalker .sun {
@@ -88,5 +92,9 @@
 }
 
 .stalker a {
+    color: #f00;
+}
+
+.stalker .footer, .stalker .footer a, .stalker .footer a:hover  {
     color: #f00;
 }

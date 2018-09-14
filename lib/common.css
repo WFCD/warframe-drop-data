@@ -39,7 +39,7 @@
     right: 0;
 
     background: white;
-    color: #111;
+    color: #555;
 
     font-size: 12px;
 
@@ -47,7 +47,7 @@
 }
 
 .footer a {
-    color: #111;
+    color: #555;
     text-decoration: none;
     font-weight: bolder;
 
