@@ -2,12 +2,18 @@
 <html class="dark">
 <title>Warframe Drop Data</title>
 
-<meta property="og:title" content="Warframe Drop Data" />
-<meta property="og:description" content="A tool/api to search through Digital Extremes official Warframe drop data website." />
+<link rel="manifest" href="hub.webmanifest">
+
+<meta property="og:title" content="Warframe Drop Data - Difference Checker" />
+<meta property="og:description" content="A tool/API to search through Digital Extremes official Warframe drop data website." />
 <meta property="og:url" content="http://drops.warframestat.us" />
 <meta property="og:image" content="http://drops.warframestat.us/misc/logo.png" />
 
+<meta name="theme-color" content="#23272A">
+<meta name="description" content="A tool/API to search through Digital Extremes official Warframe drop data website.">
+<meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <link rel="search" href="/opensearch.xml" type="application/opensearchdescription+xml" title="Warframe Drop Data"/>
 
 <link rel="dns-prefetch" href="//cdnjs.cloudflare.com" />
@@ -127,7 +133,7 @@ td.msg {
     <div class="container">
         <div class="header">
             <div>
-                <img src="misc/logo.png" height="64">
+                <img src="misc/logo.png" height="64" class="logo">
                 <h5>Warframe Drop Data</h5>
                 <a href="./diff.html">Compare Versions</a> | <a target="_blank" href="https://github.com/WFCD/warframe-drop-data#api-endpoints">API Documentation</a> | <a target="_blank" href="https://github.com/WFCD/warframe-drop-data">Github</a>
             </div>
@@ -168,10 +174,16 @@ td.msg {
     </div>
 </footer>
 
+
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/vue/2.4.2/vue.min.js"></script>
 <script src="./themes.js"></script>
 <script>
+/* globals navigator, $ */
+if ('serviceWorker' in navigator) {
+	navigator.serviceWorker.register('service_worker.js', {scope: '/'});
+}
+
 $("#no-script").hide()
 $("#loading").css('display', 'flex')
 

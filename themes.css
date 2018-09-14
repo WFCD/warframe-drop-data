@@ -51,3 +51,42 @@
 .dark .jsondiffpatch-textdiff-deleted {
     color: #222;
 }
+
+
+/* secret stalker mode, requires modifying the local storage and reloading */
+.stalker .moon, .stalker .sun {
+    display: none;
+}
+
+.stalker body, .stalker footer, .stalker .footer {
+    background-color: #23272A;
+    background: #23272A;
+    color: #f00;
+}
+
+.stalker input[type=email], .stalker input[type=number], .stalker input[type=password],
+    .stalker input[type=search], .stalker input[type=tel], .stalker input[type=text],
+.stalker input[type=url], .stalker select, .stalker textarea {
+    background-color: #2C2F33;
+    color: #f00;
+     border: 1px solid #23272A;
+}
+
+.stalker th, .stalker td {
+    border-bottom: 1px solid #2C2F33;
+}
+
+.stalker .jsondiffpatch-added .jsondiffpatch-property-name,
+.stalker .jsondiffpatch-added .jsondiffpatch-value pre,
+.stalker .jsondiffpatch-modified .jsondiffpatch-right-value pre,
+.stalker .jsondiffpatch-textdiff-added,
+.stalker .jsondiffpatch-deleted .jsondiffpatch-property-name,
+.stalker .jsondiffpatch-deleted pre,
+.stalker .jsondiffpatch-modified .jsondiffpatch-left-value pre,
+.stalker .jsondiffpatch-textdiff-deleted {
+    color: #f00;
+}
+
+.stalker a {
+    color: #f00;
+}

@@ -1,12 +1,16 @@
 <!doctype html>
 <html class="dark">
 <title>Warframe Drop Data - Compare Versions</title>
+<link rel="manifest" href="hub.webmanifest">
 
 <meta property="og:title" content="Warframe Drop Data - Difference Checker" />
 <meta property="og:description" content="A tool/API to search through Digital Extremes official Warframe drop data website." />
 <meta property="og:url" content="http://drops.warframestat.us" />
 <meta property="og:image" content="http://drops.warframestat.us/misc/logo.png" />
 
+<meta name="theme-color" content="#23272A">
+<meta name="description" content="A tool/API to search through Digital Extremes official Warframe drop data website.">
+<meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link rel="dns-prefetch" href="//cdnjs.cloudflare.com" />
@@ -217,7 +221,7 @@
     <div class="container">
         <div class="header">
             <div>
-                <img src="misc/logo.png" height="64">
+                <img src="misc/logo.png" height="64" class="logo">
                 <h5>Warframe Drop Data - Compare Versions</h5>
                 <a href="./">Drop Data</a> | <a target="_blank" href="https://github.com/WFCD/warframe-drop-data#api-endpoints">API Documentation</a> | <a target="_blank" href="https://github.com/WFCD/warframe-drop-data">Github</a>
             </div>
@@ -255,6 +259,11 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.8.0/js/md5.min.js"></script>
 <script src="./themes.js"></script>
 <script>
+    /* globals navigator, $ */
+    if ('serviceWorker' in navigator) {
+    	navigator.serviceWorker.register('service_worker.js', {scope: '/'});
+    }
+
     // We have JS, yay! Show loading screen.
     $("#no-script").hide()
     $("#loading").css('display', 'flex')
