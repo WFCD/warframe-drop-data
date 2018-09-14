@@ -4,12 +4,21 @@
   "description": "Converts the official Warframe drop data into something useable.",
   "main": "generate.js",
   "scripts": {
-    "start": "node generateData.js"
+    "start": "node generateData.js",
+    "serve": "node server.js",
+    "serve:dev": "nodemon ./server.js"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
-    "request": "^2.81.0"
+    "express": "^4.16.3",
+    "request": "^2.81.0",
+    "serve-static": "^1.13.2"
+  },
+  "nodemonConfig": {
+    "env": {
+      "PORT": 3000
+    }
   }
 }
