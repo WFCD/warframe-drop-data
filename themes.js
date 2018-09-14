@@ -13,4 +13,10 @@ $(document).ready(function() {
             $('html').addClass('dark')
         }
     })
+    
+    if (localStorage.getItem('_theme') === 'stalker') {
+        $('.logo').attr('src', '/misc/stalker.png')
+        $('html').removeClass()
+        $('html').addClass('stalker')
+    }
 })
