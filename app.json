@@ -1,0 +1,26 @@
+{
+  "name": "warframe-drops",
+  "description": "Warframe Drops Data.",
+  "keywords": [
+    "warframe",
+    "drops"
+  ],
+  "repository": "https://github.com/WFCD/warframe-drop-data",
+  "website": "https://drops.warframestat.us",
+  "scripts": {
+  },
+  "env": {
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "free"
+    }
+  },
+  "addons": [],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
