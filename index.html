@@ -21,11 +21,70 @@
 
 <link rel="shortcut icon" href="misc/logo.png" />
 
+<div id="no-script" style="display: flex;">
+    <p>
+        <i class="fa fa-warning"></i><br />
+        This website requires JavaScript.
+    </p>
+</div>
+
+<div id="loading" style="display: none;">
+    <p>
+        <i class="fa fa-refresh fa-spin"></i><br />
+        Loading, please wait...
+    </p>
+</div>
+
+<section>
+    <div class="container">
+        <div class="header">
+            <div>
+                <img src="misc/logo.short.png" height="64" class="logo">
+                <h5>Warframe Drop Data</h5>
+                <a href="./diff.html">Compare Versions</a> | <a target="_blank" href="https://github.com/WFCD/warframe-drop-data#api-endpoints">API Documentation</a> | <a target="_blank" href="https://github.com/WFCD/warframe-drop-data">Github</a>
+            </div>
+
+            <div>
+                <input class="searchfield" placeholder="Search here..." id="search-field" type="text" autofocus="autofocus" />
+                <select id="search-type">
+                    <option value="items">Items only</option>
+                    <option value="locations">Locations only</option>
+                    <option value="both">Items and locations</option>
+                </select>
+                <select id="display-amount">
+                    <option value="100">Show 100 items</option>
+                    <option value="250">Show 250 items</option>
+                    <option value="500">Show 500 items</option>
+                    <option value="1000">Show 1000 items</option>
+                    <option value="clem">Show all items</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="content">
+            <table class="u-full-width">
+                <tbody id="tablebody">
+                    <tr><td class="msg">Type what you're looking for into the search above above!</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <b>NOTE</b>: This data is parsed from <a href="https://n8k6e2y6.ssl.hwcdn.net/repos/hnfvc0o3jnfvc873njb03enrf56.html" target="_blank">Digital Extremes' official drop data website</a>, no data mining was involved.
+    Last update: <span id="last-update">Unknown</span>
+    <div class="pull-right">
+      <span class="theme-mode sun"><i class="fas fa-sun"></i></span>
+      <span class="theme-mode moon"><i class="fas fa-moon"></i></span>
+    </div>
+</footer>
+
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" />
 <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Raleway:400,300,600" type="text/css">
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-<link rel="stylesheet" href="./themes.css" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/solid.css" integrity="sha384-VGP9aw4WtGH/uPAOseYxZ+Vz/vaTb1ehm1bwx92Fm8dTrE+3boLfF1SpAtB1z7HW" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/fontawesome.css" integrity="sha384-1rquJLNOM3ijoueaaeS5m+McXPJCGdr5HcA03/VHXxcp2kX2sUrQDmFc3jR5i/C7" crossorigin="anonymous"><link rel="stylesheet" href="./themes.css" />
 <style>
 #no-script, #loading {
     position: absolute;
@@ -114,66 +173,6 @@ td.msg {
     float: right !important;
 }
 </style>
-
-<div id="no-script" style="display: flex;">
-    <p>
-        <i class="fa fa-warning"></i><br />
-        This website requires JavaScript.
-    </p>
-</div>
-
-<div id="loading" style="display: none;">
-    <p>
-        <i class="fa fa-refresh fa-spin"></i><br />
-        Loading, please wait...
-    </p>
-</div>
-
-<section>
-    <div class="container">
-        <div class="header">
-            <div>
-                <img src="misc/logo.short.png" height="64" class="logo">
-                <h5>Warframe Drop Data</h5>
-                <a href="./diff.html">Compare Versions</a> | <a target="_blank" href="https://github.com/WFCD/warframe-drop-data#api-endpoints">API Documentation</a> | <a target="_blank" href="https://github.com/WFCD/warframe-drop-data">Github</a>
-            </div>
-
-            <div>
-                <input class="searchfield" placeholder="Search here..." id="search-field" type="text" autofocus="autofocus" />
-                <select id="search-type">
-                    <option value="items">Items only</option>
-                    <option value="locations">Locations only</option>
-                    <option value="both">Items and locations</option>
-                </select>
-                <select id="display-amount">
-                    <option value="100">Show 100 items</option>
-                    <option value="250">Show 250 items</option>
-                    <option value="500">Show 500 items</option>
-                    <option value="1000">Show 1000 items</option>
-                    <option value="clem">Show all items</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="content">
-            <table class="u-full-width">
-                <tbody id="tablebody">
-                    <tr><td class="msg">Type what you're looking for into the search above above!</td></tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</section>
-
-<footer class="footer">
-    <b>NOTE</b>: This data is parsed from <a href="https://n8k6e2y6.ssl.hwcdn.net/repos/hnfvc0o3jnfvc873njb03enrf56.html" target="_blank">Digital Extremes' official drop data website</a>, no data mining was involved.
-    Last update: <span id="last-update">Unknown</span>
-    <div class="pull-right">
-      <span class="theme-mode sun"><i class="fas fa-sun"></i></span>
-      <span class="theme-mode moon"><i class="fas fa-moon"></i></span>
-    </div>
-</footer>
-
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/vue/2.4.2/vue.min.js"></script>
