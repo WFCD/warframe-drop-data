@@ -12,13 +12,13 @@
 }
 
 .dark .stalker {
-    display: inline-block;
+    display: inline-block!important;
     margin-bottom: -5px;
 }
 
 /* Show day on stalker */
 .stalker .sun {
-    display: inline-block;
+    display: inline-block!important;
     color: white;
 }
 
@@ -28,7 +28,7 @@
 
 /* Show dark on day */
 .moon {
-    display: inline-block;
+    display: inline-block!important;
 }
 
 .sun, .theme-mode.stalker {
