@@ -18,6 +18,7 @@
 /* Show day on stalker */
 .stalker .sun {
     display: inline-block !important;
+    color: white;
 }
 
 .theme-mode.stalker, .moon {
