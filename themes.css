@@ -6,21 +6,34 @@
     height: 20px;
 }
 
-.dark .moon {
+/* Show stalker on dark */
+.dark .moon, .dark .sun {
     display: none;
 }
 
-.dark .sun {
+.dark .stalker {
     display: inline-block !important;
 }
 
+/* Show day on stalker */
+.stalker .sun {
+    display: inline-block !important;
+}
+
+.stalker, .moon {
+    display: none;
+}
+
+/* Show dark on day */
 .moon {
     display: inline-block;
 }
 
-.sun {
+.sun, .theme-mode.stalker {
     display: none;
 }
+
+
 
 /* Dark theme */
 .dark body, .dark footer, .dark .footer {
