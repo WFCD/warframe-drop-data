@@ -20,7 +20,7 @@
     display: inline-block !important;
 }
 
-.stalker, .moon {
+.theme-mode.stalker, .moon {
     display: none;
 }
 
