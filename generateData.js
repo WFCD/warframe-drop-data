@@ -59,6 +59,7 @@ request(config.dropDataUrl, (err, res, body) => {
         keyRewards: require("./lib/keyRewards.js")($),
         cetusBountyRewards: require("./lib/cetusBountyRewards.js")($),
         miscItems: require("./lib/miscItems.js")($),
+        solarisBountyRewards: require("./lib/solarisBountyRewards.js")($),
     }
 
     const dropSiteData = formatSiteData(data)
@@ -125,6 +126,9 @@ request(config.dropDataUrl, (err, res, body) => {
 
     console.log("Writing... /data/cetusBountyRewards.json")
     fs.writeFileSync(path.resolve(__dirname, "data", "cetusBountyRewards.json"), JSON.stringify({cetusBountyRewards: data.cetusBountyRewards}, null, jsonFormat))
+
+    console.log("Writing... /data/solarisBountyRewards.json")
+    fs.writeFileSync(path.resolve(__dirname, "data", "solarisBountyRewards.json"), JSON.stringify({solarisBountyRewards: data.solarisBountyRewards}, null, jsonFormat))
 
     console.log("Writing... /data/miscItems.json")
     fs.writeFileSync(path.resolve(__dirname, "data", "miscItems.json"), JSON.stringify({miscItems: data.miscItems}, null, jsonFormat))
