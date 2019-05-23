@@ -28,12 +28,12 @@ Data structure:
   "enemyBlueprintTables": [ { ... } ],
   "enemyModTables": [ { ... } ],
   "keyRewards": [ { ... } ],
-  "miscItems": [ { ... } ],
   "missionRewards": { "Earth": { ... } },
   "modLocations": [ { ... } ],
   "relics": [ { ... } ],
   "sortieRewards": [ { ... } ],
-  "transientRewards": [ { ... } ]
+  "transientRewards": [ { ... } ],
+  "solarisBountyRewards" : [ { ... } ]
 }
 ```
 
