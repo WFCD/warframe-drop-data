@@ -1,4 +1,6 @@
 language: node_js
+branches:
+  gh_pages: true
 node_js:
   - '8'
 script:
