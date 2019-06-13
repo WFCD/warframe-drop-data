@@ -41,7 +41,7 @@ request(config.dropDataUrl, (err, res, body) => {
         if(hash === oldHash) {
             // TODO: nothing new, close
             console.log("Data hasn't changed, exit process.")
-            process.env.TRAVIS_COMMIT_BUILD = "true"
+            process.env.TRAVIS_COMMIT_BUILD = "false"
             process.exit(0)
         }
     }
