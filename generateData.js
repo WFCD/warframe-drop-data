@@ -41,6 +41,7 @@ request(config.dropDataUrl, (err, res, body) => {
         if(hash === oldHash) {
             // TODO: nothing new, close
             console.log("Data hasn't changed, exit process.")
+            process.env.TRAVIS_COMMIT_BUILD = "true"
             process.exit(0)
         }
     }
@@ -182,8 +183,7 @@ request(config.dropDataUrl, (err, res, body) => {
             fs.writeFileSync(path.resolve(__dirname, `data`, `relics`, `${tier}`, `${relicName}.json`), JSON.stringify(relicStruct[tier][relicName], null, jsonFormat))
         }
     }
-
-
+    process.env.TRAVIS_COMMIT_BUILD = "true"
 })
 
 function trymkdir(dir) {
