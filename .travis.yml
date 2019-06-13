@@ -7,3 +7,5 @@ node_js:
   - '8'
 script:
   - node generateData.js
+  - if [ "$TRAVIS_COMMIT_BUILD" = "true" ]; then chmod +x .travis/push.sh  ; fi
+  - if [ "$TRAVIS_COMMIT_BUILD" = "true" ]; then ./.travis/push.sh  ; fi
