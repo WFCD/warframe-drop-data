@@ -7,3 +7,6 @@ node_js:
   - '8'
 script:
   - node generateData.js
+  - export TRAVIS_COMMIT_BUILD="$(cat .build_status)"
+  - if [ "$TRAVIS_COMMIT_BUILD" = "continue" ]; then chmod +x .travis/push.sh  ; else echo "do build? $TRAVIS_COMMIT_BUILD" ; fi
+  - if [ "$TRAVIS_COMMIT_BUILD" = "continue" ]; then ./.travis/push.sh  ; fi
