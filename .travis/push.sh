@@ -6,7 +6,7 @@ setup_git() {
 
 upload_files() {
   git add . && git commit -m "chore(automated): Travis Update drop data tables: ${date}"
-  git remote add origin-update https://${GITHUB_TOKEN}@github.com/WFCD/warframe-drop-data.git
+  git remote add origin-update https://tobitenno:${GITHUB_TOKEN}@github.com/WFCD/warframe-drop-data.git > /dev/null 2>&1
   git push --quiet --set-upstream  origin-update $TRAVIS_BRANCH
 }
 
