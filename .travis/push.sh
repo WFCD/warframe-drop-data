@@ -5,13 +5,13 @@ setup_git() {
 }
 
 commit_changes() {
-  git checkout -b $TRAVIS_BRANCH
+  git remote add origin-update https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git > /dev/null 2>&1
+  git checkout $TRAVIS_BRANCH
   git add .
-  git commit -m "chore(automated): Travis Update drop data tables: ${date}"
+  git commit -m "chore(automated): Travis Update drop data tables [ci skip]"
 }
 
 upload_files() {
-  git remote add origin-update https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git > /dev/null 2>&1
   git push --quiet --set-upstream  origin-update $TRAVIS_BRANCH
 }
 
