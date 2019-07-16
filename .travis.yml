@@ -10,7 +10,3 @@ script:
   - export TRAVIS_COMMIT_BUILD="$(cat .build_status)"
   - if [ "$TRAVIS_COMMIT_BUILD" = "continue" ]; then chmod +x .travis/push.sh  ; else echo "do build? $TRAVIS_COMMIT_BUILD" ; fi
   - if [ "$TRAVIS_COMMIT_BUILD" = "continue" ]; then ./.travis/push.sh  ; fi
-
-env:
-  global:
-    secure: ZZ8oAhWsygAey0tUjMfoOOGKgZpH/Xdx6paoyFMm8W7iSIzRKPerb/mp2SVsTBIarZbhdfnoUxqvpfMDoHPaqtKiSi5z9nV/DMFl1cf3oKDxTxmL05ZavhxMocOoleiS70CYzcESaF0HoisEn/un6kGswBs1wJEAYe2hjU1w/AFTACP8KXcIKJ8stTE89686gDASCG2f9NcDKrfVrPzFpTnDgSjAyyAnlAvfuoZu6cO/+PgAFlNZXS7w5zNPfYcR/B7/7HbWRhndKIRKUPkynCeY46ilEy9B+jQVt86O9rDY5xWvfwS5uDcvbVX+lr9SLzuHP8G12qv4AFuT631y/BtYkTtjCmjFYcmNUWPSEjzZYjKVHRAxCAIRzwVfTiQTglJZsXqUjhF7FpWV7iL1+XpLEQS5o3rQ/I6mcEsprj8joBTT6hWjk7jAqF+mjV8n9PpaDRnRcdpTI4Lhikw7F32DJ0fXmzhlzbh1HXcaQkHHesUDbWd4X/Iv5bqwiqcCgwFQO5Y8dHlpe0IBZqzHlm586ZzuiHY0KVEM9O/n//FU8zhgeS4DqsptqM7zzSXewmX3+EKNesSgaVXKQ2KhMiWjFaz72dvKz0Ss+CtXh/1OkiYbCnjijtxYqyxUiw6uOkrrsz9l63XSGrel27dsgsDMTR5ndzSacDIpKOAYpyU=
