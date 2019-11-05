@@ -16,3 +16,8 @@ th i {
 td.msg {
     text-align: center;
 }
+
+tbody {
+  max-height: 50vh;
+  overflow-y: scroll;
+}
