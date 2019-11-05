@@ -6,8 +6,8 @@ const files = [
   '/diff.html',
   '/generateData.js',
   '/opensearch.xml',
-  '/site/themes.js',
-  '/site/themes.css'
+  '/lib/site/themes.js',
+  '/lib/site/themes.css'
 ];
 
 self.addEventListener('install', event => {
