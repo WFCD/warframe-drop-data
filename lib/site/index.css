@@ -16,8 +16,3 @@ th i {
 td.msg {
     text-align: center;
 }
-
-.content {
-  height: 70vh;
-  overflow-y: scroll;
-}
