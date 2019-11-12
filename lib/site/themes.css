@@ -71,7 +71,7 @@
 }
 
 
-/* secret stalker mode, requires modifying the local storage and reloading */
+/* secret stalker mode */
 .stalker .moon, .stalker .sun {
     display: none;
 }
