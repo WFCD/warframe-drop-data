@@ -71,8 +71,12 @@ fetch(config.dropDataUrl)
         cetusBountyRewards: require("./lib/cetusBountyRewards.js")($),
         // miscItems: require("./lib/miscItems.js")($),
         solarisBountyRewards: require("./lib/solarisBountyRewards.js")($),
-        sigilByAvatar: require("./lib/sigilByAvatar.js")($),
-        additionalItemByAvatar: require("./lib/additionalItemByAvatar.js")($),
+        
+        // drops by avatar
+        resourceByAvatar: require("./lib/dropByAvatar.js")($, 'resourceByAvatar', 'Resource Drop Chance'),
+        sigilByAvatar: require("./lib/dropByAvatar.js")($, 'sigilByAvatar', 'Sigil Drop Chance'),
+        additionalItemByAvatar: require("./lib/dropByAvatar.js")($, 'additionalItemByAvatar', 'Additional Item Drop Chance')
+
     }
 
     const dropSiteData = formatSiteData(data)
