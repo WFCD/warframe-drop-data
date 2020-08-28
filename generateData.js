@@ -1,10 +1,23 @@
 const cheerio = require("cheerio")
-const request = require("request")
 const crypto = require("crypto")
 const path = require("path")
 const fs = require("fs")
 
+const fetch = require('node-fetch')
+
 const {formatSiteData} = require("./lib/utils.js")
+
+const writeData = (data, key, format) => {
+  console.log(`Writing... /data/${key}.json`)
+
+
+  const body = {}
+  body[key] = data[key]
+  
+  const bodyStr = JSON.stringify(body, null, format)
+
+  fs.writeFileSync(path.resolve(__dirname, "data", `${key}.json`), bodyStr)
+}
 
 const config = {
     jsonMinify: (process.argv.indexOf("-expand") > -1) || true,
@@ -16,13 +29,11 @@ const config = {
 console.log("### Warframe Drop Data\n")
 console.log(`Requesting Drop Data from ${config.dropDataUrl}...\n`)
 
-request(config.dropDataUrl, (err, res, body) => {
-    if(err) {
-        console.error(err)
-        return
-    }
-
-    console.log(`Response: ${res.statusCode} - ${res.statusMessage}\n`)
+fetch(config.dropDataUrl)
+  .then(async (res) => {
+    const body = await res.text()
+    
+    console.log(`Response: ${res.status} - ${res.statusText}\n`)
 
     const hash = crypto.createHash("md5").update(body, "utf8").digest("hex")
 
@@ -61,12 +72,13 @@ request(config.dropDataUrl, (err, res, body) => {
         cetusBountyRewards: require("./lib/cetusBountyRewards.js")($),
         // miscItems: require("./lib/miscItems.js")($),
         solarisBountyRewards: require("./lib/solarisBountyRewards.js")($),
+        sigilByAvatar: require("./lib/sigilByAvatar.js")($),
         additionalItemByAvatar: require("./lib/additionalItemByAvatar.js")($),
     }
 
     const dropSiteData = formatSiteData(data)
 
-    let date = new Date(res.headers["last-modified"]).getTime()
+    let date = new Date(res.headers.get("last-modified")).getTime()
 
     const info = {
         hash: hash,
@@ -98,45 +110,8 @@ request(config.dropDataUrl, (err, res, body) => {
 
     console.log("Writing... /data/info.json")
     fs.writeFileSync(path.resolve(__dirname, "data", "info.json"), JSON.stringify(info, null, jsonFormat))
-
-    console.log("Writing... /data/missionRewards.json")
-    fs.writeFileSync(path.resolve(__dirname, "data", "missionRewards.json"), JSON.stringify({missionRewards: data.missionRewards}, null, jsonFormat))
-
-    console.log("Writing... /data/relics.json")
-    fs.writeFileSync(path.resolve(__dirname, "data", "relics.json"), JSON.stringify({relics: data.relics}, null, jsonFormat))
-
-    console.log("Writing... /data/transientRewards.json")
-    fs.writeFileSync(path.resolve(__dirname, "data", "transientRewards.json"), JSON.stringify({transientRewards: data.transientRewards}, null, jsonFormat))
-
-    console.log("Writing... /data/modLocations.json")
-    fs.writeFileSync(path.resolve(__dirname, "data", "modLocations.json"), JSON.stringify({modLocations: data.modLocations}, null, jsonFormat))
-
-    console.log("Writing... /data/enemyModTables.json")
-    fs.writeFileSync(path.resolve(__dirname, "data", "enemyModTables.json"), JSON.stringify({enemyModTables: data.enemyModTables}, null, jsonFormat))
     
-    console.log("Writing... /data/blueprintLocations.json")
-    fs.writeFileSync(path.resolve(__dirname, "data", "blueprintLocations.json"), JSON.stringify({blueprintLocations: data.blueprintLocations}, null, jsonFormat))
-
-    console.log("Writing... /data/enemyBlueprintTables.json")
-    fs.writeFileSync(path.resolve(__dirname, "data", "enemyBlueprintTables.json"), JSON.stringify({enemyBlueprintTables: data.enemyBlueprintTables}, null, jsonFormat))
-
-    console.log("Writing... /data/sortieRewards.json")
-    fs.writeFileSync(path.resolve(__dirname, "data", "sortieRewards.json"), JSON.stringify({sortieRewards: data.sortieRewards}, null, jsonFormat))
-
-    console.log("Writing... /data/keyRewards.json")
-    fs.writeFileSync(path.resolve(__dirname, "data", "keyRewards.json"), JSON.stringify({keyRewards: data.keyRewards}, null, jsonFormat))
-
-    console.log("Writing... /data/cetusBountyRewards.json")
-    fs.writeFileSync(path.resolve(__dirname, "data", "cetusBountyRewards.json"), JSON.stringify({cetusBountyRewards: data.cetusBountyRewards}, null, jsonFormat))
-
-    console.log("Writing... /data/solarisBountyRewards.json")
-    fs.writeFileSync(path.resolve(__dirname, "data", "solarisBountyRewards.json"), JSON.stringify({solarisBountyRewards: data.solarisBountyRewards}, null, jsonFormat))
-
-    // console.log("Writing... /data/miscItems.json")
-    // fs.writeFileSync(path.resolve(__dirname, "data", "miscItems.json"), JSON.stringify({miscItems: data.miscItems}, null, jsonFormat))
-
-    console.log("Writing... /data/additionalItemByAvatar.json")
-    fs.writeFileSync(path.resolve(__dirname, "data", "additionalItemByAvatar.json"), JSON.stringify({additionalItemByAvatar: data.additionalItemByAvatar}, null, jsonFormat))
+    Object.keys(data).forEach(key => { writeData(data, key, jsonFormat) })
 
     trymkdir(path.resolve(__dirname, `data`, `missionRewards`))
 
@@ -188,7 +163,7 @@ request(config.dropDataUrl, (err, res, body) => {
         }
     }
     fs.writeFileSync(".build_status", "continue")
-})
+  })
 
 function trymkdir(dir) {
     try {
