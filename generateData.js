@@ -1,9 +1,8 @@
+const fetch = require('node-fetch')
 const cheerio = require("cheerio")
 const crypto = require("crypto")
 const path = require("path")
 const fs = require("fs")
-
-const fetch = require('node-fetch')
 
 const {formatSiteData} = require("./lib/utils.js")
 
