@@ -7,7 +7,7 @@ const fs = require("fs")
 const {formatSiteData} = require("./lib/utils.js")
 
 const config = {
-    jsonMinify: true,
+    jsonMinify: (process.argv.indexOf("-expand") > -1) || true,
     forceRegeneration: false || (process.argv.indexOf("-force") > -1),
 
     dropDataUrl: "https://n8k6e2y6.ssl.hwcdn.net/repos/hnfvc0o3jnfvc873njb03enrf56.html"
@@ -59,8 +59,9 @@ request(config.dropDataUrl, (err, res, body) => {
         sortieRewards: require("./lib/sortieRewards.js")($),
         keyRewards: require("./lib/keyRewards.js")($),
         cetusBountyRewards: require("./lib/cetusBountyRewards.js")($),
-        //miscItems: require("./lib/miscItems.js")($),
+        // miscItems: require("./lib/miscItems.js")($),
         solarisBountyRewards: require("./lib/solarisBountyRewards.js")($),
+        additionalItemByAvatar: require("./lib/additionalItemByAvatar.js")($),
     }
 
     const dropSiteData = formatSiteData(data)
@@ -112,7 +113,7 @@ request(config.dropDataUrl, (err, res, body) => {
 
     console.log("Writing... /data/enemyModTables.json")
     fs.writeFileSync(path.resolve(__dirname, "data", "enemyModTables.json"), JSON.stringify({enemyModTables: data.enemyModTables}, null, jsonFormat))
-
+    
     console.log("Writing... /data/blueprintLocations.json")
     fs.writeFileSync(path.resolve(__dirname, "data", "blueprintLocations.json"), JSON.stringify({blueprintLocations: data.blueprintLocations}, null, jsonFormat))
 
@@ -131,8 +132,11 @@ request(config.dropDataUrl, (err, res, body) => {
     console.log("Writing... /data/solarisBountyRewards.json")
     fs.writeFileSync(path.resolve(__dirname, "data", "solarisBountyRewards.json"), JSON.stringify({solarisBountyRewards: data.solarisBountyRewards}, null, jsonFormat))
 
-    console.log("Writing... /data/miscItems.json")
-    //fs.writeFileSync(path.resolve(__dirname, "data", "miscItems.json"), JSON.stringify({miscItems: data.miscItems}, null, jsonFormat))
+    // console.log("Writing... /data/miscItems.json")
+    // fs.writeFileSync(path.resolve(__dirname, "data", "miscItems.json"), JSON.stringify({miscItems: data.miscItems}, null, jsonFormat))
+
+    console.log("Writing... /data/additionalItemByAvatar.json")
+    fs.writeFileSync(path.resolve(__dirname, "data", "additionalItemByAvatar.json"), JSON.stringify({additionalItemByAvatar: data.additionalItemByAvatar}, null, jsonFormat))
 
     trymkdir(path.resolve(__dirname, `data`, `missionRewards`))
 
