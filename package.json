@@ -21,5 +21,9 @@
       "PORT": 3000
     }
   },
-  "repository": "https://github.com/WFCD/warframe-drop-data"
+  "repository": "https://github.com/WFCD/warframe-drop-data",
+  "devDependencies": {
+    "colors": "^1.4.0",
+    "progress": "^2.0.3"
+  }
 }
