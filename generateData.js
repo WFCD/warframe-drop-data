@@ -94,8 +94,8 @@ fetch(config.dropDataUrl)
         sortieRewards: require('./lib/sortieRewards.js')($),
         keyRewards: require('./lib/keyRewards.js')($),
         // miscItems: require('./lib/miscItems.js')($),
-        cetusBountyRewards: require('./lib/bountyRewards.js')($, 'cetusBountyRewards'),
-        solarisBountyRewards: require('./lib/bountyRewards.js')($, 'solarisBountyRewards'),
+        cetusBountyRewards: require('./lib/bountyRewards.js')($, 'cetusRewards'),
+        solarisBountyRewards: require('./lib/bountyRewards.js')($, 'solarisRewards'),
         deimosRewards: require('./lib/bountyRewards.js')($, 'deimosRewards'),
         
         // drops by avatar
