@@ -27,6 +27,6 @@ jobs:
           user_name: 'Jimmy Bot'
           user_email: 'translator@warframe.gg'
       - name: Pushback
-        run:
-          - chmod +x .github/pushback.sh
-          - ./pushback.sh
+        run: |
+          chmod +x .github/pushback.sh
+          ./pushback.sh
