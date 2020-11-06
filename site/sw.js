@@ -4,10 +4,14 @@ const files = [
   '/',
   '/index.html',
   '/diff.html',
-  '/generateData.js',
   '/opensearch.xml',
-  '/lib/site/themes.js',
-  '/lib/site/themes.css'
+  '/js/themes.js',
+  '/js/diff.js',
+  '/js/index.js',
+  '/styles/common.css',
+  '/styles/diff.css',
+  '/styles/index.css',
+  '/styles/themes.css'
 ];
 
 self.addEventListener('install', event => {

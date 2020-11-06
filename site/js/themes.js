@@ -19,16 +19,16 @@ $(document).ready(function() {
         }
         
         if (localStorage.getItem('_theme') === 'stalker') {
-            $('.logo').attr('src', '/misc/stalker.png')
+            $('.logo').attr('src', '/img/stalker.png')
             $('html').removeClass()
             $('html').addClass('stalker')
         } else {
-            $('.logo').attr('src', '/misc/logo.short.png')
+            $('.logo').attr('src', '/img/logo.short.png')
         }
     })
     
     if (localStorage.getItem('_theme') === 'stalker') {
-        $('.logo').attr('src', '/misc/stalker.png')
+        $('.logo').attr('src', '/img/stalker.png')
         $('html').removeClass()
         $('html').addClass('stalker')
     }

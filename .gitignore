@@ -135,4 +135,4 @@ $RECYCLE.BIN/
 
 .build_status
 # Copied site data, easier to just edit site and not commit excess files
-./site/data
+site/data/

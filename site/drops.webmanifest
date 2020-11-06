@@ -7,17 +7,17 @@
   "description": "A tool/API to search through Digital Extremes official Warframe drop data website.",
   "icons": [
     {
-      "src": "misc/logo.512.png",
+      "src": "img/logo.512.png",
       "sizes": "512x512",
       "type": "image/png"
     },
     {
-      "src": "misc/logo.192.png",
+      "src": "img/logo.192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "misc/logo.png",
+      "src": "img/logo.png",
       "sizes": "1024x1024",
       "type": "image/png"
     }
