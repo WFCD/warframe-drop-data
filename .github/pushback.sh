@@ -5,7 +5,7 @@ setup_git() {
 }
 
 commit_changes() {
-  git remote add origin-update https://${GH_}@github.com/main.git > /dev/null 2>&1
+  git remote add origin-update https://${GITHUB_TOKEN}@github.com/WFCD/warframe-drop-data.git > /dev/null 2>&1
   git checkout main
   git add data/.
   git commit -m "chore(automated): Update drop data tables [ci skip]"
