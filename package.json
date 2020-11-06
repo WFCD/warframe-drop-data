@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node generateData.js",
     "serve": "node server.js",
-    "serve:dev": "npx nodemon ./server.js"
+    "serve:dev": "npx nodemon ./server.js",
+    "build": "npm start && cp -r data site/data"
   },
   "author": "",
   "license": "MIT",

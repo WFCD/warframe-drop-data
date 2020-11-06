@@ -1,0 +1,30 @@
+name: GitHub pages
+
+on:
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron:  '*/15 * * * *'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install Supplemental Dependencies
+        run: npm i
+      - name: Build
+        run: npm run build
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          publish_dir: ./site
+          cname: drops.warframestat.us
+          force_orphan: true
+          user_name: 'Jimmy Bot'
+          user_email: 'translator@warframe.gg'
+      - name: Pushback
+        run:
+          - chmod +x .github/pushback.sh
+          - ./pushback.sh
