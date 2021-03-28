@@ -18,16 +18,18 @@ String.prototype.isJSON = function() {
   return true
 }
 
-const CURR_SCRIPT_VERSION = 13
+const CURR_SCRIPT_VERSION = 14
 const INFO_DEFAULT = '{"hash":"clem"}';
 
 function updateData(fromVersion, toVersion) {
+    const oldTheme = localStorage.getItem('_theme')
     if (fromVersion < CURR_SCRIPT_VERSION) {
         localStorage.clear()
     }
 
     window._script_version = CURR_SCRIPT_VERSION
     localStorage.setItem("_script_version", CURR_SCRIPT_VERSION)
+    if (oldTheme) localStorage.setItem('_theme', oldTheme)
 }
 
 function validateData() {
@@ -63,14 +65,16 @@ async function init(time) {
     }
 }
 
-$(document).ready(() => {
-    let time = new Date().getTime()
+function load() {
+  let time = new Date().getTime()
 
-    window._script_version = Number(localStorage.getItem("_script_version") || -1)
+  window._script_version = Number(localStorage.getItem("_script_version") || -1)
 
-    updateData(window._script_version, CURR_SCRIPT_VERSION)
-    init(time)
-})
+  updateData(window._script_version, CURR_SCRIPT_VERSION)
+  init(time)
+}
+
+$(document).ready(load)
 
 function onDataRetrieved(data) {
     window._data = data

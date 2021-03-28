@@ -5,19 +5,20 @@
   "main": "generate.js",
   "scripts": {
     "start": "node generateData.js",
-    "serve": "node server.js",
-    "serve:dev": "npx nodemon ./server.js",
-    "build": "npm start & cp -R data site/data"
+    "serve": "npx http-server site -p $PORT",
+    "serve:dev": "npx nodemon",
+    "build": "npm start & cp -R data site"
   },
   "author": "",
   "license": "MIT",
-  "dependencies": {
-    "express": "^4.16.3"
-  },
   "nodemonConfig": {
     "env": {
       "PORT": 3000
-    }
+    },
+    "exec": "npm start -- -force; cp -R --remove-destination data site; npm run serve",
+    "watch": [
+      "lib"
+    ]
   },
   "repository": "https://github.com/WFCD/warframe-drop-data",
   "devDependencies": {

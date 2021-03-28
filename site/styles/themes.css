@@ -1,40 +1,47 @@
 /* Theme icons */
-.theme-mode {
+.theme-mode, .purge-mode {
     margin-right: 5px;
     cursor: pointer;
     width: 20px;
     height: 20px;
 }
 
+/* Trash Bin coloration */
+.purge-mode {
+  color: black;
+}
+
+html.dark .purge-mode, html.stalker .purge-mode, html.stalker .theme-mode.moon {
+  color: #bbb;
+}
+
 /* Show stalker on dark */
-.dark .moon, .dark .sun {
+html.dark .moon {
     display: none;
 }
 
-.dark .stalker {
-    display: inline-block!important;
+html.dark .stalker, html.dark .sun {
+    display: inline-block;
 }
 
 /* Show day on stalker */
-.stalker .sun {
-    display: inline-block!important;
-    color: white;
+html.stalker .sun {
+    display: inline-block;
+    color: #bbb;
 }
 
-.theme-mode.stalker, .moon {
+.moon {
     display: none;
 }
 
 /* Show dark on day */
-.moon {
-    display: inline-block!important;
+html:not(.dark) .moon {
+    display: inline-block;
 }
 
 .sun, .theme-mode.stalker {
     display: none;
 }
-
-
 
 /* Dark theme */
 .dark body, .dark footer, .dark .footer {
@@ -69,7 +76,6 @@
 .dark .footer, .dark .footer a {
     color: #bbb;
 }
-
 
 /* secret stalker mode */
 .stalker .moon, .stalker .sun {
