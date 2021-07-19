@@ -1,0 +1,18 @@
+.searchfield {
+    width: 300px;
+    margin-top: 50px;
+}
+
+th {
+    cursor: pointer;
+    min-width: 75px;
+}
+
+th i {
+    float: right;
+    line-height: 1.4 !important;
+}
+
+td.msg {
+    text-align: center;
+}

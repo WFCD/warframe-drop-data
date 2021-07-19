@@ -1,0 +1,126 @@
+/* Theme icons */
+.theme-mode, .purge-mode {
+    margin-right: 5px;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+}
+
+/* Trash Bin coloration */
+.purge-mode {
+  color: black;
+}
+
+html.dark .purge-mode, html.stalker .purge-mode, html.stalker .theme-mode.moon {
+  color: #bbb;
+}
+
+/* Show stalker on dark */
+html.dark .moon {
+    display: none;
+}
+
+html.dark .stalker, html.dark .sun {
+    display: inline-block;
+}
+
+/* Show day on stalker */
+html.stalker .sun {
+    display: inline-block;
+    color: #bbb;
+}
+
+.moon {
+    display: none;
+}
+
+/* Show dark on day */
+html:not(.dark) .moon {
+    display: inline-block;
+}
+
+.sun, .theme-mode.stalker {
+    display: none;
+}
+
+/* Dark theme */
+.dark body, .dark footer, .dark .footer {
+    background-color: #23272A;
+    background: #23272A;
+    color: #fff;
+}
+
+.dark input[type=email], .dark input[type=number], .dark input[type=password],
+    .dark input[type=search], .dark input[type=tel], .dark input[type=text],
+.dark input[type=url], .dark select, .dark textarea {
+    background-color: #2C2F33;
+    color: #99AAB5;
+     border: 1px solid #23272A;
+}
+
+.dark th, .dark td {
+    border-bottom: 1px solid #2C2F33;
+}
+
+.dark .jsondiffpatch-added .jsondiffpatch-property-name,
+.dark .jsondiffpatch-added .jsondiffpatch-value pre,
+.dark .jsondiffpatch-modified .jsondiffpatch-right-value pre,
+.dark .jsondiffpatch-textdiff-added,
+.dark .jsondiffpatch-deleted .jsondiffpatch-property-name,
+.dark .jsondiffpatch-deleted pre,
+.dark .jsondiffpatch-modified .jsondiffpatch-left-value pre,
+.dark .jsondiffpatch-textdiff-deleted {
+    color: #222;
+}
+
+.dark .footer, .dark .footer a {
+    color: #bbb;
+}
+
+/* secret stalker mode */
+.stalker .moon, .stalker .sun {
+    display: none;
+}
+
+.stalker body, .stalker footer, .stalker .footer {
+    background-color: #23272A;
+    background: #23272A;
+    color: #f00;
+}
+
+.stalker input[type=email], .stalker input[type=number], .stalker input[type=password],
+    .stalker input[type=search], .stalker input[type=tel], .stalker input[type=text],
+.stalker input[type=url], .stalker select, .stalker textarea {
+    background-color: #2C2F33;
+    color: #f00;
+     border: 1px solid #23272A;
+}
+
+.stalker th, .stalker td {
+    border-bottom: 1px solid #2C2F33;
+}
+
+.stalker .jsondiffpatch-added .jsondiffpatch-property-name,
+.stalker .jsondiffpatch-added .jsondiffpatch-value pre,
+.stalker .jsondiffpatch-modified .jsondiffpatch-right-value pre,
+.stalker .jsondiffpatch-textdiff-added,
+.stalker .jsondiffpatch-deleted .jsondiffpatch-property-name,
+.stalker .jsondiffpatch-deleted pre,
+.stalker .jsondiffpatch-modified .jsondiffpatch-left-value pre,
+.stalker .jsondiffpatch-textdiff-deleted {
+    color: #f00;
+}
+
+.stalker a {
+    color: #f00;
+}
+
+.stalker .footer, .stalker .footer a, .stalker .footer a:hover  {
+    color: #f00;
+}
+
+.theme-mode.stalker img {
+    height: 20px;
+    width: 20px;
+    margin-bottom: -5px;
+}
