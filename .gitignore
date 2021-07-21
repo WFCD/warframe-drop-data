@@ -136,3 +136,7 @@ $RECYCLE.BIN/
 .build_status
 # Copied site data, easier to just edit site and not commit excess files
 site/data/
+
+
+# Needs to be in the repo, but only manually updated, so it should be ignored by its own process.
+.github/pushback.sh
