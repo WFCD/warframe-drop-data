@@ -29,6 +29,8 @@ jobs:
           user_name: 'Jimmy Bot'
           user_email: 'translator@warframe.gg'
       - name: Pushback
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           chmod +x .github/pushback.sh
           ./.github/pushback.sh
