@@ -393,6 +393,17 @@ The `all.json` file of the given hash. Other files, such as `missionRewards.json
 }
 ```
 
+## For Developers
+
+### Dependencies
+- [Node.js >= 14](https://nodejs.org/en/)
+
+### Usage
+You can run the build script with `npm run start`.
+Once built you serve the app Web Ui with `npm run serve:dev` or `npm run serve`
+
+**The npm run serve needs a $PORT in your terminal env*
+
 ## Disclaimer
 
 This list represents data and drops from the PC version of the Free-to-play game Warframe.
