@@ -21,7 +21,7 @@ jobs:
           node-version: 15.x
       - name: Install
         run: npm i
-      - name: Install
+      - name: Lint
         run: npm run lint
       - name: Build
         run: npm run build
