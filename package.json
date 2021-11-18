@@ -7,7 +7,9 @@
     "start": "node generateData.js",
     "serve": "npx http-server site -p $PORT",
     "serve:dev": "npx nodemon",
-    "build": "npm start & cp -R data site"
+    "build": "npm start & cp -R data site",
+    "lint": "eslint generateData.js lib/",
+    "lint:fix": "eslint generateData.js lib/ --fix"
   },
   "author": "",
   "license": "MIT",
@@ -22,9 +24,94 @@
   },
   "repository": "https://github.com/WFCD/warframe-drop-data",
   "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/eslint-parser": "^7.16.3",
+    "@babel/plugin-proposal-class-properties": "^7.16.0",
+    "@babel/plugin-proposal-private-methods": "^7.16.0",
+    "@babel/preset-env": "^7.16.4",
     "cheerio": "^1.0.0-rc.3",
     "colors": "^1.4.0",
+    "eslint": "^8.2.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.3",
     "node-fetch": "^2.6.1",
     "progress": "^2.0.3"
+  },
+  "eslintIgnore": [
+    "site/*",
+    "data/*"
+  ],
+  "eslintConfig": {
+    "extends": "airbnb-base",
+    "parser": "@babel/eslint-parser",
+    "parserOptions": {
+      "sourceType": "script",
+      "babelOptions": {
+        "plugins": [
+          "@babel/plugin-proposal-class-properties",
+          "@babel/plugin-proposal-private-methods"
+        ]
+      }
+    },
+    "rules": {
+      "valid-jsdoc": [
+        "error",
+        {
+          "requireReturn": false,
+          "requireReturnDescription": false,
+          "preferType": {
+            "String": "string",
+            "Number": "number",
+            "Boolean": "boolean",
+            "Function": "function",
+            "object": "Object",
+            "date": "Date",
+            "error": "Error"
+          },
+          "prefer": {
+            "return": "returns"
+          }
+        }
+      ],
+      "strict": [
+        "error",
+        "safe"
+      ],
+      "linebreak-style": "off",
+      "no-restricted-syntax": [
+        "off"
+      ],
+      "no-await-in-loop": "off",
+      "import/no-unresolved": 0,
+      "no-useless-escape": 0,
+      "func-names": 0,
+      "arrow-parens": [
+        2,
+        "as-needed",
+        {
+          "requireForBlockBody": true
+        }
+      ],
+      "no-underscore-dangle": "off",
+      "no-console": "off",
+      "import/no-extraneous-dependencies": "off",
+      "no-param-reassign": "off",
+      "no-plusplus": "off",
+      "global-require": "off",
+      "consistent-return": "off"
+    }
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ],
+    "plugins": [
+      "@babel/plugin-proposal-class-properties",
+      "@babel/plugin-proposal-private-methods"
+    ]
+  },
+  "engines": {
+    "node": ">=14.17.0",
+    "npm": ">= 6.14.14"
   }
 }
