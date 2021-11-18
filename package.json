@@ -7,7 +7,7 @@
     "start": "node generateData.js",
     "serve": "npx http-server site -p $PORT",
     "serve:dev": "npx nodemon",
-    "build": "npm start & cp -R data site",
+    "build": "npm start && cp -R data site",
     "lint": "eslint generateData.js lib/",
     "lint:fix": "eslint generateData.js lib/ --fix"
   },
