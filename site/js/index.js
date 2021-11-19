@@ -211,7 +211,7 @@ function fill(data, sort, reverse, amount) {
         })
     }
 
-    $("th").on("click", function (ev) {
+    $("th").on("click", function(ev) {
         if (this.id) {
           fill(data, this.id, sort === this.id ? !reverse : false, amount)
         }
