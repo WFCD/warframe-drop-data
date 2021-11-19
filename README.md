@@ -399,7 +399,8 @@ The `all.json` file of the given hash. Other files, such as `missionRewards.json
 - [Node.js >= 14](https://nodejs.org/en/)
 
 ### Usage
-You can run the build script with `npm run start`.
+You can run the build script with `npm run build`.
+
 Once built you serve the app Web Ui with `npm run serve:dev` or `npm run serve`
 
 **The npm run serve needs a $PORT in your terminal env*
