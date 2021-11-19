@@ -401,9 +401,7 @@ The `all.json` file of the given hash. Other files, such as `missionRewards.json
 ### Usage
 You can run the build script with `npm run build`.
 
-Once built you serve the app Web Ui with `npm run serve:dev` or `npm run serve`
-
-**The npm run serve needs a $PORT in your terminal env*
+Once built, serve the Web UI with `npm run serve:dev`.
 
 ## Disclaimer
 
