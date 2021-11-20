@@ -90,9 +90,9 @@ function onDataRetrieved(data) {
         $("#search-field").val(decodeURIComponent(query[2]))
 
         if (query.length > 4 && query[4].match(/(default|exact|regex)/)) {
-            $("#search-match").val(query[4])
+            $("#match-search").val(query[4])
         } else {
-            $("search-match").val("default")
+            $("#match-search").val("default")
         }
 
         if (query.length > 3 && query[3].match(/(items|locations|both)/)) {
@@ -115,7 +115,7 @@ $("#search-field").on("keyup", function(ev) {
     search($(this).val().trim().replace(/\s\s+/g, ' '))
 })
 
-$("#search-type, #display-amount, #search-match").on("change", function(ev) {
+$("#search-type, #display-amount, #match-search").on("change", function(ev) {
     search($("#search-field").val().trim().replace(/\s\s+/g, ' '))
 })
 
@@ -131,7 +131,7 @@ function search(searchValue) {
         return
     }
 
-    let match = $('#search-match').val()
+    let match = $('#match-search').val()
     let type = $('#search-type').val()
     let amount = $('#display-amount').val()
     let items = null
