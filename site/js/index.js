@@ -143,12 +143,13 @@ function search(searchValue) {
     function matchPredicate(value) {
         const lowerValue = value.toLowerCase()
 
-        if (match === 'exact') {
-            return lowerValue === lowerSearchValue
-        } else if (match === 'regex') {
-            return lowerValue.match(regex)
-        } else {
-            return lowerValue.includes(lowerSearchValue)
+        switch (match) {
+            case 'exact':
+                return lowerValue === lowerSearchValue
+            case 'regex':
+                return lowerValue.match(regex)
+            default:
+                return lowerValue.includes(lowerSearchValue)
         }
     }
 
