@@ -138,14 +138,17 @@ function search(searchValue) {
 
     window.location.hash = `/search/${encodeURIComponent(searchValue)}/${type}/${match}`
 
+    const lowerSearchValue = searchValue.toLowerCase()
     const regex = match === 'regex' ? new RegExp(searchValue, 'i') : null
     function matchPredicate(value) {
+        const lowerValue = value.toLowerCase()
+
         if (match === 'exact') {
-            return value.toLowerCase() === searchValue.toLowerCase()
+            return lowerValue === lowerSearchValue
         } else if (match === 'regex') {
-            return value.match(regex)
+            return lowerValue.match(regex)
         } else {
-            return value.contains(searchValue)
+            return lowerSearchValue.includes(lowerSearchValue)
         }
     }
 
