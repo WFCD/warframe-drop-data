@@ -148,7 +148,7 @@ function search(searchValue) {
         } else if (match === 'regex') {
             return lowerValue.match(regex)
         } else {
-            return lowerSearchValue.includes(lowerSearchValue)
+            return lowerValue.includes(lowerSearchValue)
         }
     }
 
