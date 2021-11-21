@@ -87,11 +87,17 @@ function onDataRetrieved(data) {
     let query = window.location.hash.split('/')
 
     if (query && query.length > 2 && query[1] === 'search') {
+        $("#search-field").val(decodeURIComponent(query[2]))
+
+        if (query.length > 4 && query[4].match(/(default|exact|regex)/)) {
+            $("#match-search").val(query[4])
+        } else {
+            $("#match-search").val("default")
+        }
+
         if (query.length > 3 && query[3].match(/(items|locations|both)/)) {
-            $("#search-field").val(decodeURIComponent(query[2]))
             $("#search-type").val(decodeURIComponent(query[3]))
         } else {
-            $("#search-field").val(decodeURIComponent(query[2]))
             $("#search-type").val(decodeURIComponent('items'))
         }
     }
@@ -109,7 +115,7 @@ $("#search-field").on("keyup", function(ev) {
     search($(this).val().trim().replace(/\s\s+/g, ' '))
 })
 
-$("#search-type, #display-amount").on("change", function(ev) {
+$("#search-type, #display-amount, #match-search").on("change", function(ev) {
     search($("#search-field").val().trim().replace(/\s\s+/g, ' '))
 })
 
@@ -125,20 +131,36 @@ function search(searchValue) {
         return
     }
 
+    let match = $('#match-search').val()
     let type = $('#search-type').val()
     let amount = $('#display-amount').val()
     let items = null
 
-    window.location.hash = `/search/${encodeURIComponent(searchValue)}/${type}`
+    window.location.hash = `/search/${encodeURIComponent(searchValue)}/${type}/${match}`
+
+    const lowerSearchValue = searchValue.toLowerCase()
+    const regex = match === 'regex' ? new RegExp(searchValue, 'i') : null
+    function matchPredicate(value) {
+        const lowerValue = value.toLowerCase()
+
+        switch (match) {
+            case 'exact':
+                return lowerValue === lowerSearchValue
+            case 'regex':
+                return lowerValue.match(regex)
+            default:
+                return lowerValue.includes(lowerSearchValue)
+        }
+    }
 
     if (type === 'items') {
-        items = window._data.filter(entry => entry.item.contains(searchValue))
+        items = window._data.filter(entry => matchPredicate(entry.item))
     } else if (type === 'locations') {
-        items = window._data.filter(entry => searchablePlace(entry.place).contains(searchValue))
+        items = window._data.filter(entry => matchPredicate(searchablePlace(entry.place)))
     } else if (type === 'both') {
-        items = window._data.filter(entry => entry.item.contains(searchValue) || searchablePlace(entry.place).contains(searchValue)) }
-    else {
-        items = window._data.filter(entry => entry.item.contains(searchValue))
+        items = window._data.filter(entry => matchPredicate(entry.item) || matchPredicate(searchablePlace(entry.place)))
+    } else {
+        items = window._data.filter(entry => matchPredicate(entry.item))
     }
 
     fill(items, 'rarity', false, amount)

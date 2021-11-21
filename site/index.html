@@ -50,6 +50,11 @@
 
             <div>
                 <input class="searchfield" placeholder="Search here..." id="search-field" type="text" autofocus="autofocus" aria-label="Search here..." />
+                <select id="match-search" aria-label="Matching Search">
+                    <option value="default">Default match</option>
+                    <option value="exact">Exact match</option>
+                    <option value="regex">Regex match</option>
+                </select>
                 <select id="search-type" aria-label="Search Category">
                     <option value="items">Items only</option>
                     <option value="locations">Locations only</option>
