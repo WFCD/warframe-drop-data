@@ -30,7 +30,7 @@
     "@babel/plugin-proposal-private-methods": "^7.16.0",
     "@babel/preset-env": "^7.16.4",
     "cheerio": "^1.0.0-rc.3",
-    "colors": "^1.4.0",
+    "colors": "1.4.0",
     "eslint": "^8.2.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.25.3",
