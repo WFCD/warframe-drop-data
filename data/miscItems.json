@@ -1,0 +1,998 @@
+{
+  "miscItems": [
+    {
+      "_id": "28afbd6dc10620dd6aece25d8d190148",
+      "enemyName": "Captain Vor",
+      "enemyItemDropChance": "100.00",
+      "items": [
+        {
+          "_id": "5c375e566423913a11da3d8861bea264",
+          "itemName": "Orokin Cell",
+          "rarity": "Rare",
+          "chance": 2.58
+        }
+      ]
+    },
+    {
+      "_id": "c31e59bc2cb6c7cdde0589eb0538612d",
+      "enemyName": "Lephantis",
+      "enemyItemDropChance": "100.00",
+      "items": [
+        {
+          "_id": "5c375e566423913a11da3d8861bea264",
+          "itemName": "Orokin Cell",
+          "rarity": "Rare",
+          "chance": 2.58
+        }
+      ]
+    },
+    {
+      "_id": "e732800263daf67472e2a95799246c91",
+      "enemyName": "Stalker",
+      "enemyItemDropChance": "50.00",
+      "items": [
+        {
+          "_id": "5c375e566423913a11da3d8861bea264",
+          "itemName": "Orokin Cell",
+          "rarity": "Rare",
+          "chance": 2.58
+        }
+      ]
+    },
+    {
+      "_id": "931da241cc672aef2c35ec2db0cffa91",
+      "enemyName": "Alad V",
+      "enemyItemDropChance": "100.00",
+      "items": [
+        {
+          "_id": "5c375e566423913a11da3d8861bea264",
+          "itemName": "Orokin Cell",
+          "rarity": "Rare",
+          "chance": 2.58
+        }
+      ]
+    },
+    {
+      "_id": "027cb83c9d833617d1e6c438c8b65e09",
+      "enemyName": "Zanuka Hunter",
+      "enemyItemDropChance": "100.00",
+      "items": [
+        {
+          "_id": "e6ea947c1b07f594a2963ce223727bca",
+          "itemName": "Detron Receiver",
+          "rarity": "Common",
+          "chance": 50
+        },
+        {
+          "_id": "aebbb6c497bf01a0e1673e19ff14ada4",
+          "itemName": "Detron Barrel",
+          "rarity": "Common",
+          "chance": 50
+        }
+      ]
+    },
+    {
+      "_id": "13aea3e9b9b7d0fc8f459835414d3384",
+      "enemyName": "Vem Tabook",
+      "enemyItemDropChance": "100.00",
+      "items": [
+        {
+          "_id": "aed96fa4446fbff3d717b8f205404023",
+          "itemName": "Neurodes",
+          "rarity": "Common",
+          "chance": 100
+        }
+      ]
+    },
+    {
+      "_id": "5eb8ae31e75f3bc31e1127815ef00fef",
+      "enemyName": "Leekter",
+      "enemyItemDropChance": "100.00",
+      "items": [
+        {
+          "_id": "aed96fa4446fbff3d717b8f205404023",
+          "itemName": "Neurodes",
+          "rarity": "Common",
+          "chance": 77.44
+        },
+        {
+          "_id": "0f8263c88a1eedde6586cc58fd11092c",
+          "itemName": "Brakk Receiver",
+          "rarity": "Uncommon",
+          "chance": 22.56
+        }
+      ]
+    },
+    {
+      "_id": "a09beb3e2a5d3ab9a8314998981633ab",
+      "enemyName": "Shik Tal",
+      "enemyItemDropChance": "100.00",
+      "items": [
+        {
+          "_id": "aed96fa4446fbff3d717b8f205404023",
+          "itemName": "Neurodes",
+          "rarity": "Common",
+          "chance": 77.44
+        },
+        {
+          "_id": "866ac7784d30cdcf236f0bf3839710a0",
+          "itemName": "Brakk Barrel",
+          "rarity": "Uncommon",
+          "chance": 22.56
+        }
+      ]
+    },
+    {
+      "_id": "f5d72f1c6ed3b5c249d5380f4eb4dac3",
+      "enemyName": "Mutalist Alad V",
+      "enemyItemDropChance": "100.00",
+      "items": [
+        {
+          "_id": "5c375e566423913a11da3d8861bea264",
+          "itemName": "Orokin Cell",
+          "rarity": "Rare",
+          "chance": 2.58
+        }
+      ]
+    },
+    {
+      "_id": "32ad6bc1638e01acf9d2e312fc44eeb6",
+      "enemyName": "Tyl Regor",
+      "enemyItemDropChance": "100.00",
+      "items": [
+        {
+          "_id": "5c375e566423913a11da3d8861bea264",
+          "itemName": "Orokin Cell",
+          "rarity": "Rare",
+          "chance": 2.58
+        }
+      ]
+    },
+    {
+      "_id": "53394912e1c6e9e7b498bb8b185e48be",
+      "enemyName": "Vay Hek Terra Frame",
+      "enemyItemDropChance": "100.00",
+      "items": [
+        {
+          "_id": "5c375e566423913a11da3d8861bea264",
+          "itemName": "Orokin Cell",
+          "rarity": "Rare",
+          "chance": 2.58
+        }
+      ]
+    },
+    {
+      "_id": "d6793720746f4c4d524f6640611c35dd",
+      "enemyName": "Jackal",
+      "enemyItemDropChance": "100.00",
+      "items": [
+        {
+          "_id": "5c375e566423913a11da3d8861bea264",
+          "itemName": "Orokin Cell",
+          "rarity": "Rare",
+          "chance": 2.58
+        }
+      ]
+    },
+    {
+      "_id": "31aeacbabc937f65f44dbcc3fc3f636d",
+      "enemyName": "General Sargas Ruk",
+      "enemyItemDropChance": "100.00",
+      "items": [
+        {
+          "_id": "5c375e566423913a11da3d8861bea264",
+          "itemName": "Orokin Cell",
+          "rarity": "Rare",
+          "chance": 2.58
+        }
+      ]
+    },
+    {
+      "_id": "a3ad69c9d0a953e8d183b32dc9e528d8",
+      "enemyName": "Ambulas",
+      "enemyItemDropChance": "50.00",
+      "items": [
+        {
+          "_id": "5c375e566423913a11da3d8861bea264",
+          "itemName": "Orokin Cell",
+          "rarity": "Rare",
+          "chance": 2.58
+        }
+      ]
+    },
+    {
+      "_id": "e971f028b92683b4831d9d0b815a912c",
+      "enemyName": "Turret",
+      "enemyItemDropChance": "100.00",
+      "items": [
+        {
+          "_id": "a3ab4147ff1f344ae81bc8fd301a4ba5",
+          "itemName": "Circuits",
+          "rarity": "Common",
+          "chance": 68.02
+        }
+      ]
+    },
+    {
+      "_id": "ffa7a4a8575fd459264cd86fb2bec39b",
+      "enemyName": "Tusk Bolkor",
+      "enemyItemDropChance": "100.00",
+      "items": [
+        {
+          "_id": "a3ab4147ff1f344ae81bc8fd301a4ba5",
+          "itemName": "Circuits",
+          "rarity": "Common",
+          "chance": 68.02
+        }
+      ]
+    },
+    {
+      "_id": "1a327051185a15df2f6de4267661386c",
+      "enemyName": "Eidolon Vomvalyst",
+      "enemyItemDropChance": "100.00",
+      "items": [
+        {
+          "_id": "e22c0f85d4962c33080dd3c3e74f6e31",
+          "itemName": "Intact Sentient Core",
+          "rarity": "Common",
+          "chance": 100
+        }
+      ]
+    },
+    {
+      "_id": "98d9ccf1b3eef5c3223fe157c25ca94e",
+      "enemyName": "Drahk",
+      "enemyItemDropChance": "25.00",
+      "items": [
+        {
+          "_id": "ef800a7a664433221a5d936069a65f86",
+          "itemName": "Nav Coordinate",
+          "rarity": "Uncommon",
+          "chance": 22.56
+        }
+      ]
+    },
+    {
+      "_id": "abce816f002a752c88308d5f6658427c",
+      "enemyName": "Akkalak Turret",
+      "enemyItemDropChance": "70.00",
+      "items": [
+        {
+          "_id": "a3ab4147ff1f344ae81bc8fd301a4ba5",
+          "itemName": "Circuits",
+          "rarity": "Common",
+          "chance": 68.02
+        }
+      ]
+    },
+    {
+      "_id": "152d8675f8c06f3fe673aa0048c2c2fd",
+      "enemyName": "Mordda Turret",
+      "enemyItemDropChance": "70.00",
+      "items": [
+        {
+          "_id": "a3ab4147ff1f344ae81bc8fd301a4ba5",
+          "itemName": "Circuits",
+          "rarity": "Common",
+          "chance": 68.02
+        }
+      ]
+    },
+    {
+      "_id": "328556ee79be65d2e23acc69773d553f",
+      "enemyName": "Vruush Turret",
+      "enemyItemDropChance": "70.00",
+      "items": [
+        {
+          "_id": "a3ab4147ff1f344ae81bc8fd301a4ba5",
+          "itemName": "Circuits",
+          "rarity": "Common",
+          "chance": 68.02
+        }
+      ]
+    },
+    {
+      "_id": "6cb576ec13726583fab7df279410f9b2",
+      "enemyName": "Raptor",
+      "enemyItemDropChance": "100.00",
+      "items": [
+        {
+          "_id": "fc383f8e5f0d37f778c341dce35ff690",
+          "itemName": "Neural Sensors",
+          "rarity": "Common",
+          "chance": 50
+        }
+      ]
+    },
+    {
+      "_id": "024fc70d51074c9f42ee7f917c37b4ed",
+      "enemyName": "Juggernaut",
+      "enemyItemDropChance": "100.00",
+      "items": [
+        {
+          "_id": "74f19cf01d390a4b820d7b68919c79f8",
+          "itemName": "Pulsating Tubercles",
+          "rarity": "Uncommon",
+          "chance": 25
+        },
+        {
+          "_id": "0c87b9fa6c7615e378e924e413814d63",
+          "itemName": "Infected Palpators",
+          "rarity": "Uncommon",
+          "chance": 25
+        },
+        {
+          "_id": "f4a6e48c90e11df1cdbef57da5d1144a",
+          "itemName": "Chitinous Husk",
+          "rarity": "Uncommon",
+          "chance": 25
+        },
+        {
+          "_id": "257f292edd04a1af0f311298de33fb8a",
+          "itemName": "Severed Bile Sac",
+          "rarity": "Uncommon",
+          "chance": 25
+        }
+      ]
+    },
+    {
+      "_id": "49dd6a0bd0649e2a86a74b5c80deeaf7",
+      "enemyName": "Kuva Jester",
+      "enemyItemDropChance": "5.00",
+      "items": [
+        {
+          "_id": "ec167e4dc235f74facaad5badaf91809",
+          "itemName": "Orvius Disc",
+          "rarity": "Common",
+          "chance": 100
+        }
+      ]
+    },
+    {
+      "_id": "2761ed0d4d82f817ec7cd94aa3cf384d",
+      "enemyName": "Hyena Pack",
+      "enemyItemDropChance": "100.00",
+      "items": [
+        {
+          "_id": "5c375e566423913a11da3d8861bea264",
+          "itemName": "Orokin Cell",
+          "rarity": "Rare",
+          "chance": 2.58
+        }
+      ]
+    },
+    {
+      "_id": "4eb393202cebe74d1bc724551326a09c",
+      "enemyName": "Phorid",
+      "enemyItemDropChance": "100.00",
+      "items": [
+        {
+          "_id": "5c375e566423913a11da3d8861bea264",
+          "itemName": "Orokin Cell",
+          "rarity": "Rare",
+          "chance": 2.58
+        }
+      ]
+    },
+    {
+      "_id": "02fbdf6461653e45e46abb28dac97fff",
+      "enemyName": "J3 Jordas Golem",
+      "enemyItemDropChance": "100.00",
+      "items": [
+        {
+          "_id": "5c375e566423913a11da3d8861bea264",
+          "itemName": "Orokin Cell",
+          "rarity": "Rare",
+          "chance": 2.58
+        }
+      ]
+    },
+    {
+      "_id": "133afa352bfa12b773170adb7ddb8708",
+      "enemyName": "The Sergeant",
+      "enemyItemDropChance": "100.00",
+      "items": [
+        {
+          "_id": "5c375e566423913a11da3d8861bea264",
+          "itemName": "Orokin Cell",
+          "rarity": "Rare",
+          "chance": 2.58
+        }
+      ]
+    },
+    {
+      "_id": "dabb37bf064307d71e8678f77482f407",
+      "enemyName": "Commander",
+      "enemyItemDropChance": "100.00",
+      "items": [
+        {
+          "_id": "5c375e566423913a11da3d8861bea264",
+          "itemName": "Orokin Cell",
+          "rarity": "Rare",
+          "chance": 2.58
+        }
+      ]
+    },
+    {
+      "_id": "eda9f7b03e6f4588b1058b16e6b214b8",
+      "enemyName": "Councilor Vay Hek",
+      "enemyItemDropChance": "100.00",
+      "items": [
+        {
+          "_id": "5c375e566423913a11da3d8861bea264",
+          "itemName": "Orokin Cell",
+          "rarity": "Rare",
+          "chance": 2.58
+        }
+      ]
+    },
+    {
+      "_id": "32ad6bc1638e01acf9d2e312fc44eeb6",
+      "enemyName": "Tyl Regor",
+      "enemyItemDropChance": "100.00",
+      "items": [
+        {
+          "_id": "5c375e566423913a11da3d8861bea264",
+          "itemName": "Orokin Cell",
+          "rarity": "Rare",
+          "chance": 2.58
+        }
+      ]
+    },
+    {
+      "_id": "bd89ae35d26c613f23d4a445813ee97d",
+      "enemyName": "Kuaka",
+      "enemyItemDropChance": "100.00",
+      "items": [
+        {
+          "_id": "9258c19a5cd278e5038eb484a41bbc16",
+          "itemName": "Kuaka Spinal Claw",
+          "rarity": "Common",
+          "chance": 100
+        }
+      ]
+    },
+    {
+      "_id": "f55d9658547fbc3bb6d5c836ee2393dc",
+      "enemyName": "Jordas Golem",
+      "enemyItemDropChance": "100.00",
+      "items": [
+        {
+          "_id": "5c375e566423913a11da3d8861bea264",
+          "itemName": "Orokin Cell",
+          "rarity": "Rare",
+          "chance": 2.58
+        }
+      ]
+    },
+    {
+      "_id": "9c01c9222210e2149d983ba73ff24de7",
+      "enemyName": "Hyekka",
+      "enemyItemDropChance": "25.00",
+      "items": [
+        {
+          "_id": "ef800a7a664433221a5d936069a65f86",
+          "itemName": "Nav Coordinate",
+          "rarity": "Uncommon",
+          "chance": 22.56
+        }
+      ]
+    },
+    {
+      "_id": "949ebfbb184423b5a5692ff3e23044c8",
+      "enemyName": "Icemire Hyena",
+      "enemyItemDropChance": "100.00",
+      "items": [
+        {
+          "_id": "5c375e566423913a11da3d8861bea264",
+          "itemName": "Orokin Cell",
+          "rarity": "Rare",
+          "chance": 2.58
+        }
+      ]
+    },
+    {
+      "_id": "3720697380a067838f23dcd58b4b9c9c",
+      "enemyName": "Rabbleback Hyena",
+      "enemyItemDropChance": "100.00",
+      "items": [
+        {
+          "_id": "5c375e566423913a11da3d8861bea264",
+          "itemName": "Orokin Cell",
+          "rarity": "Rare",
+          "chance": 2.58
+        }
+      ]
+    },
+    {
+      "_id": "b85c456129076b54b0061f0092c2524d",
+      "enemyName": "Gyre Hyena",
+      "enemyItemDropChance": "100.00",
+      "items": [
+        {
+          "_id": "5c375e566423913a11da3d8861bea264",
+          "itemName": "Orokin Cell",
+          "rarity": "Rare",
+          "chance": 2.58
+        }
+      ]
+    },
+    {
+      "_id": "7496d24241d1a2957b753dce959acd5a",
+      "enemyName": "Cinderthresh Hyena",
+      "enemyItemDropChance": "100.00",
+      "items": [
+        {
+          "_id": "5c375e566423913a11da3d8861bea264",
+          "itemName": "Orokin Cell",
+          "rarity": "Rare",
+          "chance": 2.58
+        }
+      ]
+    },
+    {
+      "_id": "3848c8f70ffa3945990c0c2690e7ea2a",
+      "enemyName": "Oxium Osprey",
+      "enemyItemDropChance": "100.00",
+      "items": [
+        {
+          "_id": "6c7a81dadf16c5f32a5eb68c499839c5",
+          "itemName": "Oxium",
+          "rarity": "Common",
+          "chance": 100
+        }
+      ]
+    },
+    {
+      "_id": "097443e91b14b8c9c6d93c4f3593ea2e",
+      "enemyName": "Shadow Stalker",
+      "enemyItemDropChance": "50.00",
+      "items": [
+        {
+          "_id": "5c375e566423913a11da3d8861bea264",
+          "itemName": "Orokin Cell",
+          "rarity": "Rare",
+          "chance": 2.58
+        }
+      ]
+    },
+    {
+      "_id": "2ca1f6ec876d66fb28605d81d2bfa232",
+      "enemyName": "Corrupted Vor",
+      "enemyItemDropChance": "100.00",
+      "items": [
+        {
+          "_id": "7fbab6b386c0dd0baad3f61f0688c94f",
+          "itemName": "Argon Crystal",
+          "rarity": "Common",
+          "chance": 50
+        },
+        {
+          "_id": "5c375e566423913a11da3d8861bea264",
+          "itemName": "Orokin Cell",
+          "rarity": "Common",
+          "chance": 50
+        }
+      ]
+    },
+    {
+      "_id": "dabfa9ce372a2931b0202a11169f6f92",
+      "enemyName": "Battalyst",
+      "enemyItemDropChance": "50.00",
+      "items": [
+        {
+          "_id": "5c375e566423913a11da3d8861bea264",
+          "itemName": "Orokin Cell",
+          "rarity": "Rare",
+          "chance": 2.58
+        }
+      ]
+    },
+    {
+      "_id": "97f195bc37d826d647d44baa6440069c",
+      "enemyName": "Conculyst",
+      "enemyItemDropChance": "50.00",
+      "items": [
+        {
+          "_id": "5c375e566423913a11da3d8861bea264",
+          "itemName": "Orokin Cell",
+          "rarity": "Rare",
+          "chance": 2.58
+        }
+      ]
+    },
+    {
+      "_id": "2a25887cfb2bcd30b004392c7f54308f",
+      "enemyName": "Mimic",
+      "enemyItemDropChance": "25.00",
+      "items": [
+        {
+          "_id": "5c375e566423913a11da3d8861bea264",
+          "itemName": "Orokin Cell",
+          "rarity": "Rare",
+          "chance": 2.58
+        },
+        {
+          "_id": "e22c0f85d4962c33080dd3c3e74f6e31",
+          "itemName": "Intact Sentient Core",
+          "rarity": "Common",
+          "chance": 48.71
+        }
+      ]
+    },
+    {
+      "_id": "a75805a748b158dbc8a9ac9ce46a139c",
+      "enemyName": "Decaying Battalyst",
+      "enemyItemDropChance": "50.00",
+      "items": [
+        {
+          "_id": "5c375e566423913a11da3d8861bea264",
+          "itemName": "Orokin Cell",
+          "rarity": "Rare",
+          "chance": 2.58
+        }
+      ]
+    },
+    {
+      "_id": "7ed01c1f1068e1d4c74bb590e91266c3",
+      "enemyName": "Decaying Conculyst",
+      "enemyItemDropChance": "50.00",
+      "items": [
+        {
+          "_id": "5c375e566423913a11da3d8861bea264",
+          "itemName": "Orokin Cell",
+          "rarity": "Rare",
+          "chance": 2.58
+        }
+      ]
+    },
+    {
+      "_id": "20acee5e140474aa7be2d48851a6c65e",
+      "enemyName": "Hunhow",
+      "enemyItemDropChance": "50.00",
+      "items": [
+        {
+          "_id": "5c375e566423913a11da3d8861bea264",
+          "itemName": "Orokin Cell",
+          "rarity": "Rare",
+          "chance": 2.58
+        }
+      ]
+    },
+    {
+      "_id": "db1e63e4af11b9e1c961531283a4fa82",
+      "enemyName": "Ashen Kuaka",
+      "enemyItemDropChance": "100.00",
+      "items": [
+        {
+          "_id": "9258c19a5cd278e5038eb484a41bbc16",
+          "itemName": "Kuaka Spinal Claw",
+          "rarity": "Common",
+          "chance": 100
+        }
+      ]
+    },
+    {
+      "_id": "ee45ef749a4c8267d8bc187c6cebb8c0",
+      "enemyName": "Kela De Thaym",
+      "enemyItemDropChance": "100.00",
+      "items": [
+        {
+          "_id": "5c375e566423913a11da3d8861bea264",
+          "itemName": "Orokin Cell",
+          "rarity": "Rare",
+          "chance": 2.58
+        }
+      ]
+    },
+    {
+      "_id": "4f57e0cc52d73a612ebe67a33bf69eda",
+      "enemyName": "Senta Turret",
+      "enemyItemDropChance": "70.00",
+      "items": [
+        {
+          "_id": "a3ab4147ff1f344ae81bc8fd301a4ba5",
+          "itemName": "Circuits",
+          "rarity": "Common",
+          "chance": 68.02
+        }
+      ]
+    },
+    {
+      "_id": "72308ae7e19007ece1700145e337ce9a",
+      "enemyName": "Raptor Ns",
+      "enemyItemDropChance": "10.00",
+      "items": [
+        {
+          "_id": "fc383f8e5f0d37f778c341dce35ff690",
+          "itemName": "Neural Sensors",
+          "rarity": "Common",
+          "chance": 50
+        }
+      ]
+    },
+    {
+      "_id": "e73ce7e38dcef8f8a3a225f85842acd9",
+      "enemyName": "Raptor Mt",
+      "enemyItemDropChance": "10.00",
+      "items": [
+        {
+          "_id": "fc383f8e5f0d37f778c341dce35ff690",
+          "itemName": "Neural Sensors",
+          "rarity": "Common",
+          "chance": 50
+        }
+      ]
+    },
+    {
+      "_id": "19e88ad3a052bad4e7c9b0e408b6046b",
+      "enemyName": "Raptor Rv",
+      "enemyItemDropChance": "10.00",
+      "items": [
+        {
+          "_id": "fc383f8e5f0d37f778c341dce35ff690",
+          "itemName": "Neural Sensors",
+          "rarity": "Common",
+          "chance": 50
+        }
+      ]
+    },
+    {
+      "_id": "83890901b69bd88ff99595982974d3c8",
+      "enemyName": "Hyena Pb",
+      "enemyItemDropChance": "100.00",
+      "items": [
+        {
+          "_id": "5c375e566423913a11da3d8861bea264",
+          "itemName": "Orokin Cell",
+          "rarity": "Rare",
+          "chance": 2.58
+        }
+      ]
+    },
+    {
+      "_id": "20f29da5f74a0eefcabda55bd2421d0b",
+      "enemyName": "Hyena Ng",
+      "enemyItemDropChance": "100.00",
+      "items": [
+        {
+          "_id": "5c375e566423913a11da3d8861bea264",
+          "itemName": "Orokin Cell",
+          "rarity": "Rare",
+          "chance": 2.58
+        }
+      ]
+    },
+    {
+      "_id": "262a67efcb6c80357a923f1ad63d9f24",
+      "enemyName": "Hyena Ln2",
+      "enemyItemDropChance": "100.00",
+      "items": [
+        {
+          "_id": "5c375e566423913a11da3d8861bea264",
+          "itemName": "Orokin Cell",
+          "rarity": "Rare",
+          "chance": 2.58
+        }
+      ]
+    },
+    {
+      "_id": "a38b0be94d2186181cc2f3e641d5f912",
+      "enemyName": "Hyena Th",
+      "enemyItemDropChance": "100.00",
+      "items": [
+        {
+          "_id": "5c375e566423913a11da3d8861bea264",
+          "itemName": "Orokin Cell",
+          "rarity": "Rare",
+          "chance": 2.58
+        }
+      ]
+    },
+    {
+      "_id": "7687ee02363faf9c6d0605f53e59e550",
+      "enemyName": "Juggernaut Behemoth",
+      "enemyItemDropChance": "100.00",
+      "items": [
+        {
+          "_id": "74f19cf01d390a4b820d7b68919c79f8",
+          "itemName": "Pulsating Tubercles",
+          "rarity": "Uncommon",
+          "chance": 25
+        },
+        {
+          "_id": "0c87b9fa6c7615e378e924e413814d63",
+          "itemName": "Infected Palpators",
+          "rarity": "Uncommon",
+          "chance": 25
+        },
+        {
+          "_id": "f4a6e48c90e11df1cdbef57da5d1144a",
+          "itemName": "Chitinous Husk",
+          "rarity": "Uncommon",
+          "chance": 25
+        },
+        {
+          "_id": "257f292edd04a1af0f311298de33fb8a",
+          "itemName": "Severed Bile Sac",
+          "rarity": "Uncommon",
+          "chance": 25
+        }
+      ]
+    },
+    {
+      "_id": "15965ecb9a1888d9c4c1fb2801eb10d5",
+      "enemyName": "Kuva Drahk",
+      "enemyItemDropChance": "25.00",
+      "items": [
+        {
+          "_id": "ef800a7a664433221a5d936069a65f86",
+          "itemName": "Nav Coordinate",
+          "rarity": "Uncommon",
+          "chance": 22.56
+        }
+      ]
+    },
+    {
+      "_id": "27a73f8fb18993d795a38ab8fbaad792",
+      "enemyName": "Kuva Guardian",
+      "enemyItemDropChance": "5.00",
+      "items": [
+        {
+          "_id": "2bfe343437910387c6d6c3a52b9ca1a4",
+          "itemName": "Orvius Blade",
+          "rarity": "Common",
+          "chance": 100
+        }
+      ]
+    },
+    {
+      "_id": "00750386c16ec9e304b3755a06b2dee6",
+      "enemyName": "Nemes",
+      "enemyItemDropChance": "100.00",
+      "items": [
+        {
+          "_id": "6c7a81dadf16c5f32a5eb68c499839c5",
+          "itemName": "Oxium",
+          "rarity": "Common",
+          "chance": 100
+        }
+      ]
+    },
+    {
+      "_id": "e2148b27e22fb8daf2fad12a87089164",
+      "enemyName": "Kavat",
+      "enemyItemDropChance": "25.00",
+      "items": [
+        {
+          "_id": "ef800a7a664433221a5d936069a65f86",
+          "itemName": "Nav Coordinate",
+          "rarity": "Uncommon",
+          "chance": 22.56
+        }
+      ]
+    },
+    {
+      "_id": "3a4eaf790e4aea8cec2f22ed8d3fc786",
+      "enemyName": "Jack O'Naut",
+      "enemyItemDropChance": "100.00",
+      "items": [
+        {
+          "_id": "74f19cf01d390a4b820d7b68919c79f8",
+          "itemName": "Pulsating Tubercles",
+          "rarity": "Uncommon",
+          "chance": 25
+        },
+        {
+          "_id": "0c87b9fa6c7615e378e924e413814d63",
+          "itemName": "Infected Palpators",
+          "rarity": "Uncommon",
+          "chance": 25
+        },
+        {
+          "_id": "f4a6e48c90e11df1cdbef57da5d1144a",
+          "itemName": "Chitinous Husk",
+          "rarity": "Uncommon",
+          "chance": 25
+        },
+        {
+          "_id": "257f292edd04a1af0f311298de33fb8a",
+          "itemName": "Severed Bile Sac",
+          "rarity": "Uncommon",
+          "chance": 25
+        }
+      ]
+    },
+    {
+      "_id": "6cb576ec13726583fab7df279410f9b2",
+      "enemyName": "Raptor",
+      "enemyItemDropChance": "10.00",
+      "items": [
+        {
+          "_id": "fc383f8e5f0d37f778c341dce35ff690",
+          "itemName": "Neural Sensors",
+          "rarity": "Common",
+          "chance": 50
+        }
+      ]
+    },
+    {
+      "_id": "a52fc072a2124dfc07a3e12684207afd",
+      "enemyName": "Artificer",
+      "enemyItemDropChance": "100.00",
+      "items": [
+        {
+          "_id": "5c375e566423913a11da3d8861bea264",
+          "itemName": "Orokin Cell",
+          "rarity": "Rare",
+          "chance": 2.58
+        }
+      ]
+    },
+    {
+      "_id": "3156a5d51f95f24fab811145d9b68d8b",
+      "enemyName": "Carabus",
+      "enemyItemDropChance": "100.00",
+      "items": [
+        {
+          "_id": "6c7a81dadf16c5f32a5eb68c499839c5",
+          "itemName": "Oxium",
+          "rarity": "Common",
+          "chance": 100
+        }
+      ]
+    },
+    {
+      "_id": "ee45ef749a4c8267d8bc187c6cebb8c0",
+      "enemyName": "Kela De Thaym",
+      "enemyItemDropChance": "100.00",
+      "items": [
+        {
+          "_id": "5c375e566423913a11da3d8861bea264",
+          "itemName": "Orokin Cell",
+          "rarity": "Rare",
+          "chance": 2.58
+        }
+      ]
+    },
+    {
+      "_id": "be2a4eb6f0966b6cf6a68603dec5d104",
+      "enemyName": "Lt Lech Kril",
+      "enemyItemDropChance": "100.00",
+      "items": [
+        {
+          "_id": "5c375e566423913a11da3d8861bea264",
+          "itemName": "Orokin Cell",
+          "rarity": "Rare",
+          "chance": 2.58
+        }
+      ]
+    },
+    {
+      "_id": "afa0e7c2a98747812fd5d91d8faa8550",
+      "enemyName": "Kubrow",
+      "enemyItemDropChance": "25.00",
+      "items": [
+        {
+          "_id": "ef800a7a664433221a5d936069a65f86",
+          "itemName": "Nav Coordinate",
+          "rarity": "Uncommon",
+          "chance": 22.56
+        }
+      ]
+    },
+    {
+      "_id": "eda9f7b03e6f4588b1058b16e6b214b8",
+      "enemyName": "Councilor Vay Hek",
+      "enemyItemDropChance": "100.00",
+      "items": [
+        {
+          "_id": "5c375e566423913a11da3d8861bea264",
+          "itemName": "Orokin Cell",
+          "rarity": "Rare",
+          "chance": 2.58
+        }
+      ]
+    }
+  ]
+}

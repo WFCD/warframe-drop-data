@@ -1,0 +1,96 @@
+<!doctype html>
+<html class="dark" lang="en">
+<title>Warframe Drop Data - Compare Versions</title>
+<link rel="manifest" href="drops.webmanifest">
+
+<meta property="og:title" content="Warframe Drop Data" />
+<meta property="og:description" content="A tool/API to search through Digital Extremes official Warframe drop data website." />
+<meta property="og:url" content="https://drops.warframestat.us" />
+<meta property="og:image" content="./img/logo.png" />
+
+<meta name="theme-color" content="#23272A">
+<meta name="description" content="A tool/API to search through Digital Extremes official Warframe drop data website.">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" href="./img/logo.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
+<link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+<link rel="stylesheet" href="./styles/themes.css" />
+<link rel="stylesheet" href="./styles/common.css" />
+<link rel="stylesheet" href="./styles/index.css" />
+
+<link rel="shortcut icon" href="./img/logo.png" />
+
+<div id="no-script" style="display: flex;">
+    <p>
+        <i class="fa fa-warning"></i><br />
+        This website requires JavaScript.
+    </p>
+</div>
+
+<div id="loading" style="display: none;">
+    <p>
+        <i class="fa fa-refresh fa-spin"></i><br />
+        Loading, please wait...
+    </p>
+</div>
+
+<section>
+    <div class="container">
+        <div class="header">
+            <div>
+                <img src="./img/logo.short.png" height="64" class="logo">
+                <h5>Warframe Drop Data - Compare Versions</h5>
+                <a href="./">Drop Data</a> | <a target="_blank" href="https://github.com/WFCD/warframe-drop-data#api-endpoints" rel="noopener" name="API Documentation">API Documentation</a> | <a target="_blank" href="https://github.com/WFCD/warframe-drop-data" rel="noopener" name="GitHub Repository"><i class="fab fa-github"></i></a>
+            </div>
+            <div id="builds-selection">
+                <div>
+                    <label>Previous version</label>
+                    <select id="builds-old" disabled="disabled"><option value="" disabled="disabled">Please select a version...</option></select>
+                </div>
+                <div>
+                    <label>Current version</label>
+                    <select id="builds-new" disabled="disabled"><option value="" disabled="disabled">Please select a version...</option></select>
+                </div>
+            </div>
+            <p id="message" style="display: none;"></p>
+        </div>
+
+        <div class="content">
+            <div id="visualdiff"></div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <b>NOTE</b>: These comparisons display changes in our drop data API and data parsed from <a href="https://n8k6e2y6.ssl.hwcdn.net/repos/hnfvc0o3jnfvc873njb03enrf56.html" target="_blank">Digital Extremes' official drop data website</a>, no data mining was involved.
+    <div class="pull-right">
+      <span class="theme-mode stalker"><img src="./img/stalker.png"/></span>
+      <span class="theme-mode sun"><i class="fas fa-sun"></i></span>
+      <span class="theme-mode moon"><i class="fas fa-moon"></i></span>
+    </div>
+</footer>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" type="text/css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,300,600" type="text/css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata" type="text/css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/solid.css"crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/fontawesome.css" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/brands.css" crossorigin="anonymous">
+
+<link rel="stylesheet" href="./styles/themes.css" />
+<link rel="stylesheet" href="./styles/common.css" />
+<link rel="stylesheet" href="./styles/diff.css" />
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jsondiffpatch/0.2.4/jsondiffpatch.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jsondiffpatch/0.2.4/jsondiffpatch-formatters.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.8.0/js/md5.min.js"></script>
+<script src="./js/themes.js"></script>
+<script src="./js/diff.js"></script>
+</html>

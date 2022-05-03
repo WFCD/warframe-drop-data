@@ -1,0 +1,14 @@
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/" xmlns:moz="http://www.mozilla.org/2006/browser/search/">
+    <ShortName>Warframe Drop Data</ShortName>
+    <LongName>Warframe Drop Data</LongName>
+    <Description>
+        Search for drop chances on Warframe items
+    </Description>
+    <InputEncoding>UTF-8</InputEncoding>
+    <Image width="16" height="16" type="image/png">http://drops.warframestat.us/misc/logo.png</Image>
+    <Image width="128" height="128" type="image/png">http://drops.warframestat.us/misc/logo.png</Image>
+
+    <Url type="text/html" method="get" template="http://drops.warframestat.us/#/search/{searchTerms}/"/>
+
+    <moz:SearchForm>http://drops.warframestat.us</moz:SearchForm>
+</OpenSearchDescription>
