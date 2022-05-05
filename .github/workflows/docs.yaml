@@ -32,7 +32,7 @@ jobs:
           github_token: ${{ secrets.GH_TOKEN }}
           publish_dir: ./site
           cname: drops.warframestat.us
-          force_orphan: true
+          force_orphan: false
           user_name: 'Jimmy Bot'
           user_email: 'translator@warframe.gg'
       - name: Pushback
