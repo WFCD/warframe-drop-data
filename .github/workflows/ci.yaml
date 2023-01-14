@@ -19,7 +19,7 @@ jobs:
         with:
           node-version-file: '.nvmrc'
       - name: Install
-        run: npm ci
+        run: npm i
       - name: Lint
         run: npm run lint
       - name: Build
