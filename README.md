@@ -34,7 +34,9 @@ Data structure:
   "relics": [ { ... } ],
   "sortieRewards": [ { ... } ],
   "transientRewards": [ { ... } ],
-  "solarisBountyRewards" : [ { ... } ]
+  "solarisBountyRewards" : [ { ... } ],
+  "zarimanRewards": [ { ... } ],
+  "syndicates": [ { ... }],
 }
 ```
 
@@ -329,6 +331,57 @@ Drop data for Cetus bounty missions. [(Source)](https://n8k6e2y6.ssl.hwcdn.net/r
   },
   { ... }
 ]
+```
+
+### /data/zarimanRewards.json
+
+Drop data for Zariman bounty missions. [(Source)](https://n8k6e2y6.ssl.hwcdn.net/repos/hnfvc0o3jnfvc873njb03enrf56.html#zarimanRewards)
+
+#### Data structure:
+```json
+"zarimanRewards": [
+  {
+    "_id": "255771097c27769a3a76bfa38c9fba49",
+    "bountyLevel": "Level 50 - 55 Zariman Bounty",
+      "rewards": {
+        { ... }
+        "C": [
+          {
+            "_id": "d5ccc328b76d91df416cc361d2209c1f",
+            "itemName": "15,000 Credits",
+            "rarity": "Uncommon",
+            "chance": 17.39,
+            "stage": "Final stage"
+          },
+        { ... }
+      ],
+    }
+  },
+  { ... }
+]
+```
+
+### /data/syndicates.json
+
+Drop data for syndicate vendors.
+
+#### Data structure:
+```json
+{
+  "syndicates": {
+    "Steel Meridian": [
+      {
+        "_id": "d765637f1f1ae09add1b5265f5d29ea1",
+        "item": "Steel Meridian Sigil",
+        "chance": 100,
+        "rarity": "Rank 1: Brave (1,000 standing)",
+        "place": ""
+      },
+      { ... }
+    ],
+    { ... }
+  },
+}
 ```
 
 ### /data/miscItems.json
