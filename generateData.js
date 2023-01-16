@@ -106,6 +106,7 @@ fetch(config.dropDataUrl)
       solarisBountyRewards: require('./lib/bountyRewards')($, 'solarisRewards'),
       deimosRewards: require('./lib/bountyRewards')($, 'deimosRewards'),
       zarimanRewards: require('./lib/bountyRewards')($, 'zarimanRewards'),
+      syndicates: await require('./lib/syndicates')(),
 
       // drops by avatar
       resourceByAvatar: require('./lib/dropByAvatar')($, 'resourceByAvatar', 'Resource Drop Chance'),
