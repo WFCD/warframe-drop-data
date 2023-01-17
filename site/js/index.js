@@ -3,8 +3,8 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('sw.js', {scope: '/'});
 }
 
-$("#no-script").hide()
-$("#loading").css('display', 'flex')
+$("#no-script").hide();
+$("#loading").css('display', 'flex');
 
 String.prototype.contains = function(substr) {
     return this.toLowerCase().includes(substr.toLowerCase())
@@ -18,7 +18,7 @@ String.prototype.isJSON = function() {
   return true
 }
 
-const CURR_SCRIPT_VERSION = 14
+const CURR_SCRIPT_VERSION = 15;
 const INFO_DEFAULT = '{"hash":"clem"}';
 
 function updateData(fromVersion, toVersion) {
@@ -38,7 +38,7 @@ function validateData() {
   if (!oldDataRaw.isJSON() || !JSON.parse(oldDataRaw).timestamp) {
     localStorage.setItem('_wfinfo', INFO_DEFAULT)
   }
-  
+
   // validate _wfdata
   if (!localStorage.getItem('_wfdata') || !localStorage.getItem('_wfdata').isJSON()) {
     localStorage.removeItem('_wfdata')
@@ -124,7 +124,7 @@ const searchablePlace = (place) => place.replace(/<\/?b>/ig, '');
 function search(searchValue) {
     if (searchValue.length < 2) {
         window.location.hash = ''
-        
+
         $("#tablehead").empty()
         $("#tablebody").empty()
         $("#tablebody").append("<tr><td class='msg' colspan='3'>You have to type in at least 2 characters to search.</td></tr>")
