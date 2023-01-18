@@ -465,19 +465,53 @@ multiple sections containing the drop data.
 To make this possible a declarative configuration has been created within `lib/syndicates.js` where you can define all of this in the following format:
 
 ```javascript
+/**
+ * @typedef {Object} SyndicateMapperResult
+ * @property {_id} _id Unique hash of the item
+ * @property {string} item The name of the item
+ * @property {number} chance The dropchance of the item
+ * @property {string} rarity The rarity of the item
+ * @property {string} place The location where the item drops
+ */
+/**
+ * @typedef {function} SyndicateMapper
+ * @param {module:cheerio/CheerioAPI} $ cheerio interface
+ * @param {string} element Current element
+ * @param {string} syndicate Name of the Syndicate
+ * @param {string} [section] Section title - potentially empty
+ * @returns {SyndicateMapperResult}
+ */
+/**
+ * @typedef {Object} SyndicateSection
+ * @property {string} [title] Indicates the name of the specific vendor
+ * @property {string} selector jQuery selector used to find the elements you want to map
+ * @property {SyndicateMapper} [mapper] Used to map these elements. If not provided, a default mapped is used 
+ */
+/**
+ * @typedef {Object} SyndicateConfig
+ * @property {string} name Name of the Syndicate (should match the wiki)
+ * @property {string} url The wiki url of the syndicate
+ * @property {SyndicateSection[]} sections These will be parsed and mapped into json data
+ */
+
+/** @type {Array<SyndicateConfig>} */
 const SYNDICATES = [
   {
-    name: <string>, // The name of the syndicate
-    url: <url>, // The wiki url of the syndicate
-
-    # Array of section definitions, these sections will be parsed and mapped into json data.
+    name: 'Steel Meridian',
+    url: 'https://warframe.fandom.com/wiki/Steel_Meridian',
     sections: [
-      {
-        title: <string>, // Optional, this could be the name of the specific vendor.
-        selector: <string>, // jQuery selector to select the elements you want to map of the html page.
-        mapper: <function>, // Optional, the mapper to use to map these elements.
-          // If not provided the default mapper will be used.
-      },
+      { selector: '#mw-customcollapsible-SteelMeridian > div > div' },
+    ],
+  },
+  {
+    name: 'Entrati',
+    url: 'https://warframe.fandom.com/wiki/Entrati',
+    sections: [
+      { title: 'Father', selector: '#mw-customcollapsible-Father > div > div' },
+      { title: 'Daughter', selector: '#mw-customcollapsible-Daughter > div > div' },
+      { title: 'Son', selector: '#mw-customcollapsible-Son > div > div' },
+      { title: 'Otak', selector: '.flex-container:eq(3) > div' },
+      { title: 'Grandmother', selector: '#mw-customcollapsible-Grandmother #gallery-1 > div', mapper: galleryMapper },
     ],
   },
   { ... }
@@ -487,6 +521,20 @@ const SYNDICATES = [
 #### Mappers
 A mapper is a function that maps a singular element (found by the `selector`) to a json object.
 The mapper receives the following arguments: the `cheerio` object, the current element, name of the syndicate, section title (can be empty).
+The return type should at least contain the following information:
+
+```javascript
+/**
+ * @typedef {Object} SyndicateMapperResult
+ * @property {_id} _id Unique hash of the item
+ * @property {string} item The name of the item
+ * @property {number} chance The dropchance of the item
+ * @property {string} rarity The rarity of the item
+ * @property {string} place The location where the item drops
+ */
+```
+
+Any additional properties will be added into the final result but won't show up in the slim json file.
 
 ## Disclaimer
 
