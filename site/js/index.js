@@ -18,7 +18,7 @@ String.prototype.isJSON = function() {
   return true
 }
 
-const CURR_SCRIPT_VERSION = 15; // never got bumped w/ zariman
+const CURR_SCRIPT_VERSION = 16;
 const INFO_DEFAULT = '{"hash":"clem"}';
 
 function updateData(fromVersion, toVersion) {
