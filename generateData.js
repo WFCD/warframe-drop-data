@@ -22,7 +22,7 @@ import bountyRewards from './lib/bountyRewards.js';
 import syndicates from './lib/syndicates.js';
 import dropByAvatar from './lib/dropByAvatar.js';
 
-import * as infoJson from './data/info.json' assert {type: 'json'};
+import infoJson from './data/info.json' assert {type: 'json'};
 
 import 'colors';
 
