@@ -3,9 +3,10 @@ import { dirname, resolve } from 'node:path';
 import {
   writeFileSync, mkdirSync, readFileSync,
 } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+
 import * as cheerio from 'cheerio';
 import ProgressBar from 'progress';
-import { fileURLToPath } from 'node:url';
 
 import { formatSiteData } from './lib/utils.js';
 
