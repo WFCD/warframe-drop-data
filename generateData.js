@@ -79,7 +79,7 @@ const writeData = (data, key, format) => {
 const config = {
   jsonMinify: (process.argv.indexOf('-expand') > -1) || true,
   forceRegeneration: (process.argv.indexOf('-force') > -1),
-  dropDataUrl: 'https://n8k6e2y6.ssl.hwcdn.net/repos/hnfvc0o3jnfvc873njb03enrf56.html',
+  dropDataUrl: 'https://warframe-web-assets.nyc3.cdn.digitaloceanspaces.com/uploads/cms/hnfvc0o3jnfvc873njb03enrf56.html',
 };
 
 console.log('### Warframe Drop Data'.cyan);
