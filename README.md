@@ -5,7 +5,7 @@
 
 Warframe drop data in an easier to parse format.
 
-**NOTE**: This data is parsed from [Digital Extremes official drop data website](https://www.warframe.com/droptables), no data mining was involved.
+**NOTE**: This data is parsed from [Digital Extremes official drop data website](https://warframe-web-assets.nyc3.cdn.digitaloceanspaces.com/uploads/cms/hnfvc0o3jnfvc873njb03enrf56.html), no data mining was involved.
 
 ## Web UI & URL
 
