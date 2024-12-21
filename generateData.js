@@ -137,6 +137,8 @@ fetch(config.dropDataUrl)
       solarisBountyRewards: mappers.bountyRewards($, 'solarisRewards'),
       deimosRewards: mappers.bountyRewards($, 'deimosRewards'),
       zarimanRewards: mappers.bountyRewards($, 'zarimanRewards'),
+      entratiLabRewards: mappers.bountyRewards($, 'entratiLabRewards'),
+      hexRewards: mappers.bountyRewards($, 'hexRewards'),
       syndicates: await mappers.syndicates(),
 
       // drops by avatar
