@@ -29,6 +29,8 @@
 
 .content {
     margin-bottom: 3rem;
+    max-height: 72.5vh;
+    overflow-y: scroll;
 }
 
 .footer {
