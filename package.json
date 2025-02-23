@@ -2,18 +2,20 @@
   "name": "warframe-drop-data",
   "version": "0.0.1",
   "description": "Converts the official Warframe drop data into something useable.",
+  "repository": "https://github.com/WFCD/warframe-drop-data",
+  "license": "MIT",
+  "author": "",
+  "type": "module",
   "main": "generate.js",
   "scripts": {
-    "start": "node generateData.js",
+    "build": "npm start && cp -R data site",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "prepare": "husky && npx install-peerdeps @wfcd/eslint-config@latest -S",
     "serve": "npx http-server site -p $PORT",
     "serve:dev": "npx nodemon",
-    "build": "npm start && cp -R data site",
-    "lint": "eslint generateData.js lib/",
-    "lint:fix": "eslint generateData.js lib/ --fix"
+    "start": "node generateData.js"
   },
-  "author": "",
-  "license": "MIT",
-  "repository": "https://github.com/WFCD/warframe-drop-data",
   "devDependencies": {
     "@babel/core": "^7.16.0",
     "@babel/eslint-parser": "^7.16.3",
@@ -21,17 +23,21 @@
     "@babel/plugin-proposal-private-methods": "^7.16.0",
     "@babel/plugin-syntax-import-assertions": "^7.22.5",
     "@babel/preset-env": "^7.16.4",
+    "@commitlint/cli": "^19.7.1",
+    "@commitlint/config-conventional": "^19.7.1",
+    "@wfcd/eslint-config": "^1.6.3",
     "cheerio": "^1.0.0-rc.3",
     "colors": "1.4.0",
     "eslint": "^8.2.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.25.3",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.4.3",
     "node-fetch": "^2.6.1",
     "progress": "^2.0.3"
   },
   "engines": {
     "node": ">=14.17.0",
     "npm": ">= 6.14.14"
-  },
-  "type": "module"
+  }
 }

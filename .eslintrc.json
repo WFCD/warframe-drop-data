@@ -1,5 +1,5 @@
 {
-  "extends": "airbnb-base",
+  "extends": "@wfcd/eslint-config",
   "parser": "@babel/eslint-parser",
   "parserOptions": {
     "sourceType": "module",
@@ -35,7 +35,6 @@
       "error",
       "safe"
     ],
-    "linebreak-style": "off",
     "no-restricted-syntax": [
       "off"
     ],
@@ -43,13 +42,6 @@
     "import/no-unresolved": 0,
     "no-useless-escape": 0,
     "func-names": 0,
-    "arrow-parens": [
-      2,
-      "as-needed",
-      {
-        "requireForBlockBody": true
-      }
-    ],
     "no-underscore-dangle": "off",
     "no-console": "off",
     "import/no-extraneous-dependencies": "off",
@@ -60,8 +52,7 @@
     "import/extensions": [
       "error",
       "always"
-    ],
-    "max-len": ["error", { "code": 120 }]
+    ]
   },
   "overrides": [
     {

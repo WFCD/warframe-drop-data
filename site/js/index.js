@@ -20,7 +20,7 @@ String.prototype.isJSON = function () {
 
 const CURR_SCRIPT_VERSION = 17;
 const INFO_DEFAULT = '{"hash":"clem"}';
-const searchablePlace = place => place.replace(/<\/?b>/ig, '');
+const searchablePlace = (place) => place.replace(/<\/?b>/gi, '');
 
 function updateData(fromVersion) {
   const oldTheme = localStorage.getItem('_theme');
@@ -59,23 +59,23 @@ function fill(data, sort, reverse, amount) {
   data = data.sort((a, b) => {
     if (sort === 'item') {
       return a.item.localeCompare(b.item) || b.chance - a.chance || a.place.localeCompare(b.place);
-    } if (sort === 'place') {
+    }
+    if (sort === 'place') {
       return a.place.localeCompare(b.place) || b.chance - a.chance || a.item.localeCompare(b.item);
     }
     return b.chance - a.chance || a.place.localeCompare(b.place) || a.item.localeCompare(b.item);
   });
 
-  if (reverse) { data.reverse(); }
+  if (reverse) {
+    data.reverse();
+  }
 
-  const itemIcon = sort === 'item'
-    ? `<i class="fa fa-sort-alpha-${reverse ? 'desc' : 'asc'}" aria-hidden="true"></i>`
-    : '';
-  const placeIcon = sort === 'place'
-    ? `<i class="fa fa-sort-alpha-${reverse ? 'desc' : 'asc'}" aria-hidden="true"></i>`
-    : '';
-  const rarityIcon = sort === 'rarity'
-    ? `<i class="fa fa-sort-amount-${reverse ? 'asc' : 'desc'}" aria-hidden="true"></i>`
-    : '';
+  const itemIcon =
+    sort === 'item' ? `<i class="fa fa-sort-alpha-${reverse ? 'desc' : 'asc'}" aria-hidden="true"></i>` : '';
+  const placeIcon =
+    sort === 'place' ? `<i class="fa fa-sort-alpha-${reverse ? 'desc' : 'asc'}" aria-hidden="true"></i>` : '';
+  const rarityIcon =
+    sort === 'rarity' ? `<i class="fa fa-sort-amount-${reverse ? 'asc' : 'desc'}" aria-hidden="true"></i>` : '';
 
   $('#tablehead').append(`<tr>
         <th id="item">Item Name (${data.length}) ${itemIcon}</th>
@@ -96,7 +96,7 @@ function fill(data, sort, reverse, amount) {
         <td class="msg" colspan="3">
             <strong>${data.length - amount}</strong> more results found. Refine your query to see more relevant results.
         </td>
-      </tr>`,
+      </tr>`
     );
   } else {
     data.forEach((obj) => {
@@ -135,7 +135,7 @@ function search(searchValue) {
   window.location.hash = `/search/${encodeURIComponent(searchValue)}/${type}/${match}`;
 
   const lowerSearchValue = searchValue.toLowerCase();
-  const regex = match === 'regex' ? new RegExp(searchValue, 'i') : null;
+  const regex = match === 'regex' ? new RegExp(searchValue, 'i') : undefined;
   function matchPredicate(value) {
     const lowerValue = value.toLowerCase();
 
@@ -150,13 +150,13 @@ function search(searchValue) {
   }
 
   if (type === 'items') {
-    items = window._data.filter(entry => matchPredicate(entry.item));
+    items = window._data.filter((entry) => matchPredicate(entry.item));
   } else if (type === 'locations') {
-    items = window._data.filter(entry => matchPredicate(searchablePlace(entry.place)));
+    items = window._data.filter((entry) => matchPredicate(searchablePlace(entry.place)));
   } else if (type === 'both') {
-    items = window._data.filter(entry => matchPredicate(entry.item) || matchPredicate(searchablePlace(entry.place)));
+    items = window._data.filter((entry) => matchPredicate(entry.item) || matchPredicate(searchablePlace(entry.place)));
   } else {
-    items = window._data.filter(entry => matchPredicate(entry.item));
+    items = window._data.filter((entry) => matchPredicate(entry.item));
   }
 
   fill(items, 'rarity', false, amount);
@@ -200,13 +200,13 @@ function onDataRetrieved(data) {
 async function init(time) {
   validateData();
 
-  const data = await fetch(`./data/info.json?${time}`).then(response => response.json());
+  const data = await fetch(`./data/info.json?${time}`).then((response) => response.json());
   const { hash } = data;
   console.log('./data/info.json', data);
   if (hash !== JSON.parse(localStorage.getItem('_wfinfo')).hash || !localStorage.getItem('_wfdata')) {
     console.log('new hash found or missing local data, re-download data');
     localStorage.setItem('_wfinfo', JSON.stringify(data));
-    const all = await fetch(`./data/all.slim.json?${time}`).then(response => response.text());
+    const all = await fetch(`./data/all.slim.json?${time}`).then((response) => response.text());
     if (all && all.isJSON()) {
       localStorage.setItem('_wfdata', all);
       onDataRetrieved(JSON.parse(all));
