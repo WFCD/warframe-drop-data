@@ -13,15 +13,6 @@
   },
   "author": "",
   "license": "MIT",
-  "nodemonConfig": {
-    "env": {
-      "PORT": 3000
-    },
-    "exec": "npm start -- -force; cp -R --remove-destination data site; npm run serve",
-    "watch": [
-      "lib"
-    ]
-  },
   "repository": "https://github.com/WFCD/warframe-drop-data",
   "devDependencies": {
     "@babel/core": "^7.16.0",
@@ -37,85 +28,6 @@
     "eslint-plugin-import": "^2.25.3",
     "node-fetch": "^2.6.1",
     "progress": "^2.0.3"
-  },
-  "eslintIgnore": [
-    "site/*",
-    "data/*"
-  ],
-  "eslintConfig": {
-    "extends": "airbnb-base",
-    "parser": "@babel/eslint-parser",
-    "parserOptions": {
-      "sourceType": "module",
-      "babelOptions": {
-        "plugins": [
-          "@babel/plugin-proposal-class-properties",
-          "@babel/plugin-proposal-private-methods",
-          "@babel/plugin-syntax-import-assertions"
-        ]
-      }
-    },
-    "rules": {
-      "valid-jsdoc": [
-        "error",
-        {
-          "requireReturn": false,
-          "requireReturnDescription": false,
-          "preferType": {
-            "String": "string",
-            "Number": "number",
-            "Boolean": "boolean",
-            "Function": "function",
-            "object": "Object",
-            "date": "Date",
-            "error": "Error"
-          },
-          "prefer": {
-            "return": "returns"
-          }
-        }
-      ],
-      "strict": [
-        "error",
-        "safe"
-      ],
-      "linebreak-style": "off",
-      "no-restricted-syntax": [
-        "off"
-      ],
-      "no-await-in-loop": "off",
-      "import/no-unresolved": 0,
-      "no-useless-escape": 0,
-      "func-names": 0,
-      "arrow-parens": [
-        2,
-        "as-needed",
-        {
-          "requireForBlockBody": true
-        }
-      ],
-      "no-underscore-dangle": "off",
-      "no-console": "off",
-      "import/no-extraneous-dependencies": "off",
-      "no-param-reassign": "off",
-      "no-plusplus": "off",
-      "global-require": "off",
-      "consistent-return": "off",
-      "import/extensions": [
-        "error",
-        "always"
-      ]
-    }
-  },
-  "babel": {
-    "presets": [
-      "@babel/preset-env"
-    ],
-    "plugins": [
-      "@babel/plugin-proposal-class-properties",
-      "@babel/plugin-proposal-private-methods",
-      "@babel/plugin-syntax-import-assertions"
-    ]
   },
   "engines": {
     "node": ">=14.17.0",
