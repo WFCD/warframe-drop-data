@@ -136,7 +136,7 @@ function renderDiff(old, current) {
   if (html) {
     $('#visualdiff').html(jsondiffpatch.formatters.html.format(delta, old));
 
-    $('.jsondiffpatch-added pre, .jsondiffpatch-deleted pre').each(() => {
+    $('.jsondiffpatch-added pre, .jsondiffpatch-deleted pre').each(function () {
       if ($(this).text().match(/^\[/) || $(this).text().match(/^\{/)) {
         $(this).parent().addClass('jsondiffpatch-value-toggleable');
         $(this).on('click', function () {
