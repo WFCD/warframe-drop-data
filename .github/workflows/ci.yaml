@@ -19,5 +19,9 @@ jobs:
         run: npm i
       - name: Lint
         run: npm run lint
+      - name: Lint title
+        env:
+          TITLE: ${{ github.event.pull_request.title }}
+        run: npx --no-install commitlint <<< "$TITLE"
       - name: Build
         run: npm run build -- --force

@@ -1,0 +1,13 @@
+{
+  "*,!*.js,!package*.json": [
+    "prettier --write"
+  ],
+  "*.js,!*/lib.js": [
+    "eslint --cache --fix"
+  ],
+  "package*.json": [
+    "prettier --write",
+    "npm dedupe",
+    "npx sort-package-json"
+  ]
+}

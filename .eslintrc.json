@@ -1,0 +1,76 @@
+{
+  "extends": "@wfcd/eslint-config",
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "sourceType": "module",
+    "babelOptions": {
+      "plugins": [
+        "@babel/plugin-proposal-class-properties",
+        "@babel/plugin-proposal-private-methods",
+        "@babel/plugin-syntax-import-assertions"
+      ]
+    }
+  },
+  "rules": {
+    "valid-jsdoc": [
+      "error",
+      {
+        "requireReturn": false,
+        "requireReturnDescription": false,
+        "preferType": {
+          "String": "string",
+          "Number": "number",
+          "Boolean": "boolean",
+          "Function": "function",
+          "object": "Object",
+          "date": "Date",
+          "error": "Error"
+        },
+        "prefer": {
+          "return": "returns"
+        }
+      }
+    ],
+    "strict": [
+      "error",
+      "safe"
+    ],
+    "no-restricted-syntax": [
+      "off"
+    ],
+    "no-await-in-loop": "off",
+    "import/no-unresolved": 0,
+    "no-useless-escape": 0,
+    "func-names": 0,
+    "no-underscore-dangle": "off",
+    "no-console": "off",
+    "import/no-extraneous-dependencies": "off",
+    "no-param-reassign": "off",
+    "no-plusplus": "off",
+    "global-require": "off",
+    "consistent-return": "off",
+    "import/extensions": [
+      "error",
+      "always"
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["site/**/*.js"],
+      "env": {
+        "browser": true,
+        "node": false,
+        "es6": true
+      },
+      "globals": {
+        "document": "readonly",
+        "window": "readonly",
+        "fetch": "readonly",
+        "localStorage": "readonly"
+      },
+      "rules": {
+        "no-extend-native": "off"
+      }
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "env": {
+    "PORT": 3000
+  },
+  "exec": "npm start -- -force; cp -R --remove-destination data site; npm run serve",
+  "watch": [
+    "lib"
+  ]
+}
