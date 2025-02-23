@@ -60,13 +60,25 @@
     "import/extensions": [
       "error",
       "always"
-    ]
+    ],
+    "max-len": ["error", { "code": 120 }]
   },
   "overrides": [
     {
-      "files": ["site/*.js"],
+      "files": ["site/**/*.js"],
       "env": {
-        "browser": true
+        "browser": true,
+        "node": false,
+        "es6": true
+      },
+      "globals": {
+        "document": "readonly",
+        "window": "readonly",
+        "fetch": "readonly",
+        "localStorage": "readonly"
+      },
+      "rules": {
+        "no-extend-native": "off"
       }
     }
   ]

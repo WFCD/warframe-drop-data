@@ -1,4 +1,4 @@
-/* globals navigator, $ */
+/* globals $ */
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('sw.js', { scope: '/' });
 }
@@ -20,8 +20,9 @@ String.prototype.isJSON = function () {
 
 const CURR_SCRIPT_VERSION = 17;
 const INFO_DEFAULT = '{"hash":"clem"}';
+const searchablePlace = place => place.replace(/<\/?b>/ig, '');
 
-function updateData(fromVersion, toVersion) {
+function updateData(fromVersion) {
   const oldTheme = localStorage.getItem('_theme');
   if (fromVersion < CURR_SCRIPT_VERSION) {
     localStorage.clear();
@@ -46,35 +47,120 @@ function validateData() {
   }
 }
 
-async function init(time) {
-  validateData();
+function fill(data, sort, reverse, amount) {
+  $('#tablebody').empty();
+  $('#tablehead').empty();
 
-  const data = await fetch(`./data/info.json?${time}`).then(response => response.json());
-  const { hash } = data;
-  console.log('./data/info.json', data);
-  if (hash !== JSON.parse(localStorage.getItem('_wfinfo')).hash || !localStorage.getItem('_wfdata')) {
-    console.log('new hash found or missing local data, re-download data');
-    localStorage.setItem('_wfinfo', JSON.stringify(data));
-    const all = await fetch(`./data/all.slim.json?${time}`).then(response => response.text());
-    if (all && all.isJSON()) {
-      localStorage.setItem('_wfdata', all);
-      onDataRetrieved(JSON.parse(all));
-    }
-  } else {
-    onDataRetrieved(JSON.parse(localStorage.getItem('_wfdata')));
+  if (data.length === 0) {
+    $('#tablebody').append("<tr><td class='msg' colspan='3'>Nothing found that matches your search query.</td></tr>");
+    return;
   }
+
+  data = data.sort((a, b) => {
+    if (sort === 'item') {
+      return a.item.localeCompare(b.item) || b.chance - a.chance || a.place.localeCompare(b.place);
+    } if (sort === 'place') {
+      return a.place.localeCompare(b.place) || b.chance - a.chance || a.item.localeCompare(b.item);
+    }
+    return b.chance - a.chance || a.place.localeCompare(b.place) || a.item.localeCompare(b.item);
+  });
+
+  if (reverse) { data.reverse(); }
+
+  const itemIcon = sort === 'item'
+    ? `<i class="fa fa-sort-alpha-${reverse ? 'desc' : 'asc'}" aria-hidden="true"></i>`
+    : '';
+  const placeIcon = sort === 'place'
+    ? `<i class="fa fa-sort-alpha-${reverse ? 'desc' : 'asc'}" aria-hidden="true"></i>`
+    : '';
+  const rarityIcon = sort === 'rarity'
+    ? `<i class="fa fa-sort-amount-${reverse ? 'asc' : 'desc'}" aria-hidden="true"></i>`
+    : '';
+
+  $('#tablehead').append(`<tr>
+        <th id="item">Item Name (${data.length}) ${itemIcon}</th>
+        <th id="place">Drops ${placeIcon}</th>
+        <th id="rarity">Rarity ${rarityIcon}</th>
+    </tr>`);
+
+  if (!Number.isNaN(amount) && data.length > amount) {
+    data.slice(0, amount).forEach((obj) => {
+      $('#tablebody').append(`<tr>
+                <td>${obj.item}</td>
+                <td>${obj.place}</td>
+                <td>${obj.rarity} (<b>${obj.chance}%</b>)</td>
+            </tr>`);
+    });
+    $('#tablebody').append(
+      `<tr>
+        <td class="msg" colspan="3">
+            <strong>${data.length - amount}</strong> more results found. Refine your query to see more relevant results.
+        </td>
+      </tr>`,
+    );
+  } else {
+    data.forEach((obj) => {
+      $('#tablebody').append(`<tr>
+              <td>${obj.item}</td>
+              <td>${obj.place}</td>
+              <td>${obj.rarity} (<b>${obj.chance}%</b>)</td>
+          </tr>`);
+    });
+  }
+
+  $('th').on('click', function () {
+    if (this.id) {
+      fill(data, this.id, sort === this.id ? !reverse : false, amount);
+    }
+  });
 }
 
-function load() {
-  const time = new Date().getTime();
+function search(searchValue) {
+  if (searchValue.length < 2) {
+    window.location.hash = '';
 
-  window._script_version = Number(localStorage.getItem('_script_version') || -1);
+    $('#tablehead').empty();
+    $('#tablebody').empty();
+    $('#tablebody').append(`<tr>
+      <td class='msg' colspan='3'>You have to type in at least 2 characters to search.</td>
+    </tr>`);
+    return;
+  }
 
-  updateData(window._script_version, CURR_SCRIPT_VERSION);
-  init(time);
+  const match = $('#match-search').val();
+  const type = $('#search-type').val();
+  const amount = $('#display-amount').val();
+  let items;
+
+  window.location.hash = `/search/${encodeURIComponent(searchValue)}/${type}/${match}`;
+
+  const lowerSearchValue = searchValue.toLowerCase();
+  const regex = match === 'regex' ? new RegExp(searchValue, 'i') : null;
+  function matchPredicate(value) {
+    const lowerValue = value.toLowerCase();
+
+    switch (match) {
+      case 'exact':
+        return lowerValue === lowerSearchValue;
+      case 'regex':
+        return lowerValue.match(regex);
+      default:
+        return lowerValue.includes(lowerSearchValue);
+    }
+  }
+
+  if (type === 'items') {
+    items = window._data.filter(entry => matchPredicate(entry.item));
+  } else if (type === 'locations') {
+    items = window._data.filter(entry => matchPredicate(searchablePlace(entry.place)));
+  } else if (type === 'both') {
+    items = window._data.filter(entry => matchPredicate(entry.item) || matchPredicate(searchablePlace(entry.place)));
+  } else {
+    items = window._data.filter(entry => matchPredicate(entry.item));
+  }
+
+  fill(items, 'rarity', false, amount);
 }
-
-$(document).ready(load);
 
 function onDataRetrieved(data) {
   window._data = data;
@@ -111,113 +197,38 @@ function onDataRetrieved(data) {
   $('#loading').remove();
 }
 
-$('#search-field').on('keyup', function (ev) {
+async function init(time) {
+  validateData();
+
+  const data = await fetch(`./data/info.json?${time}`).then(response => response.json());
+  const { hash } = data;
+  console.log('./data/info.json', data);
+  if (hash !== JSON.parse(localStorage.getItem('_wfinfo')).hash || !localStorage.getItem('_wfdata')) {
+    console.log('new hash found or missing local data, re-download data');
+    localStorage.setItem('_wfinfo', JSON.stringify(data));
+    const all = await fetch(`./data/all.slim.json?${time}`).then(response => response.text());
+    if (all && all.isJSON()) {
+      localStorage.setItem('_wfdata', all);
+      onDataRetrieved(JSON.parse(all));
+    }
+  } else {
+    onDataRetrieved(JSON.parse(localStorage.getItem('_wfdata')));
+  }
+}
+
+function load() {
+  const time = new Date().getTime();
+
+  window._script_version = Number(localStorage.getItem('_script_version') || -1);
+
+  updateData(window._script_version);
+  init(time);
+}
+
+$(document).ready(load);
+$('#search-field').on('keyup', function () {
   search($(this).val().trim().replace(/\s\s+/g, ' '));
 });
-
-$('#search-type, #display-amount, #match-search, #show-all').on('change', (ev) => {
+$('#search-type, #display-amount, #match-search, #show-all').on('change', () => {
   search($('#search-field').val().trim().replace(/\s\s+/g, ' '));
 });
-
-const searchablePlace = place => place.replace(/<\/?b>/ig, '');
-
-function search(searchValue) {
-  if (searchValue.length < 2) {
-    window.location.hash = '';
-
-    $('#tablehead').empty();
-    $('#tablebody').empty();
-    $('#tablebody').append("<tr><td class='msg' colspan='3'>You have to type in at least 2 characters to search.</td></tr>");
-    return;
-  }
-
-  const match = $('#match-search').val();
-  const type = $('#search-type').val();
-  const amount = $('#display-amount').val();
-  let items = null;
-
-  window.location.hash = `/search/${encodeURIComponent(searchValue)}/${type}/${match}`;
-
-  const lowerSearchValue = searchValue.toLowerCase();
-  const regex = match === 'regex' ? new RegExp(searchValue, 'i') : null;
-  function matchPredicate(value) {
-    const lowerValue = value.toLowerCase();
-
-    switch (match) {
-      case 'exact':
-        return lowerValue === lowerSearchValue;
-      case 'regex':
-        return lowerValue.match(regex);
-      default:
-        return lowerValue.includes(lowerSearchValue);
-    }
-  }
-
-  if (type === 'items') {
-    items = window._data.filter(entry => matchPredicate(entry.item));
-  } else if (type === 'locations') {
-    items = window._data.filter(entry => matchPredicate(searchablePlace(entry.place)));
-  } else if (type === 'both') {
-    items = window._data.filter(entry => matchPredicate(entry.item) || matchPredicate(searchablePlace(entry.place)));
-  } else {
-    items = window._data.filter(entry => matchPredicate(entry.item));
-  }
-
-  fill(items, 'rarity', false, amount);
-}
-
-function fill(data, sort, reverse, amount) {
-  $('#tablebody').empty();
-  $('#tablehead').empty();
-
-  if (data.length === 0) {
-    $('#tablebody').append("<tr><td class='msg' colspan='3'>Nothing found that matches your search query.</td></tr>");
-    return;
-  }
-
-  data = data.sort((a, b) => {
-    if (sort === 'item') {
-      return a.item.localeCompare(b.item) || b.chance - a.chance || a.place.localeCompare(b.place);
-    } if (sort === 'place') {
-      return a.place.localeCompare(b.place) || b.chance - a.chance || a.item.localeCompare(b.item);
-    }
-    return b.chance - a.chance || a.place.localeCompare(b.place) || a.item.localeCompare(b.item);
-  });
-
-  if (reverse) { data.reverse(); }
-
-  const itemIcon = sort === 'item' ? `<i class="fa fa-sort-alpha-${reverse ? 'desc' : 'asc'}" aria-hidden="true"></i>` : '';
-  const placeIcon = sort === 'place' ? `<i class="fa fa-sort-alpha-${reverse ? 'desc' : 'asc'}" aria-hidden="true"></i>` : '';
-  const rarityIcon = sort === 'rarity' ? `<i class="fa fa-sort-amount-${reverse ? 'asc' : 'desc'}" aria-hidden="true"></i>` : '';
-
-  $('#tablehead').append(`<tr>
-        <th id="item">Item Name (${data.length}) ${itemIcon}</th>
-        <th id="place">Drops ${placeIcon}</th>
-        <th id="rarity">Rarity ${rarityIcon}</th>
-    </tr>`);
-
-  if (!isNaN(amount) && data.length > amount) {
-    data.slice(0, amount).forEach((obj) => {
-      $('#tablebody').append(`<tr>
-                <td>${obj.item}</td>
-                <td>${obj.place}</td>
-                <td>${obj.rarity} (<b>${obj.chance}%</b>)</td>
-            </tr>`);
-    });
-    $('#tablebody').append(`<tr><td class="msg" colspan="3"><strong>${data.length - amount}</strong> more results found. Refine your query to see more relevant results.</td></tr>`);
-  } else {
-    data.forEach((obj) => {
-      $('#tablebody').append(`<tr>
-              <td>${obj.item}</td>
-              <td>${obj.place}</td>
-              <td>${obj.rarity} (<b>${obj.chance}%</b>)</td>
-          </tr>`);
-    });
-  }
-
-  $('th').on('click', function (ev) {
-    if (this.id) {
-      fill(data, this.id, sort === this.id ? !reverse : false, amount);
-    }
-  });
-}
