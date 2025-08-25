@@ -19,7 +19,7 @@ import keyRewards from './lib/keyRewards.js';
 import bountyRewards from './lib/bountyRewards.js';
 import syndicates from './lib/syndicates.js';
 import dropByAvatar from './lib/dropByAvatar.js';
-import infoJson from './data/info.json' assert { type: 'json' };
+import infoJson from './data/info.json' with { type: 'json' };
 
 import 'colors';
 
